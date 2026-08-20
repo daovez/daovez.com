@@ -24,7 +24,7 @@ body {
 
   overflow: hidden;
 
-  background: #000;
+  background: #000000;
 
   color: #f4f4f4;
 
@@ -32,11 +32,9 @@ body {
     "Comfortaa",
     sans-serif;
 
-  -webkit-font-smoothing:
-    antialiased;
+  -webkit-font-smoothing: antialiased;
 
-  text-rendering:
-    optimizeLegibility;
+  text-rendering: optimizeLegibility;
 }
 
 
@@ -78,7 +76,7 @@ textarea {
 
 /* =========================================
    VIDEO
-   SOLO EL VIDEO SE MUEVE
+   SOLO SE MUEVE EL VIDEO
 ========================================= */
 
 .video-background {
@@ -111,6 +109,8 @@ textarea {
   width: 100%;
   height: 100%;
 
+  display: block;
+
   object-fit: cover;
   object-position: center;
 
@@ -118,13 +118,17 @@ textarea {
 
   filter:
     brightness(0.50);
+
+  will-change:
+    opacity,
+    transform,
+    filter;
 }
 
 
 /* =========================================
-   NEGRO ALREDEDOR DE LA TARJETA
-
-   HUECO EXACTO 300 x 300
+   CAPA NEGRA INICIAL
+   HUECO DE 300 x 300
 ========================================= */
 
 .hero::after {
@@ -172,9 +176,7 @@ textarea {
 
 /* =========================================
    DESPUÉS DEL PRIMER HOVER
-
-   SE QUITA PARA SIEMPRE
-   HASTA RECARGAR LA WEB
+   EL NEGRO DESAPARECE
 ========================================= */
 
 .hero.background-revealed::after {
@@ -183,7 +185,7 @@ textarea {
 
 
 /* =========================================
-   CROSSFADE VIDEO
+   CROSSFADE VIDEOS
 ========================================= */
 
 .video-in {
@@ -254,9 +256,8 @@ textarea {
 
 /* =========================================
    TARJETA CERRADA
-
-   FIJA
    300 x 300
+   TOTALMENTE FIJA
 ========================================= */
 
 .studio-card {
@@ -309,11 +310,6 @@ textarea {
       0.40
     );
 
-  /*
-    IMPORTANTE:
-    NO USA --x NI --y.
-  */
-
   transform: none !important;
 
   transition:
@@ -353,7 +349,7 @@ textarea {
 
 
 /* =========================================
-   SIN REFLEJO
+   SIN REFLEJOS
 ========================================= */
 
 .studio-card::before {
@@ -362,14 +358,11 @@ textarea {
 
 
 /* =========================================
-   HOVER
-
-   NO SE MUEVE
+   HOVER TARJETA CERRADA
 ========================================= */
 
 .studio-card:not(.open):hover {
-  transform:
-    none !important;
+  transform: none !important;
 
   background:
     rgba(
@@ -390,14 +383,11 @@ textarea {
 
 
 /* =========================================
-   CLICK
-
-   TAMPOCO SE MUEVE
+   CLICK TARJETA
 ========================================= */
 
 .studio-card:not(.open):active {
-  transform:
-    none !important;
+  transform: none !important;
 }
 
 
@@ -437,8 +427,7 @@ textarea {
       0.42
     );
 
-  transform:
-    none !important;
+  transform: none !important;
 }
 
 
@@ -464,7 +453,7 @@ textarea {
 
 
 /* =========================================
-   LOGOS
+   LOGO GENERAL
 ========================================= */
 
 .studio-logo {
@@ -476,15 +465,23 @@ textarea {
 }
 
 
+/* =========================================
+   LOGO PORTADA
+========================================= */
+
 .intro-logo {
   width: 205px;
 
   max-width: none;
 
+  height: auto;
+
   margin:
     0
     auto
     25px;
+
+  flex-shrink: 0;
 }
 
 
@@ -500,7 +497,6 @@ textarea {
   flex-direction: column;
 
   align-items: center;
-
   justify-content: center;
 
   text-align: center;
@@ -591,7 +587,8 @@ textarea {
 
 
 /* =========================================
-   IZQUIERDA
+   LATERAL IZQUIERDO
+   MÁS OPACO
 ========================================= */
 
 .interface-left {
@@ -611,24 +608,24 @@ textarea {
         255,
         255,
         255,
-        0.15
+        0.28
       ),
 
       rgba(
         255,
         255,
         255,
-        0.055
+        0.13
       )
     );
 
   backdrop-filter:
-    blur(28px)
-    saturate(110%);
+    blur(30px)
+    saturate(105%);
 
   -webkit-backdrop-filter:
-    blur(28px)
-    saturate(110%);
+    blur(30px)
+    saturate(105%);
 
   border-right:
     1px solid
@@ -636,13 +633,13 @@ textarea {
       255,
       255,
       255,
-      0.20
+      0.30
     );
 }
 
 
 /* =========================================
-   DAOVEZ.DEV
+   BOTÓN DAOVEZ.DEV
 ========================================= */
 
 .portfolio-pill {
@@ -681,14 +678,26 @@ textarea {
 
   font-weight: 400;
 
+  letter-spacing: 0.3px;
+
+  line-height: 1;
+
   cursor: pointer;
+
+  user-select: none;
 
   transition:
     background
     0.22s ease,
 
     border-color
-    0.22s ease;
+    0.22s ease,
+
+    color
+    0.22s ease,
+
+    box-shadow
+    0.08s ease;
 }
 
 
@@ -698,7 +707,7 @@ textarea {
       255,
       255,
       255,
-      0.14
+      0.16
     );
 
   background:
@@ -706,12 +715,22 @@ textarea {
       255,
       255,
       255,
-      0.018
+      0.025
     );
+
+  color: #ffffff;
 }
 
 
 .portfolio-pill:active {
+  border-color:
+    rgba(
+      255,
+      255,
+      255,
+      0.20
+    );
+
   background:
     rgba(
       0,
@@ -755,14 +774,20 @@ textarea {
 
   max-width: none;
 
+  height: auto;
+
   margin-top: 48px;
+
+  display: block;
+
+  object-fit: contain;
 
   flex-shrink: 0;
 }
 
 
 /* =========================================
-   IZQUIERDA ABAJO
+   PARTE INFERIOR IZQUIERDA
 ========================================= */
 
 .left-bottom {
@@ -782,7 +807,7 @@ textarea {
       255,
       255,
       255,
-      0.50
+      0.58
     );
 
   font-size: 7px;
@@ -817,7 +842,7 @@ textarea {
 
 
 /* =========================================
-   UBICACIÓN
+   LOCALIZACIÓN
 ========================================= */
 
 .location {
@@ -838,12 +863,14 @@ textarea {
       255,
       255,
       255,
-      0.58
+      0.65
     );
 
   font-size: 7px;
 
   letter-spacing: 3px;
+
+  text-align: left;
 }
 
 
@@ -866,13 +893,19 @@ textarea {
       255,
       255,
       255,
-      0.78
+      0.82
     );
+
+  font-size: 8px;
+
+  line-height: 1;
+
+  letter-spacing: 0;
 }
 
 
 /* =========================================
-   CENTRO
+   CENTRO TRANSPARENTE
 ========================================= */
 
 .interface-content {
@@ -905,7 +938,7 @@ textarea {
 
 
 /* =========================================
-   LUPA
+   LUPA VIDEO
 ========================================= */
 
 .lens-canvas {
@@ -917,6 +950,8 @@ textarea {
 
   width: 100%;
   height: 100%;
+
+  display: block;
 
   pointer-events: none;
 
@@ -954,7 +989,7 @@ textarea {
         255,
         255,
         255,
-        0.04
+        0.035
       ),
 
       transparent 45%,
@@ -963,7 +998,7 @@ textarea {
         255,
         255,
         255,
-        0.018
+        0.015
       )
     );
 }
@@ -1026,7 +1061,7 @@ textarea {
 
 
 /* =========================================
-   SECCIÓN
+   NÚMERO SECCIÓN
 ========================================= */
 
 .section-number {
@@ -1051,13 +1086,13 @@ textarea {
 
 
 /* =========================================
-   TITULOS
+   TÍTULOS NORMALES
 ========================================= */
 
 .content-inner h2 {
   margin: 0;
 
-  color: white;
+  color: #ffffff;
 
   font-family:
     "Sora",
@@ -1078,6 +1113,10 @@ textarea {
 }
 
 
+/* =========================================
+   DESCRIPCIONES
+========================================= */
+
 .content-inner > p {
   max-width: 390px;
 
@@ -1093,7 +1132,11 @@ textarea {
 
   font-size: 14px;
 
+  font-weight: 400;
+
   line-height: 1.75;
+
+  letter-spacing: -0.15px;
 
   text-shadow:
     0 2px 14px
@@ -1110,15 +1153,37 @@ textarea {
    STUDIO
 ========================================= */
 
-.content-studio {
-  position: relative;
+.content-studio h2 {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
 
   width: 100%;
-  height: 100%;
 
-  display: block;
+  margin: 0;
+
+  transform: translate(-50%, -50%);
+
+  color: #ffffff;
+
+  font-family: "Sora", sans-serif;
+
+  font-size: clamp(100px, 8vw, 140px);
+
+  line-height: 0.84;
+
+  font-weight: 600;
+
+  letter-spacing: -6px;
+
+  text-align: center;
+
+  z-index: 4;
 }
 
+
+/* 01 / STUDIO */
 
 .content-studio
 .section-number {
@@ -1126,14 +1191,21 @@ textarea {
 
   top:
     calc(
-      50% - 125px
+      50% - 155px
     );
 
   left: 0;
 
   margin: 0;
+
+  z-index: 4;
 }
 
+
+/* =========================================
+   DIGITAL STUDIO
+   MÁS GRANDE
+========================================= */
 
 .content-studio h2 {
   position: absolute;
@@ -1143,43 +1215,93 @@ textarea {
 
   width: 100%;
 
+  margin: 0;
+
   transform:
     translate(
       -50%,
       -50%
     );
 
+  color: #ffffff;
+
+  font-family:
+    "Sora",
+    sans-serif;
+
+  font-size:
+    clamp(
+      64px,
+      5.5vw,
+      86px
+    );
+
+  line-height: 0.88;
+
+  font-weight: 600;
+
+  letter-spacing: -5px;
+
   text-align: center;
+
+  z-index: 4;
 }
 
+
+/* DESCRIPCIÓN STUDIO */
 
 .content-studio > p {
   position: absolute;
 
   top:
     calc(
-      50% + 105px
+      50% + 125px
     );
 
   left: 50%;
 
-  width: 90%;
+  width: 92%;
 
-  max-width: 410px;
+  max-width: 420px;
 
   margin: 0;
 
   transform:
     translateX(-50%);
 
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.98
+    );
+
   font-size: 14px;
 
+  font-weight: 400;
+
   line-height: 1.75;
+
+  letter-spacing: -0.15px;
+
+  text-align: left;
+
+  z-index: 4;
+
+  text-shadow:
+    0 2px 16px
+    rgba(
+      0,
+      0,
+      0,
+      0.95
+    );
 }
 
 
 /* =========================================
-   PROYECTOS Y SERVICIOS
+   PROYECTOS + SERVICIOS
 ========================================= */
 
 .content-proyectos,
@@ -1197,6 +1319,10 @@ textarea {
   justify-content: center;
 }
 
+
+/* =========================================
+   LISTAS
+========================================= */
 
 .content-grid-list {
   position: relative;
@@ -1237,8 +1363,17 @@ textarea {
 }
 
 
+/* =========================================
+   FILAS
+========================================= */
+
 .content-row {
+  position: relative;
+
+  z-index: 3;
+
   width: 100%;
+
   height: 56px;
 
   padding:
@@ -1287,6 +1422,9 @@ textarea {
     0.28s ease,
 
     padding-left
+    0.28s ease,
+
+    color
     0.28s ease;
 }
 
@@ -1305,7 +1443,17 @@ textarea {
 
 
 .row-name {
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.95
+    );
+
   font-size: 13px;
+
+  line-height: 1.3;
 }
 
 
@@ -1320,9 +1468,23 @@ textarea {
 
   font-size: 7px;
 
+  line-height: 1.45;
+
   text-align: right;
 
   white-space: nowrap;
+}
+
+
+.content-row:hover
+.row-meta {
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.92
+    );
 }
 
 
@@ -1331,8 +1493,13 @@ textarea {
 }
 
 
+.project-placeholder:hover {
+  opacity: 1;
+}
+
+
 /* =========================================
-   PREVIEW
+   PREVIEW PROYECTO
 ========================================= */
 
 .project-preview {
@@ -1376,6 +1543,21 @@ textarea {
       0.94
     );
 
+  backdrop-filter:
+    blur(24px);
+
+  -webkit-backdrop-filter:
+    blur(24px);
+
+  box-shadow:
+    0 28px 70px
+    rgba(
+      0,
+      0,
+      0,
+      0.65
+    );
+
   opacity: 0;
 
   visibility: hidden;
@@ -1387,12 +1569,18 @@ textarea {
     translateY(12px)
     scale(0.95);
 
+  transform-origin:
+    bottom center;
+
   transition:
     opacity
     0.28s ease,
 
     transform
-    0.28s ease;
+    0.28s ease,
+
+    visibility
+    0.28s;
 }
 
 
@@ -1408,8 +1596,14 @@ textarea {
 }
 
 
+/* =========================================
+   PREVIEW HEADER
+========================================= */
+
 .project-preview-header {
   position: relative;
+
+  z-index: 3;
 
   height: 36px;
 
@@ -1427,6 +1621,15 @@ textarea {
       13,
       13,
       0.95
+    );
+
+  border-bottom:
+    1px solid
+    rgba(
+      255,
+      255,
+      255,
+      0.12
     );
 }
 
@@ -1462,11 +1665,25 @@ textarea {
   transform:
     translateX(-50%);
 
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.58
+    );
+
   font-size: 6px;
 
   letter-spacing: 2px;
+
+  text-transform: uppercase;
 }
 
+
+/* =========================================
+   IFRAME PREVIEW
+========================================= */
 
 .project-preview-browser {
   position: relative;
@@ -1505,6 +1722,10 @@ textarea {
 }
 
 
+/* =========================================
+   PREVIEW VACÍO
+========================================= */
+
 .project-preview-empty {
   width: 100%;
 
@@ -1527,8 +1748,49 @@ textarea {
       0,
       0,
       0,
-      0.4
+      0.40
     );
+}
+
+
+.project-preview-empty span {
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.35
+    );
+
+  font-size: 6px;
+
+  letter-spacing: 3px;
+}
+
+
+.project-preview-empty strong {
+  color: white;
+
+  font-family:
+    "Sora",
+    sans-serif;
+
+  font-size: 25px;
+
+  font-weight: 500;
+}
+
+
+.project-preview-empty small {
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.42
+    );
+
+  font-size: 8px;
 }
 
 
@@ -1541,13 +1803,35 @@ textarea {
 
   max-width: 430px;
 
+  height: auto;
+
+  min-height: 0;
+
   margin: 0 auto;
 
   align-items: flex-start;
 
   justify-content: center;
+
+  text-align: left;
 }
 
+
+.content-contacto h2 {
+  text-align: left;
+}
+
+
+.content-contacto > p {
+  font-size: 14px;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================
+   EMAIL
+========================================= */
 
 .contact-link {
   margin-top: 24px;
@@ -1574,11 +1858,27 @@ textarea {
     );
 
   font-size: 13px;
+
+  transition:
+    opacity
+    0.28s ease,
+
+    transform
+    0.28s ease;
+}
+
+
+.contact-link:hover {
+  opacity: 0.72;
+
+  transform:
+    translateY(-2px);
 }
 
 
 /* =========================================
-   NAVEGACIÓN
+   LATERAL DERECHO
+   MÁS OPACO
 ========================================= */
 
 .navigation {
@@ -1602,26 +1902,34 @@ textarea {
         255,
         255,
         255,
-        0.13
+        0.28
       ),
 
       rgba(
         255,
         255,
         255,
-        0.045
+        0.13
       )
     );
 
   backdrop-filter:
-    blur(28px);
+    blur(30px)
+    saturate(105%);
 
   -webkit-backdrop-filter:
-    blur(28px);
+    blur(30px)
+    saturate(105%);
 }
 
 
+/* =========================================
+   BOTONES NAVEGACIÓN
+========================================= */
+
 .navigation button {
+  position: relative;
+
   width: 100%;
 
   min-height: 60px;
@@ -1669,6 +1977,12 @@ textarea {
 
   font-weight: 300;
 
+  letter-spacing: -1.4px;
+
+  box-shadow: none;
+
+  user-select: none;
+
   transition:
     background
     0.22s ease,
@@ -1677,7 +1991,13 @@ textarea {
     0.22s ease,
 
     color
-    0.22s ease;
+    0.22s ease,
+
+    box-shadow
+    0.08s ease,
+
+    transform
+    0.08s ease;
 }
 
 
@@ -1687,12 +2007,18 @@ textarea {
       255,
       255,
       255,
-      0.26
+      0.30
     );
 
   font-size: 7px;
+
+  font-weight: 400;
 }
 
+
+/* =========================================
+   HOVER NAVEGACIÓN
+========================================= */
 
 .navigation button:hover {
   border-color:
@@ -1700,7 +2026,7 @@ textarea {
       255,
       255,
       255,
-      0.12
+      0.15
     );
 
   background:
@@ -1708,7 +2034,7 @@ textarea {
       255,
       255,
       255,
-      0.018
+      0.025
     );
 
   color:
@@ -1716,13 +2042,103 @@ textarea {
       255,
       255,
       255,
-      0.87
+      0.90
     );
 }
 
 
+.navigation button:hover small {
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.48
+    );
+}
+
+
+/* =========================================
+   ACTIVO
+========================================= */
+
 .navigation button.active {
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      1
+    );
+
+  background: transparent;
+
+  border-color: transparent;
+
+  box-shadow: none;
+}
+
+
+.navigation button.active small {
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.58
+    );
+}
+
+
+/* =========================================
+   PULSAR NAVEGACIÓN
+========================================= */
+
+.navigation button:active {
+  border-color:
+    rgba(
+      255,
+      255,
+      255,
+      0.20
+    );
+
+  background:
+    rgba(
+      0,
+      0,
+      0,
+      0.13
+    );
+
   color: white;
+
+  transform:
+    translateY(1px)
+    scale(0.985);
+
+  box-shadow:
+    inset
+    6px
+    6px
+    11px
+    rgba(
+      0,
+      0,
+      0,
+      0.32
+    ),
+
+    inset
+    -5px
+    -5px
+    10px
+    rgba(
+      255,
+      255,
+      255,
+      0.075
+    );
 }
 
 
@@ -1750,12 +2166,14 @@ textarea {
       255,
       255,
       255,
-      0.80
+      0.88
     );
 
   font-size: 38px;
 
   font-weight: 300;
+
+  line-height: 1;
 
   display: flex;
 
@@ -1785,9 +2203,21 @@ textarea {
    MÓVIL
 ========================================= */
 
-@media (
-  max-width: 850px
-) {
+@media (max-width: 850px) {
+
+  .video-background {
+    inset: -12%;
+  }
+
+
+  .background-video {
+    transform:
+      scale(1.16);
+
+    filter:
+      brightness(0.47);
+  }
+
 
   .studio-card {
     width: 300px;
@@ -1815,6 +2245,8 @@ textarea {
         100svh - 24px
       );
 
+    border-radius: 25px;
+
     transform:
       none !important;
   }
@@ -1833,12 +2265,35 @@ textarea {
 
   .interface-left {
     padding: 27px;
+
+    border-right: none;
+
+    border-bottom:
+      1px solid
+      rgba(
+        255,
+        255,
+        255,
+        0.25
+      );
+  }
+
+
+  .portfolio-pill {
+    width: 98px;
+    height: 31px;
+
+    font-size: 9px;
+
+    border-radius: 8px;
   }
 
 
   .interface-left
   .expanded-logo {
     width: 175px;
+
+    max-width: none;
 
     margin-top: 18px;
   }
@@ -1852,16 +2307,129 @@ textarea {
 
   .interface-content {
     padding: 25px;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-right: none;
+
+    border-bottom:
+      1px solid
+      rgba(
+        255,
+        255,
+        255,
+        0.20
+      );
+  }
+
+
+  .content-inner {
+    max-width: 100%;
+
+    min-height: auto;
   }
 
 
   .content-inner h2 {
     font-size: 38px;
+
+    letter-spacing: -2.5px;
+  }
+
+
+  /* DIGITAL STUDIO EN MÓVIL */
+
+  .content-studio h2 {
+    font-size: 46px;
+
+    line-height: 0.90;
+
+    letter-spacing: -3px;
+  }
+
+
+  .content-studio
+  .section-number {
+    top:
+      calc(
+        50% - 100px
+      );
+  }
+
+
+  .content-studio > p {
+    top:
+      calc(
+        50% + 78px
+      );
+
+    width: 100%;
+
+    font-size: 10px;
+
+    line-height: 1.65;
+  }
+
+
+  .content-grid-list {
+    height: 168px;
+
+    grid-template-rows:
+      repeat(
+        4,
+        42px
+      );
+
+    margin-top: 15px;
+  }
+
+
+  .project-item {
+    height: 42px;
+  }
+
+
+  .content-row {
+    height: 42px;
+
+    padding:
+      0
+      7px;
+
+    grid-template-columns:
+      1fr
+      1fr;
+
+    gap: 8px;
+  }
+
+
+  .row-name {
+    font-size: 9px;
+  }
+
+
+  .row-meta {
+    font-size: 5.5px;
   }
 
 
   .project-preview {
     display: none;
+  }
+
+
+  .content-contacto > p {
+    font-size: 10px;
+  }
+
+
+  .contact-link {
+    margin-top: 12px;
+
+    font-size: 10px;
   }
 
 
@@ -1881,7 +2449,15 @@ textarea {
   .navigation button {
     min-height: 48px;
 
+    padding:
+      0
+      10px;
+
+    border-radius: 8px;
+
     font-size: 17px;
+
+    letter-spacing: -1px;
   }
 }
 
@@ -1890,9 +2466,7 @@ textarea {
    REDUCIR MOVIMIENTO
 ========================================= */
 
-@media (
-  prefers-reduced-motion: reduce
-) {
+@media (prefers-reduced-motion: reduce) {
 
   .studio-card {
     transform:
@@ -1903,5 +2477,20 @@ textarea {
   .video-in,
   .video-out {
     animation: none;
+  }
+
+
+  .video-in {
+    opacity: 1;
+  }
+
+
+  .video-out {
+    opacity: 0;
+  }
+
+
+  .project-preview {
+    transition: none;
   }
 }
