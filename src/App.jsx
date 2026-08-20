@@ -903,12 +903,7 @@ function App() {
               />
 
               <div className="left-bottom">
-                <span className="label">
-                  INDEPENDENT
-                  <br />
-                  DIGITAL STUDIO
-                </span>
-
+           
                 <h3>
                   Creamos
                   <br />
