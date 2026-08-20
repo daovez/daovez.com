@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Sora:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Ubuntu:wght@400;500;700&display=swap");
 
 
 /* =========================================
@@ -9,7 +9,6 @@
   box-sizing: border-box;
 }
 
-
 html,
 body,
 #root {
@@ -18,33 +17,24 @@ body,
   margin: 0;
 }
 
-
 body {
   margin: 0;
-
   overflow: hidden;
 
   background: #000000;
-
   color: #f4f4f4;
 
-  font-family:
-    "Comfortaa",
-    sans-serif;
+  font-family: "Comfortaa", sans-serif;
 
   -webkit-font-smoothing: antialiased;
-
   text-rendering: optimizeLegibility;
 }
-
 
 button,
 a,
 input,
 textarea {
-  font-family:
-    "Comfortaa",
-    sans-serif;
+  font-family: "Comfortaa", sans-serif;
 }
 
 
@@ -62,12 +52,10 @@ textarea {
   height: 100svh;
 
   display: flex;
-
   align-items: center;
   justify-content: center;
 
   overflow: hidden;
-
   isolation: isolate;
 
   background: #000000;
@@ -75,8 +63,7 @@ textarea {
 
 
 /* =========================================
-   VIDEO
-   SOLO SE MUEVE EL VIDEO
+   VIDEO FONDO
 ========================================= */
 
 .video-background {
@@ -100,7 +87,6 @@ textarea {
   will-change: transform;
 }
 
-
 .background-video {
   position: absolute;
 
@@ -116,8 +102,7 @@ textarea {
 
   transform: scale(1.08);
 
-  filter:
-    brightness(0.50);
+  filter: brightness(0.5);
 
   will-change:
     opacity,
@@ -127,8 +112,7 @@ textarea {
 
 
 /* =========================================
-   CAPA NEGRA INICIAL
-   HUECO DE 300 x 300
+   NEGRO INICIAL
 ========================================= */
 
 .hero::after {
@@ -149,35 +133,19 @@ textarea {
   background: transparent;
 
   box-shadow:
-    0 0 0 100vmax
-    #000000;
+    0 0 0 100vmax #000000;
 
   pointer-events: none;
 
-  transform:
-    translate(
-      -50%,
-      -50%
-    );
+  transform: translate(-50%, -50%);
 
   opacity: 1;
 
   transition:
     opacity
     0.8s
-    cubic-bezier(
-      0.22,
-      1,
-      0.36,
-      1
-    );
+    cubic-bezier(0.22, 1, 0.36, 1);
 }
-
-
-/* =========================================
-   DESPUÉS DEL PRIMER HOVER
-   EL NEGRO DESAPARECE
-========================================= */
 
 .hero.background-revealed::after {
   opacity: 0;
@@ -185,7 +153,7 @@ textarea {
 
 
 /* =========================================
-   CROSSFADE VIDEOS
+   CROSSFADE VIDEO
 ========================================= */
 
 .video-in {
@@ -196,15 +164,9 @@ textarea {
   animation:
     videoFadeIn
     1.25s
-    cubic-bezier(
-      0.22,
-      1,
-      0.36,
-      1
-    )
+    cubic-bezier(0.22, 1, 0.36, 1)
     forwards;
 }
-
 
 .video-out {
   z-index: 1;
@@ -214,36 +176,23 @@ textarea {
   animation:
     videoFadeOut
     1.25s
-    cubic-bezier(
-      0.22,
-      1,
-      0.36,
-      1
-    )
+    cubic-bezier(0.22, 1, 0.36, 1)
     forwards;
 }
 
-
 @keyframes videoFadeIn {
-
   from {
     opacity: 0;
-
-    transform:
-      scale(1.12);
+    transform: scale(1.12);
   }
 
   to {
     opacity: 1;
-
-    transform:
-      scale(1.08);
+    transform: scale(1.08);
   }
 }
 
-
 @keyframes videoFadeOut {
-
   from {
     opacity: 1;
   }
@@ -256,8 +205,6 @@ textarea {
 
 /* =========================================
    TARJETA CERRADA
-   300 x 300
-   TOTALMENTE FIJA
 ========================================= */
 
 .studio-card {
@@ -276,22 +223,12 @@ textarea {
 
   border:
     1px solid
-    rgba(
-      255,
-      255,
-      255,
-      0.34
-    );
+    rgba(255, 255, 255, 0.34);
 
   border-radius: 30px;
 
   background:
-    rgba(
-      255,
-      255,
-      255,
-      0.025
-    );
+    rgba(255, 255, 255, 0.025);
 
   backdrop-filter:
     blur(10px)
@@ -303,42 +240,22 @@ textarea {
 
   box-shadow:
     0 35px 90px
-    rgba(
-      0,
-      0,
-      0,
-      0.40
-    );
+    rgba(0, 0, 0, 0.4);
 
   transform: none !important;
 
   transition:
     width
     0.95s
-    cubic-bezier(
-      0.76,
-      0,
-      0.24,
-      1
-    ),
+    cubic-bezier(0.76, 0, 0.24, 1),
 
     height
     0.95s
-    cubic-bezier(
-      0.76,
-      0,
-      0.24,
-      1
-    ),
+    cubic-bezier(0.76, 0, 0.24, 1),
 
     border-radius
     0.95s
-    cubic-bezier(
-      0.76,
-      0,
-      0.24,
-      1
-    ),
+    cubic-bezier(0.76, 0, 0.24, 1),
 
     background
     0.45s ease,
@@ -347,44 +264,19 @@ textarea {
     0.3s ease;
 }
 
-
-/* =========================================
-   SIN REFLEJOS
-========================================= */
-
 .studio-card::before {
   display: none !important;
 }
-
-
-/* =========================================
-   HOVER TARJETA CERRADA
-========================================= */
 
 .studio-card:not(.open):hover {
   transform: none !important;
 
   background:
-    rgba(
-      255,
-      255,
-      255,
-      0.018
-    );
+    rgba(255, 255, 255, 0.018);
 
   border-color:
-    rgba(
-      255,
-      255,
-      255,
-      0.42
-    );
+    rgba(255, 255, 255, 0.42);
 }
-
-
-/* =========================================
-   CLICK TARJETA
-========================================= */
 
 .studio-card:not(.open):active {
   transform: none !important;
@@ -396,17 +288,8 @@ textarea {
 ========================================= */
 
 .studio-card.open {
-  width:
-    min(
-      1240px,
-      91vw
-    );
-
-  height:
-    min(
-      700px,
-      84vh
-    );
+  width: min(1240px, 91vw);
+  height: min(700px, 84vh);
 
   border-radius: 32px;
 
@@ -415,24 +298,20 @@ textarea {
   background: transparent;
 
   backdrop-filter: none;
-
   -webkit-backdrop-filter: none;
 
   box-shadow:
     0 40px 110px
-    rgba(
-      0,
-      0,
-      0,
-      0.42
-    );
+    rgba(0, 0, 0, 0.42);
 
   transform: none !important;
+
+  overflow: visible !important;
 }
 
 
 /* =========================================
-   PORTADA
+   PORTADA CERRADA
 ========================================= */
 
 .intro {
@@ -442,7 +321,6 @@ textarea {
   padding: 24px;
 
   display: flex;
-
   flex-direction: column;
 
   align-items: center;
@@ -451,11 +329,6 @@ textarea {
   text-align: center;
 }
 
-
-/* =========================================
-   LOGO GENERAL
-========================================= */
-
 .studio-logo {
   height: auto;
 
@@ -463,11 +336,6 @@ textarea {
 
   object-fit: contain;
 }
-
-
-/* =========================================
-   LOGO PORTADA
-========================================= */
 
 .intro-logo {
   width: 205px;
@@ -484,16 +352,10 @@ textarea {
   flex-shrink: 0;
 }
 
-
-/* =========================================
-   PORTADA TEXTO
-========================================= */
-
 .intro-bottom {
   width: 100%;
 
   display: flex;
-
   flex-direction: column;
 
   align-items: center;
@@ -501,7 +363,6 @@ textarea {
 
   text-align: center;
 }
-
 
 .intro h1 {
   width: 100%;
@@ -521,23 +382,13 @@ textarea {
   text-align: center;
 }
 
-
-/* =========================================
-   PULSE
-========================================= */
-
 .intro-pulse {
   display: block;
 
   margin-top: 22px;
 
   color:
-    rgba(
-      255,
-      255,
-      255,
-      0.60
-    );
+    rgba(255, 255, 255, 0.6);
 
   font-size: 11px;
 
@@ -552,16 +403,10 @@ textarea {
     0.25s ease;
 }
 
-
 .studio-card:not(.open):hover
 .intro-pulse {
   color:
-    rgba(
-      255,
-      255,
-      255,
-      0.95
-    );
+    rgba(255, 255, 255, 0.95);
 }
 
 
@@ -580,7 +425,7 @@ textarea {
     43%
     27%;
 
-  overflow: hidden;
+  overflow: visible !important;
 
   border-radius: inherit;
 }
@@ -588,35 +433,34 @@ textarea {
 
 /* =========================================
    LATERAL IZQUIERDO
-   MÁS OPACO
 ========================================= */
 
 .interface-left {
   position: relative;
 
-  padding: 44px;
+  padding:
+    44px
+    44px
+    42px;
 
   display: flex;
-
   flex-direction: column;
+
+  align-items: flex-start;
+
+  overflow: hidden;
+
+  border-radius:
+    32px
+    0
+    0
+    32px;
 
   background:
     linear-gradient(
       145deg,
-
-      rgba(
-        255,
-        255,
-        255,
-        0.28
-      ),
-
-      rgba(
-        255,
-        255,
-        255,
-        0.13
-      )
+      rgba(255, 255, 255, 0.28),
+      rgba(255, 255, 255, 0.13)
     );
 
   backdrop-filter:
@@ -629,17 +473,12 @@ textarea {
 
   border-right:
     1px solid
-    rgba(
-      255,
-      255,
-      255,
-      0.30
-    );
+    rgba(255, 255, 255, 0.3);
 }
 
 
 /* =========================================
-   BOTÓN DAOVEZ.DEV
+   DAOVEZ.DEV
 ========================================= */
 
 .portfolio-pill {
@@ -661,16 +500,10 @@ textarea {
 
   border-radius: 9px;
 
-  background:
-    transparent;
+  background: transparent;
 
   color:
-    rgba(
-      255,
-      255,
-      255,
-      0.94
-    );
+    rgba(255, 255, 255, 0.94);
 
   text-decoration: none;
 
@@ -687,80 +520,41 @@ textarea {
   user-select: none;
 
   transition:
-    background
-    0.22s ease,
-
-    border-color
-    0.22s ease,
-
-    color
-    0.22s ease,
-
-    box-shadow
-    0.08s ease;
+    background 0.22s ease,
+    border-color 0.22s ease,
+    color 0.22s ease,
+    box-shadow 0.08s ease;
 }
-
 
 .portfolio-pill:hover {
   border-color:
-    rgba(
-      255,
-      255,
-      255,
-      0.16
-    );
+    rgba(255, 255, 255, 0.16);
 
   background:
-    rgba(
-      255,
-      255,
-      255,
-      0.025
-    );
+    rgba(255, 255, 255, 0.025);
 
   color: #ffffff;
 }
 
-
 .portfolio-pill:active {
   border-color:
-    rgba(
-      255,
-      255,
-      255,
-      0.20
-    );
+    rgba(255, 255, 255, 0.2);
 
   background:
-    rgba(
-      0,
-      0,
-      0,
-      0.14
-    );
+    rgba(0, 0, 0, 0.14);
 
   box-shadow:
     inset
     5px
     5px
     9px
-    rgba(
-      0,
-      0,
-      0,
-      0.34
-    ),
+    rgba(0, 0, 0, 0.34),
 
     inset
     -4px
     -4px
     8px
-    rgba(
-      255,
-      255,
-      255,
-      0.08
-    );
+    rgba(255, 255, 255, 0.08);
 }
 
 
@@ -776,7 +570,7 @@ textarea {
 
   height: auto;
 
-  margin-top: 48px;
+  margin-top: 22px;
 
   display: block;
 
@@ -787,84 +581,112 @@ textarea {
 
 
 /* =========================================
-   PARTE INFERIOR IZQUIERDA
+   BLOQUE IZQUIERDO
 ========================================= */
 
 .left-bottom {
+  position: static;
+
   width: 100%;
 
-  margin-top: auto;
-}
+  flex: 1;
 
+  min-height: 0;
 
-.label {
-  display: block;
+  margin-top: 34px;
 
-  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
 
-  color:
-    rgba(
-      255,
-      255,
-      255,
-      0.58
-    );
+  align-items: flex-start;
 
-  font-size: 7px;
+  justify-content: space-between;
 
-  line-height: 1.7;
-
-  letter-spacing: 3.2px;
-}
-
-
-.left-bottom h3 {
-  margin:
-    30px
-    0
-    0;
-
-  color: white;
-
-  font-size:
-    clamp(
-      32px,
-      3.7vw,
-      54px
-    );
-
-  line-height: 1.03;
-
-  font-weight: 300;
-
-  letter-spacing: -3px;
+  padding-top: 4px;
 }
 
 
 /* =========================================
-   LOCALIZACIÓN
+   TYPEWRITER
+========================================= */
+
+.typewriter-title {
+  width: 100%;
+
+  margin: 0;
+
+  color: #ffffff;
+
+  font-family:
+    "Comfortaa",
+    sans-serif;
+
+  font-size:
+    clamp(38px, 3.9vw, 58px);
+
+  line-height: 1.02;
+
+  font-weight: 300;
+
+  letter-spacing: -3px;
+
+  text-align: left;
+
+  white-space: pre-line;
+}
+
+.typing-cursor {
+  display: inline-block;
+
+  margin-left: 3px;
+
+  color: #ffffff;
+
+  font-weight: 300;
+
+  opacity: 1;
+
+  animation:
+    cursorBlink
+    0.7s
+    infinite;
+}
+
+@keyframes cursorBlink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+
+  46%,
+  100% {
+    opacity: 0;
+  }
+}
+
+
+/* =========================================
+   UBICACIÓN
 ========================================= */
 
 .location {
+  position: static;
+
   width: 100%;
 
-  margin-top: 38px;
+  margin-top: auto;
+
+  padding-top: 30px;
 
   display: flex;
 
   align-items: center;
-
   justify-content: flex-start;
 
-  gap: 16px;
+  gap: 18px;
 
   color:
-    rgba(
-      255,
-      255,
-      255,
-      0.65
-    );
+    rgba(255, 255, 255, 0.65);
 
   font-size: 7px;
 
@@ -872,7 +694,6 @@ textarea {
 
   text-align: left;
 }
-
 
 .location span {
   display: inline-flex;
@@ -884,17 +705,11 @@ textarea {
   white-space: nowrap;
 }
 
-
 .location span::before {
   content: "•";
 
   color:
-    rgba(
-      255,
-      255,
-      255,
-      0.82
-    );
+    rgba(255, 255, 255, 0.82);
 
   font-size: 8px;
 
@@ -905,7 +720,7 @@ textarea {
 
 
 /* =========================================
-   CENTRO TRANSPARENTE
+   CENTRO
 ========================================= */
 
 .interface-content {
@@ -920,7 +735,7 @@ textarea {
   align-items: center;
   justify-content: center;
 
-  overflow: hidden;
+  overflow: visible !important;
 
   isolation: isolate;
 
@@ -928,12 +743,7 @@ textarea {
 
   border-right:
     1px solid
-    rgba(
-      255,
-      255,
-      255,
-      0.30
-    );
+    rgba(255, 255, 255, 0.3);
 }
 
 
@@ -966,11 +776,9 @@ textarea {
     contrast(1.05);
 }
 
-
 .lens-canvas.lens-ready {
   opacity: 1;
 }
-
 
 .lens-glass {
   position: absolute;
@@ -984,22 +792,9 @@ textarea {
   background:
     linear-gradient(
       115deg,
-
-      rgba(
-        255,
-        255,
-        255,
-        0.035
-      ),
-
+      rgba(255, 255, 255, 0.035),
       transparent 45%,
-
-      rgba(
-        255,
-        255,
-        255,
-        0.015
-      )
+      rgba(255, 255, 255, 0.015)
     );
 }
 
@@ -1023,27 +818,21 @@ textarea {
   margin: 0 auto;
 
   display: flex;
-
   flex-direction: column;
 
   justify-content: center;
 
   text-align: left;
 
+  overflow: visible !important;
+
   animation:
     contentReveal
     0.55s
-    cubic-bezier(
-      0.22,
-      1,
-      0.36,
-      1
-    );
+    cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-
 @keyframes contentReveal {
-
   from {
     opacity: 0;
 
@@ -1070,12 +859,7 @@ textarea {
   margin-bottom: 18px;
 
   color:
-    rgba(
-      255,
-      255,
-      255,
-      0.82
-    );
+    rgba(255, 255, 255, 0.82);
 
   font-size: 7px;
 
@@ -1086,7 +870,7 @@ textarea {
 
 
 /* =========================================
-   TÍTULOS NORMALES
+   TÍTULOS GENERALES
 ========================================= */
 
 .content-inner h2 {
@@ -1095,19 +879,15 @@ textarea {
   color: #ffffff;
 
   font-family:
-    "Sora",
+    "Ubuntu",
     sans-serif;
 
   font-size:
-    clamp(
-      44px,
-      4.4vw,
-      66px
-    );
+    clamp(44px, 4.4vw, 66px);
 
   line-height: 0.95;
 
-  font-weight: 600;
+  font-weight: 700;
 
   letter-spacing: -4px;
 }
@@ -1123,12 +903,7 @@ textarea {
   margin-top: 24px;
 
   color:
-    rgba(
-      255,
-      255,
-      255,
-      0.96
-    );
+    rgba(255, 255, 255, 0.96);
 
   font-size: 14px;
 
@@ -1140,12 +915,7 @@ textarea {
 
   text-shadow:
     0 2px 14px
-    rgba(
-      0,
-      0,
-      0,
-      0.90
-    );
+    rgba(0, 0, 0, 0.9);
 }
 
 
@@ -1153,46 +923,25 @@ textarea {
    STUDIO
 ========================================= */
 
-.content-studio h2 {
-  position: absolute;
-
-  top: 50%;
-  left: 50%;
+.content-studio {
+  position: relative;
 
   width: 100%;
+  height: 100%;
 
-  margin: 0;
+  max-width: none;
 
-  transform: translate(-50%, -50%);
+  min-height: 100%;
 
-  color: #ffffff;
-
-  font-family: "Sora", sans-serif;
-
-  font-size: clamp(100px, 8vw, 140px);
-
-  line-height: 0.84;
-
-  font-weight: 600;
-
-  letter-spacing: -6px;
-
-  text-align: center;
-
-  z-index: 4;
+  display: block;
 }
-
-
-/* 01 / STUDIO */
 
 .content-studio
 .section-number {
   position: absolute;
 
   top:
-    calc(
-      50% - 155px
-    );
+    calc(50% - 205px);
 
   left: 0;
 
@@ -1204,59 +953,55 @@ textarea {
 
 /* =========================================
    DIGITAL STUDIO
-   MÁS GRANDE
 ========================================= */
 
 .content-studio h2 {
-  position: absolute;
+  position: absolute !important;
 
-  top: 50%;
-  left: 50%;
+  top: 45.5% !important;
+  left: 50% !important;
 
-  width: 100%;
+  width: 115% !important;
 
-  margin: 0;
+  margin: 0 !important;
 
   transform:
-    translate(
-      -50%,
-      -50%
-    );
+    translate(-50%, -50%) !important;
 
-  color: #ffffff;
+  color: #ffffff !important;
 
   font-family:
-    "Sora",
-    sans-serif;
+    "Ubuntu",
+    sans-serif !important;
 
   font-size:
-    clamp(
-      64px,
-      5.5vw,
-      86px
-    );
+    150px !important;
 
-  line-height: 0.88;
+  line-height:
+    0.76 !important;
 
-  font-weight: 600;
+  font-weight:
+    700 !important;
 
-  letter-spacing: -5px;
+  letter-spacing:
+    -8px !important;
 
-  text-align: center;
+  text-align:
+    center !important;
 
   z-index: 4;
 }
 
 
-/* DESCRIPCIÓN STUDIO */
+/* =========================================
+   DESCRIPCIÓN STUDIO
+========================================= */
 
 .content-studio > p {
   position: absolute;
 
   top:
-    calc(
-      50% + 125px
-    );
+    calc(50% + 130px);
 
   left: 50%;
 
@@ -1270,12 +1015,7 @@ textarea {
     translateX(-50%);
 
   color:
-    rgba(
-      255,
-      255,
-      255,
-      0.98
-    );
+    rgba(255, 255, 255, 0.98);
 
   font-size: 14px;
 
@@ -1291,12 +1031,7 @@ textarea {
 
   text-shadow:
     0 2px 16px
-    rgba(
-      0,
-      0,
-      0,
-      0.95
-    );
+    rgba(0, 0, 0, 0.95);
 }
 
 
@@ -1317,6 +1052,8 @@ textarea {
   margin: 0 auto;
 
   justify-content: center;
+
+  overflow: visible !important;
 }
 
 
@@ -1338,21 +1075,14 @@ textarea {
   display: grid;
 
   grid-template-rows:
-    repeat(
-      4,
-      56px
-    );
+    repeat(4, 56px);
+
+  overflow: visible !important;
 
   border-bottom:
     1px solid
-    rgba(
-      255,
-      255,
-      255,
-      0.26
-    );
+    rgba(255, 255, 255, 0.26);
 }
-
 
 .project-item {
   position: relative;
@@ -1360,6 +1090,8 @@ textarea {
   width: 100%;
 
   height: 56px;
+
+  overflow: visible !important;
 }
 
 
@@ -1373,7 +1105,6 @@ textarea {
   z-index: 3;
 
   width: 100%;
-
   height: 56px;
 
   padding:
@@ -1383,14 +1114,8 @@ textarea {
   display: grid;
 
   grid-template-columns:
-    minmax(
-      130px,
-      1fr
-    )
-    minmax(
-      160px,
-      1.35fr
-    );
+    minmax(130px, 1fr)
+    minmax(160px, 1.35fr);
 
   align-items: center;
 
@@ -1400,12 +1125,7 @@ textarea {
 
   border-top:
     1px solid
-    rgba(
-      255,
-      255,
-      255,
-      0.28
-    );
+    rgba(255, 255, 255, 0.28);
 
   background: transparent;
 
@@ -1428,43 +1148,25 @@ textarea {
     0.28s ease;
 }
 
-
 .content-row:hover {
   padding-left: 18px;
 
   background:
-    rgba(
-      0,
-      0,
-      0,
-      0.50
-    );
+    rgba(0, 0, 0, 0.55);
 }
-
 
 .row-name {
   color:
-    rgba(
-      255,
-      255,
-      255,
-      0.95
-    );
+    rgba(255, 255, 255, 0.95);
 
   font-size: 13px;
 
   line-height: 1.3;
 }
 
-
 .row-meta {
   color:
-    rgba(
-      255,
-      255,
-      255,
-      0.58
-    );
+    rgba(255, 255, 255, 0.58);
 
   font-size: 7px;
 
@@ -1475,23 +1177,15 @@ textarea {
   white-space: nowrap;
 }
 
-
 .content-row:hover
 .row-meta {
   color:
-    rgba(
-      255,
-      255,
-      255,
-      0.92
-    );
+    rgba(255, 255, 255, 0.92);
 }
-
 
 .project-placeholder {
   opacity: 0.74;
 }
-
 
 .project-placeholder:hover {
   opacity: 1;
@@ -1499,7 +1193,8 @@ textarea {
 
 
 /* =========================================
-   PREVIEW PROYECTO
+   PREVIEW PROYECTOS
+   MÁS PEQUEÑA
 ========================================= */
 
 .project-preview {
@@ -1508,40 +1203,29 @@ textarea {
   left: 50%;
 
   bottom:
-    calc(
-      100% + 12px
-    );
+    calc(100% + 16px);
 
-  z-index: 50;
+  z-index: 9999;
 
-  width:
-    min(
-      410px,
-      100%
-    );
+  /*
+     TAMAÑO DE LA VENTANA
+     Antes: 520 x 292
+     Ahora: 440 x 250
+  */
 
-  height: 225px;
+  width: 440px;
+  height: 250px;
 
   overflow: hidden;
 
   border:
     1px solid
-    rgba(
-      255,
-      255,
-      255,
-      0.48
-    );
+    rgba(255, 255, 255, 0.48);
 
-  border-radius: 18px;
+  border-radius: 16px;
 
   background:
-    rgba(
-      13,
-      13,
-      13,
-      0.94
-    );
+    rgba(13, 13, 13, 0.97);
 
   backdrop-filter:
     blur(24px);
@@ -1550,13 +1234,8 @@ textarea {
     blur(24px);
 
   box-shadow:
-    0 28px 70px
-    rgba(
-      0,
-      0,
-      0,
-      0.65
-    );
+    0 28px 80px
+    rgba(0, 0, 0, 0.72);
 
   opacity: 0;
 
@@ -1566,8 +1245,8 @@ textarea {
 
   transform:
     translateX(-50%)
-    translateY(12px)
-    scale(0.95);
+    translateY(10px)
+    scale(0.96);
 
   transform-origin:
     bottom center;
@@ -1582,7 +1261,6 @@ textarea {
     visibility
     0.28s;
 }
-
 
 .project-preview-visible {
   opacity: 1;
@@ -1605,7 +1283,7 @@ textarea {
 
   z-index: 3;
 
-  height: 36px;
+  height: 34px;
 
   padding:
     0
@@ -1616,30 +1294,18 @@ textarea {
   align-items: center;
 
   background:
-    rgba(
-      13,
-      13,
-      13,
-      0.95
-    );
+    rgba(13, 13, 13, 0.97);
 
   border-bottom:
     1px solid
-    rgba(
-      255,
-      255,
-      255,
-      0.12
-    );
+    rgba(255, 255, 255, 0.12);
 }
-
 
 .preview-dots {
   display: flex;
 
   gap: 5px;
 }
-
 
 .preview-dots span {
   width: 5px;
@@ -1648,14 +1314,8 @@ textarea {
   border-radius: 50%;
 
   background:
-    rgba(
-      255,
-      255,
-      255,
-      0.38
-    );
+    rgba(255, 255, 255, 0.38);
 }
-
 
 .project-preview-title {
   position: absolute;
@@ -1666,12 +1326,7 @@ textarea {
     translateX(-50%);
 
   color:
-    rgba(
-      255,
-      255,
-      255,
-      0.58
-    );
+    rgba(255, 255, 255, 0.58);
 
   font-size: 6px;
 
@@ -1682,7 +1337,7 @@ textarea {
 
 
 /* =========================================
-   IFRAME PREVIEW
+   PREVIEW WEB
 ========================================= */
 
 .project-preview-browser {
@@ -1691,15 +1346,18 @@ textarea {
   width: 100%;
 
   height:
-    calc(
-      100% - 36px
-    );
+    calc(100% - 34px);
 
   overflow: hidden;
 
-  background: white;
+  background: #ffffff;
 }
 
+
+/*
+   SIMULA UNA PANTALLA DE ESCRITORIO
+   Y LA REDUCE DENTRO DE LA PREVIEW
+*/
 
 .project-preview-browser iframe {
   position: absolute;
@@ -1707,15 +1365,15 @@ textarea {
   top: 0;
   left: 0;
 
-  width: 1280px;
-  height: 720px;
+  width: 1440px;
+  height: 900px;
 
   border: none;
 
   pointer-events: none;
 
   transform:
-    scale(0.32);
+    scale(0.305);
 
   transform-origin:
     top left;
@@ -1730,67 +1388,46 @@ textarea {
   width: 100%;
 
   height:
-    calc(
-      100% - 36px
-    );
+    calc(100% - 34px);
 
   display: flex;
-
   flex-direction: column;
 
   align-items: center;
   justify-content: center;
 
-  gap: 8px;
+  gap: 7px;
 
   background:
-    rgba(
-      0,
-      0,
-      0,
-      0.40
-    );
+    rgba(0, 0, 0, 0.4);
 }
-
 
 .project-preview-empty span {
   color:
-    rgba(
-      255,
-      255,
-      255,
-      0.35
-    );
+    rgba(255, 255, 255, 0.35);
 
   font-size: 6px;
 
   letter-spacing: 3px;
 }
 
-
 .project-preview-empty strong {
   color: white;
 
   font-family:
-    "Sora",
+    "Ubuntu",
     sans-serif;
 
-  font-size: 25px;
+  font-size: 22px;
 
   font-weight: 500;
 }
 
-
 .project-preview-empty small {
   color:
-    rgba(
-      255,
-      255,
-      255,
-      0.42
-    );
+    rgba(255, 255, 255, 0.42);
 
-  font-size: 8px;
+  font-size: 7px;
 }
 
 
@@ -1816,11 +1453,9 @@ textarea {
   text-align: left;
 }
 
-
 .content-contacto h2 {
   text-align: left;
 }
-
 
 .content-contacto > p {
   font-size: 14px;
@@ -1850,12 +1485,7 @@ textarea {
 
   border-bottom:
     1px solid
-    rgba(
-      255,
-      255,
-      255,
-      0.35
-    );
+    rgba(255, 255, 255, 0.35);
 
   font-size: 13px;
 
@@ -1867,7 +1497,6 @@ textarea {
     0.28s ease;
 }
 
-
 .contact-link:hover {
   opacity: 0.72;
 
@@ -1878,7 +1507,6 @@ textarea {
 
 /* =========================================
    LATERAL DERECHO
-   MÁS OPACO
 ========================================= */
 
 .navigation {
@@ -1887,30 +1515,25 @@ textarea {
     38px;
 
   display: flex;
-
   flex-direction: column;
 
   justify-content: center;
 
   gap: 18px;
 
+  overflow: hidden;
+
+  border-radius:
+    0
+    32px
+    32px
+    0;
+
   background:
     linear-gradient(
       145deg,
-
-      rgba(
-        255,
-        255,
-        255,
-        0.28
-      ),
-
-      rgba(
-        255,
-        255,
-        255,
-        0.13
-      )
+      rgba(255, 255, 255, 0.28),
+      rgba(255, 255, 255, 0.13)
     );
 
   backdrop-filter:
@@ -1924,7 +1547,7 @@ textarea {
 
 
 /* =========================================
-   BOTONES NAVEGACIÓN
+   BOTONES DERECHA
 ========================================= */
 
 .navigation button {
@@ -1957,23 +1580,14 @@ textarea {
   background: transparent;
 
   color:
-    rgba(
-      255,
-      255,
-      255,
-      0.44
-    );
+    rgba(255, 255, 255, 0.44);
 
   cursor: pointer;
 
   text-align: left;
 
   font-size:
-    clamp(
-      21px,
-      2.1vw,
-      33px
-    );
+    clamp(21px, 2.1vw, 33px);
 
   font-weight: 300;
 
@@ -1984,92 +1598,40 @@ textarea {
   user-select: none;
 
   transition:
-    background
-    0.22s ease,
-
-    border-color
-    0.22s ease,
-
-    color
-    0.22s ease,
-
-    box-shadow
-    0.08s ease,
-
-    transform
-    0.08s ease;
+    background 0.22s ease,
+    border-color 0.22s ease,
+    color 0.22s ease,
+    box-shadow 0.08s ease,
+    transform 0.08s ease;
 }
-
 
 .navigation button small {
   color:
-    rgba(
-      255,
-      255,
-      255,
-      0.30
-    );
+    rgba(255, 255, 255, 0.3);
 
   font-size: 7px;
 
   font-weight: 400;
 }
 
-
-/* =========================================
-   HOVER NAVEGACIÓN
-========================================= */
-
 .navigation button:hover {
   border-color:
-    rgba(
-      255,
-      255,
-      255,
-      0.15
-    );
+    rgba(255, 255, 255, 0.15);
 
   background:
-    rgba(
-      255,
-      255,
-      255,
-      0.025
-    );
+    rgba(255, 255, 255, 0.025);
 
   color:
-    rgba(
-      255,
-      255,
-      255,
-      0.90
-    );
+    rgba(255, 255, 255, 0.9);
 }
-
 
 .navigation button:hover small {
   color:
-    rgba(
-      255,
-      255,
-      255,
-      0.48
-    );
+    rgba(255, 255, 255, 0.48);
 }
 
-
-/* =========================================
-   ACTIVO
-========================================= */
-
 .navigation button.active {
-  color:
-    rgba(
-      255,
-      255,
-      255,
-      1
-    );
+  color: #ffffff;
 
   background: transparent;
 
@@ -2078,38 +1640,17 @@ textarea {
   box-shadow: none;
 }
 
-
 .navigation button.active small {
   color:
-    rgba(
-      255,
-      255,
-      255,
-      0.58
-    );
+    rgba(255, 255, 255, 0.58);
 }
-
-
-/* =========================================
-   PULSAR NAVEGACIÓN
-========================================= */
 
 .navigation button:active {
   border-color:
-    rgba(
-      255,
-      255,
-      255,
-      0.20
-    );
+    rgba(255, 255, 255, 0.2);
 
   background:
-    rgba(
-      0,
-      0,
-      0,
-      0.13
-    );
+    rgba(0, 0, 0, 0.13);
 
   color: white;
 
@@ -2122,23 +1663,13 @@ textarea {
     6px
     6px
     11px
-    rgba(
-      0,
-      0,
-      0,
-      0.32
-    ),
+    rgba(0, 0, 0, 0.32),
 
     inset
     -5px
     -5px
     10px
-    rgba(
-      255,
-      255,
-      255,
-      0.075
-    );
+    rgba(255, 255, 255, 0.075);
 }
 
 
@@ -2152,6 +1683,8 @@ textarea {
   top: 25px;
   right: 25px;
 
+  z-index: 20;
+
   width: 44px;
   height: 44px;
 
@@ -2162,12 +1695,7 @@ textarea {
   background: transparent;
 
   color:
-    rgba(
-      255,
-      255,
-      255,
-      0.88
-    );
+    rgba(255, 255, 255, 0.88);
 
   font-size: 38px;
 
@@ -2190,7 +1718,6 @@ textarea {
     0.35s ease;
 }
 
-
 .close:hover {
   transform:
     rotate(90deg);
@@ -2209,48 +1736,37 @@ textarea {
     inset: -12%;
   }
 
-
   .background-video {
-    transform:
-      scale(1.16);
+    transform: scale(1.16);
 
-    filter:
-      brightness(0.47);
+    filter: brightness(0.47);
   }
-
 
   .studio-card {
     width: 300px;
     height: 300px;
 
-    transform:
-      none !important;
+    transform: none !important;
   }
-
 
   .hero::after {
     width: 300px;
     height: 300px;
   }
 
-
   .studio-card.open {
     width:
-      calc(
-        100vw - 24px
-      );
+      calc(100vw - 24px);
 
     height:
-      calc(
-        100svh - 24px
-      );
+      calc(100svh - 24px);
 
     border-radius: 25px;
 
-    transform:
-      none !important;
-  }
+    transform: none !important;
 
+    overflow: hidden !important;
+  }
 
   .interface {
     grid-template-columns:
@@ -2260,24 +1776,25 @@ textarea {
       25%
       47%
       28%;
-  }
 
+    overflow: hidden !important;
+  }
 
   .interface-left {
     padding: 27px;
+
+    border-radius:
+      25px
+      25px
+      0
+      0;
 
     border-right: none;
 
     border-bottom:
       1px solid
-      rgba(
-        255,
-        255,
-        255,
-        0.25
-      );
+      rgba(255, 255, 255, 0.25);
   }
-
 
   .portfolio-pill {
     width: 98px;
@@ -2288,42 +1805,48 @@ textarea {
     border-radius: 8px;
   }
 
-
   .interface-left
   .expanded-logo {
     width: 175px;
 
     max-width: none;
 
-    margin-top: 18px;
+    margin-top: 8px;
   }
 
+  .left-bottom {
+    position: static;
 
-  .left-bottom h3,
+    width: 100%;
+
+    flex: initial;
+
+    transform: none;
+
+    margin-top: auto;
+
+    padding: 0;
+  }
+
+  .typewriter-title,
   .location {
     display: none;
   }
-
 
   .interface-content {
     padding: 25px;
 
     align-items: center;
-
     justify-content: center;
+
+    overflow: hidden !important;
 
     border-right: none;
 
     border-bottom:
       1px solid
-      rgba(
-        255,
-        255,
-        255,
-        0.20
-      );
+      rgba(255, 255, 255, 0.2);
   }
-
 
   .content-inner {
     max-width: 100%;
@@ -2331,39 +1854,40 @@ textarea {
     min-height: auto;
   }
 
-
   .content-inner h2 {
     font-size: 38px;
 
     letter-spacing: -2.5px;
   }
 
-
-  /* DIGITAL STUDIO EN MÓVIL */
-
   .content-studio h2 {
-    font-size: 46px;
+    top: 45% !important;
 
-    line-height: 0.90;
+    width: 100% !important;
 
-    letter-spacing: -3px;
+    font-family:
+      "Ubuntu",
+      sans-serif !important;
+
+    font-size:
+      66px !important;
+
+    line-height:
+      0.82 !important;
+
+    letter-spacing:
+      -4px !important;
   }
-
 
   .content-studio
   .section-number {
     top:
-      calc(
-        50% - 100px
-      );
+      calc(50% - 115px);
   }
-
 
   .content-studio > p {
     top:
-      calc(
-        50% + 78px
-      );
+      calc(50% + 90px);
 
     width: 100%;
 
@@ -2372,24 +1896,18 @@ textarea {
     line-height: 1.65;
   }
 
-
   .content-grid-list {
     height: 168px;
 
     grid-template-rows:
-      repeat(
-        4,
-        42px
-      );
+      repeat(4, 42px);
 
     margin-top: 15px;
   }
 
-
   .project-item {
     height: 42px;
   }
-
 
   .content-row {
     height: 42px;
@@ -2405,33 +1923,27 @@ textarea {
     gap: 8px;
   }
 
-
   .row-name {
     font-size: 9px;
   }
-
 
   .row-meta {
     font-size: 5.5px;
   }
 
-
   .project-preview {
     display: none;
   }
 
-
   .content-contacto > p {
     font-size: 10px;
   }
-
 
   .contact-link {
     margin-top: 12px;
 
     font-size: 10px;
   }
-
 
   .navigation {
     padding: 14px;
@@ -2443,8 +1955,13 @@ textarea {
       1fr;
 
     gap: 8px;
-  }
 
+    border-radius:
+      0
+      0
+      25px
+      25px;
+  }
 
   .navigation button {
     min-height: 48px;
@@ -2469,28 +1986,27 @@ textarea {
 @media (prefers-reduced-motion: reduce) {
 
   .studio-card {
-    transform:
-      none !important;
+    transform: none !important;
   }
-
 
   .video-in,
   .video-out {
     animation: none;
   }
 
-
   .video-in {
     opacity: 1;
   }
-
 
   .video-out {
     opacity: 0;
   }
 
-
   .project-preview {
     transition: none;
+  }
+
+  .typing-cursor {
+    animation: none;
   }
 }
