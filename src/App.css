@@ -1,29 +1,14 @@
-/* =====================================================
-   VARIABLES
-===================================================== */
-
-:root {
-  --black: #0d0d0d;
-  --grey-deep: #232323;
-  --grey-mid: #5a5a5a;
-  --silver: #c8c8c8;
-  --white: #f2f2f2;
-
-  --text-soft: rgba(242, 242, 242, 0.72);
-  --text-muted: rgba(242, 242, 242, 0.42);
-
-  --glass-border: rgba(255, 255, 255, 0.32);
-  --shadow: rgba(0, 0, 0, 0.42);
-}
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Sora:wght@400;500;600;700&display=swap");
 
 
-/* =====================================================
+/* =========================================
    RESET
-===================================================== */
+========================================= */
 
 * {
   box-sizing: border-box;
 }
+
 
 html,
 body,
@@ -33,54 +18,78 @@ body,
   margin: 0;
 }
 
+
 body {
   margin: 0;
+
   overflow: hidden;
-  background: #0d0d0d;
-  color: var(--white);
-  font-family: Inter, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
+
+  background: #000;
+
+  color: #f4f4f4;
+
+  font-family:
+    "Comfortaa",
+    sans-serif;
+
+  -webkit-font-smoothing:
+    antialiased;
+
+  text-rendering:
+    optimizeLegibility;
 }
+
 
 button,
-a {
-  font: inherit;
+a,
+input,
+textarea {
+  font-family:
+    "Comfortaa",
+    sans-serif;
 }
 
 
-/* =====================================================
+/* =========================================
    HERO
-===================================================== */
+========================================= */
 
 .hero {
   --x: 0;
   --y: 0;
 
   position: relative;
+
   width: 100%;
   height: 100svh;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
   overflow: hidden;
+
   isolation: isolate;
 
-  background: #111;
+  background: #000000;
 }
 
 
-/* =====================================================
-   CONTENEDOR MULTIVIDEO
-===================================================== */
+/* =========================================
+   VIDEO
+   SOLO EL VIDEO SE MUEVE
+========================================= */
 
 .video-background {
   position: absolute;
+
   inset: -5%;
+
   z-index: 0;
 
   overflow: hidden;
+
   pointer-events: none;
 
   transform:
@@ -91,22 +100,16 @@ a {
     );
 
   will-change: transform;
-  background: #0d0d0d;
 }
 
 
-/* =====================================================
-   TODOS LOS VIDEOS
-===================================================== */
-
 .background-video {
   position: absolute;
+
   inset: 0;
 
   width: 100%;
   height: 100%;
-
-  display: block;
 
   object-fit: cover;
   object-position: center;
@@ -114,296 +117,157 @@ a {
   transform: scale(1.08);
 
   filter:
-    grayscale(1)
-    brightness(0.72)
-    contrast(1.06)
-    saturate(0);
-
-  will-change: opacity, transform;
+    brightness(0.50);
 }
 
 
-/* =====================================================
-   VIDEO NUEVO
-===================================================== */
+/* =========================================
+   NEGRO ALREDEDOR DE LA TARJETA
+
+   HUECO EXACTO 300 x 300
+========================================= */
+
+.hero::after {
+  content: "";
+
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  width: 300px;
+  height: 300px;
+
+  z-index: 5;
+
+  border-radius: 30px;
+
+  background: transparent;
+
+  box-shadow:
+    0 0 0 100vmax
+    #000000;
+
+  pointer-events: none;
+
+  transform:
+    translate(
+      -50%,
+      -50%
+    );
+
+  opacity: 1;
+
+  transition:
+    opacity
+    0.8s
+    cubic-bezier(
+      0.22,
+      1,
+      0.36,
+      1
+    );
+}
+
+
+/* =========================================
+   DESPUÉS DEL PRIMER HOVER
+
+   SE QUITA PARA SIEMPRE
+   HASTA RECARGAR LA WEB
+========================================= */
+
+.hero.background-revealed::after {
+  opacity: 0;
+}
+
+
+/* =========================================
+   CROSSFADE VIDEO
+========================================= */
 
 .video-in {
   z-index: 2;
+
   opacity: 0;
 
   animation:
     videoFadeIn
     1.25s
-    cubic-bezier(0.22, 1, 0.36, 1)
+    cubic-bezier(
+      0.22,
+      1,
+      0.36,
+      1
+    )
     forwards;
 }
 
 
-/* =====================================================
-   VIDEO ANTERIOR
-===================================================== */
-
 .video-out {
   z-index: 1;
+
   opacity: 1;
 
   animation:
     videoFadeOut
     1.25s
-    cubic-bezier(0.22, 1, 0.36, 1)
+    cubic-bezier(
+      0.22,
+      1,
+      0.36,
+      1
+    )
     forwards;
 }
 
 
-/* =====================================================
-   CROSSFADE
-===================================================== */
-
 @keyframes videoFadeIn {
+
   from {
     opacity: 0;
-    transform: scale(1.12);
+
+    transform:
+      scale(1.12);
   }
 
   to {
     opacity: 1;
-    transform: scale(1.08);
+
+    transform:
+      scale(1.08);
   }
 }
+
 
 @keyframes videoFadeOut {
+
   from {
     opacity: 1;
-    transform: scale(1.08);
   }
 
   to {
     opacity: 0;
-    transform: scale(1.04);
   }
 }
 
 
-/* =====================================================
-   CAPA GENERAL
-===================================================== */
-
-.color-layer {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-
-  pointer-events: none;
-
-  background:
-    radial-gradient(
-      circle at 20% 15%,
-      rgba(255, 255, 255, 0.10),
-      transparent 28%
-    ),
-    radial-gradient(
-      circle at 80% 20%,
-      rgba(255, 255, 255, 0.06),
-      transparent 30%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.02),
-      rgba(0, 0, 0, 0.12)
-    );
-}
-
-
-/* =====================================================
-   LÍNEAS ORBITALES
-===================================================== */
-
-.orbital-lines {
-  position: absolute;
-  inset: -12%;
-  z-index: 2;
-
-  pointer-events: none;
-  opacity: 0.28;
-
-  transform:
-    translate3d(
-      calc(var(--x) * 8px),
-      calc(var(--y) * 5px),
-      0
-    );
-
-  background:
-    radial-gradient(
-      ellipse at 11% 45%,
-      transparent 0 25%,
-      rgba(255, 255, 255, 0.52) 25.15% 25.35%,
-      transparent 25.55%
-    ),
-    radial-gradient(
-      ellipse at 52% 16%,
-      transparent 0 31%,
-      rgba(255, 255, 255, 0.40) 31.15% 31.35%,
-      transparent 31.55%
-    ),
-    radial-gradient(
-      ellipse at 88% 49%,
-      transparent 0 33%,
-      rgba(255, 255, 255, 0.34) 33.15% 33.35%,
-      transparent 33.55%
-    ),
-    radial-gradient(
-      ellipse at 62% 83%,
-      transparent 0 28%,
-      rgba(255, 255, 255, 0.28) 28.15% 28.35%,
-      transparent 28.55%
-    );
-}
-
-
-/* =====================================================
-   GLOWS
-===================================================== */
-
-.background-glow {
-  position: absolute;
-  z-index: 3;
-
-  pointer-events: none;
-
-  border-radius: 50%;
-  filter: blur(120px);
-
-  mix-blend-mode: screen;
-}
-
-.glow-one {
-  width: 44vw;
-  height: 44vw;
-  left: -10%;
-  top: -18%;
-
-  background: rgba(255, 255, 255, 0.07);
-
-  transform:
-    translate3d(
-      calc(var(--x) * 22px),
-      calc(var(--y) * 14px),
-      0
-    );
-}
-
-.glow-two {
-  width: 28vw;
-  height: 28vw;
-  right: -8%;
-  bottom: -10%;
-
-  background: rgba(255, 255, 255, 0.04);
-
-  transform:
-    translate3d(
-      calc(var(--x) * -28px),
-      calc(var(--y) * -18px),
-      0
-    );
-}
-
-.glow-three {
-  width: 22vw;
-  height: 22vw;
-  left: 42%;
-  top: 24%;
-
-  background: rgba(255, 255, 255, 0.025);
-
-  transform:
-    translate3d(
-      calc(var(--x) * 10px),
-      calc(var(--y) * -10px),
-      0
-    );
-}
-
-
-/* =====================================================
-   VIÑETA
-===================================================== */
-
-.vignette {
-  position: absolute;
-  inset: 0;
-  z-index: 4;
-
-  pointer-events: none;
-
-  background:
-    radial-gradient(
-      circle at center,
-      transparent 10%,
-      rgba(0, 0, 0, 0.06) 50%,
-      rgba(0, 0, 0, 0.52) 115%
-    );
-}
-
-
-/* =====================================================
-   GRANO
-===================================================== */
-
-.grain {
-  position: absolute;
-  inset: 0;
-  z-index: 5;
-
-  opacity: 0.035;
-  pointer-events: none;
-
-  background-image:
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.85'/%3E%3C/svg%3E");
-}
-
-
-/* =====================================================
-   INFO EXTERIOR
-===================================================== */
-
-.top-info,
-.bottom-info {
-  position: absolute;
-  left: 38px;
-  right: 38px;
-  z-index: 10;
-
-  display: flex;
-  justify-content: space-between;
-
-  pointer-events: none;
-
-  color: var(--text-muted);
-  font-size: 8px;
-  letter-spacing: 3px;
-}
-
-.top-info {
-  top: 28px;
-}
-
-.bottom-info {
-  bottom: 28px;
-}
-
-
-/* =====================================================
+/* =========================================
    TARJETA CERRADA
-===================================================== */
+
+   FIJA
+   300 x 300
+========================================= */
 
 .studio-card {
   position: relative;
+
   z-index: 20;
 
-  width: 340px;
-  height: 500px;
+  width: 300px;
+  height: 300px;
+
+  flex-shrink: 0;
 
   overflow: hidden;
 
@@ -411,310 +275,135 @@ a {
 
   border:
     1px solid
-    rgba(255, 255, 255, 0.42);
+    rgba(
+      255,
+      255,
+      255,
+      0.34
+    );
 
-  border-radius: 29px;
+  border-radius: 30px;
 
   background:
-    linear-gradient(
-      145deg,
-      rgba(255, 255, 255, 0.13),
-      rgba(255, 255, 255, 0.035)
+    rgba(
+      255,
+      255,
+      255,
+      0.025
     );
 
   backdrop-filter:
-    blur(24px)
-    saturate(115%);
+    blur(10px)
+    saturate(105%);
 
   -webkit-backdrop-filter:
-    blur(24px)
-    saturate(115%);
+    blur(10px)
+    saturate(105%);
 
   box-shadow:
-    0 40px 110px rgba(0, 0, 0, 0.42),
-    inset 0 1px 0 rgba(255, 255, 255, 0.20);
-
-  transform:
-    translate3d(
-      calc(var(--x) * 3px),
-      calc(var(--y) * 3px),
-      0
+    0 35px 90px
+    rgba(
+      0,
+      0,
+      0,
+      0.40
     );
+
+  /*
+    IMPORTANTE:
+    NO USA --x NI --y.
+  */
+
+  transform: none !important;
 
   transition:
-    width 0.95s cubic-bezier(0.76, 0, 0.24, 1),
-    height 0.95s cubic-bezier(0.76, 0, 0.24, 1),
-    border-radius 0.95s cubic-bezier(0.76, 0, 0.24, 1),
-    background 0.4s ease;
+    width
+    0.95s
+    cubic-bezier(
+      0.76,
+      0,
+      0.24,
+      1
+    ),
+
+    height
+    0.95s
+    cubic-bezier(
+      0.76,
+      0,
+      0.24,
+      1
+    ),
+
+    border-radius
+    0.95s
+    cubic-bezier(
+      0.76,
+      0,
+      0.24,
+      1
+    ),
+
+    background
+    0.45s ease,
+
+    border-color
+    0.3s ease;
 }
 
 
-/* =====================================================
-   REFLEJO
-===================================================== */
+/* =========================================
+   SIN REFLEJO
+========================================= */
 
 .studio-card::before {
-  content: "";
-
-  position: absolute;
-  inset: -30%;
-
-  pointer-events: none;
-
-  background:
-    linear-gradient(
-      112deg,
-      transparent 20%,
-      rgba(255, 255, 255, 0.02) 35%,
-      rgba(255, 255, 255, 0.13) 46%,
-      rgba(255, 255, 255, 0.025) 58%,
-      transparent 70%
-    );
-
-  transform:
-    translateX(-35%)
-    rotate(8deg);
-
-  animation:
-    glassReflection
-    9s
-    ease-in-out
-    infinite
-    alternate;
-}
-
-@keyframes glassReflection {
-  from {
-    transform:
-      translateX(-38%)
-      rotate(8deg);
-  }
-
-  to {
-    transform:
-      translateX(35%)
-      rotate(8deg);
-  }
+  display: none !important;
 }
 
 
-/* =====================================================
+/* =========================================
    HOVER
-===================================================== */
+
+   NO SE MUEVE
+========================================= */
 
 .studio-card:not(.open):hover {
-  border-color:
-    rgba(255, 255, 255, 0.60);
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255, 255, 255, 0.16),
-      rgba(255, 255, 255, 0.05)
-    );
-}
-
-
-/* =====================================================
-   PILL
-===================================================== */
-
-.label-pill {
-  width: fit-content;
-
-  padding: 9px 16px;
-
-  border:
-    1px solid
-    rgba(255, 255, 255, 0.20);
-
-  border-radius: 999px;
-
-  background:
-    rgba(255, 255, 255, 0.045);
-
-  color:
-    rgba(255, 255, 255, 0.82);
-
-  font-size: 8px;
-  letter-spacing: 2.4px;
-
-  backdrop-filter: blur(12px);
-}
-
-
-/* =====================================================
-   LOGO
-===================================================== */
-
-.studio-logo {
-  width: 195px;
-  max-width: 78%;
-  height: auto;
-
-  display: block;
-
-  margin-top: 26px;
-
-  object-fit: contain;
-
-  filter:
-    grayscale(1)
-    brightness(1.10);
-}
-
-
-/* =====================================================
-   INTRO
-===================================================== */
-
-.intro {
-  width: 100%;
-  height: 100%;
-
-  padding: 36px;
-
-  display: flex;
-  flex-direction: column;
-}
-
-.intro-bottom {
-  margin-top: auto;
-}
-
-
-/* =====================================================
-   LABEL
-===================================================== */
-
-.label {
-  display: block;
-
-  margin-bottom: 18px;
-
-  color: var(--text-muted);
-
-  font-size: 8px;
-  line-height: 1.6;
-  letter-spacing: 3px;
-}
-
-
-/* =====================================================
-   TITULAR
-===================================================== */
-
-.intro h1 {
-  margin: 0;
-
-  color: var(--white);
-
-  font-size: 39px;
-  line-height: 0.96;
-  font-weight: 500;
-  letter-spacing: -2.3px;
-}
-
-
-/* =====================================================
-   DECORACIÓN
-===================================================== */
-
-.decorative-lines {
-  width: 100%;
-  height: 58px;
-
-  margin-top: 27px;
-  margin-bottom: 25px;
-
-  padding: 10px 0;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  border:
-    1px solid
-    rgba(255, 255, 255, 0.14);
-
-  border-radius: 10px;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.07),
-      rgba(255, 255, 255, 0.025)
-    );
-}
-
-.decorative-lines span {
-  width: 100%;
-  height: 1px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.48),
-      transparent
-    );
-}
-
-
-/* =====================================================
-   TEXTO INTRO
-===================================================== */
-
-.intro p {
-  max-width: 245px;
-
-  margin: 0;
-
-  color: var(--text-soft);
-
-  font-size: 12px;
-  line-height: 1.65;
-}
-
-
-/* =====================================================
-   ENTRAR
-===================================================== */
-
-.enter {
-  margin-top: 28px;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  color: var(--text-muted);
-
-  font-size: 8px;
-  letter-spacing: 3px;
-}
-
-.enter-arrow {
-  color: var(--white);
-
-  font-size: 17px;
-  letter-spacing: 0;
-
-  transition: transform 0.35s ease;
-}
-
-.studio-card:hover .enter-arrow {
   transform:
-    translate(
-      3px,
-      -3px
+    none !important;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.018
+    );
+
+  border-color:
+    rgba(
+      255,
+      255,
+      255,
+      0.42
     );
 }
 
 
-/* =====================================================
+/* =========================================
+   CLICK
+
+   TAMPOCO SE MUEVE
+========================================= */
+
+.studio-card:not(.open):active {
+  transform:
+    none !important;
+}
+
+
+/* =========================================
    TARJETA ABIERTA
-===================================================== */
+========================================= */
 
 .studio-card.open {
   width:
@@ -736,25 +425,153 @@ a {
   background: transparent;
 
   backdrop-filter: none;
-  -webkit-backdrop-filter: none;
 
-  border:
-    1px solid
-    rgba(255, 255, 255, 0.40);
+  -webkit-backdrop-filter: none;
 
   box-shadow:
     0 40px 110px
-    rgba(0, 0, 0, 0.38);
+    rgba(
+      0,
+      0,
+      0,
+      0.42
+    );
+
+  transform:
+    none !important;
 }
 
-.studio-card.open::before {
-  display: none;
+
+/* =========================================
+   PORTADA
+========================================= */
+
+.intro {
+  width: 100%;
+  height: 100%;
+
+  padding: 24px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
 }
 
 
-/* =====================================================
-   INTERFAZ
-===================================================== */
+/* =========================================
+   LOGOS
+========================================= */
+
+.studio-logo {
+  height: auto;
+
+  display: block;
+
+  object-fit: contain;
+}
+
+
+.intro-logo {
+  width: 205px;
+
+  max-width: none;
+
+  margin:
+    0
+    auto
+    25px;
+}
+
+
+/* =========================================
+   PORTADA TEXTO
+========================================= */
+
+.intro-bottom {
+  width: 100%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-align: center;
+}
+
+
+.intro h1 {
+  width: 100%;
+
+  margin: 0;
+
+  color: white;
+
+  font-size: 27px;
+
+  line-height: 1.08;
+
+  font-weight: 400;
+
+  letter-spacing: -1.4px;
+
+  text-align: center;
+}
+
+
+/* =========================================
+   PULSE
+========================================= */
+
+.intro-pulse {
+  display: block;
+
+  margin-top: 22px;
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.60
+    );
+
+  font-size: 11px;
+
+  font-weight: 400;
+
+  letter-spacing: 0.8px;
+
+  text-align: center;
+
+  transition:
+    color
+    0.25s ease;
+}
+
+
+.studio-card:not(.open):hover
+.intro-pulse {
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.95
+    );
+}
+
+
+/* =========================================
+   INTERFAZ ABIERTA
+========================================= */
 
 .interface {
   width: 100%;
@@ -773,9 +590,9 @@ a {
 }
 
 
-/* =====================================================
-   IZQUIERDA — CRISTAL
-===================================================== */
+/* =========================================
+   IZQUIERDA
+========================================= */
 
 .interface-left {
   position: relative;
@@ -783,13 +600,26 @@ a {
   padding: 44px;
 
   display: flex;
+
   flex-direction: column;
 
   background:
     linear-gradient(
       145deg,
-      rgba(255, 255, 255, 0.16),
-      rgba(255, 255, 255, 0.06)
+
+      rgba(
+        255,
+        255,
+        255,
+        0.15
+      ),
+
+      rgba(
+        255,
+        255,
+        255,
+        0.055
+      )
     );
 
   backdrop-filter:
@@ -802,20 +632,166 @@ a {
 
   border-right:
     1px solid
-    rgba(255, 255, 255, 0.20);
+    rgba(
+      255,
+      255,
+      255,
+      0.20
+    );
 }
 
-.interface-left .label-pill {
-  margin-bottom: 0;
+
+/* =========================================
+   DAOVEZ.DEV
+========================================= */
+
+.portfolio-pill {
+  width: 112px;
+  height: 36px;
+
+  padding: 0;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border:
+    1px solid
+    transparent;
+
+  border-radius: 9px;
+
+  background:
+    transparent;
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.94
+    );
+
+  text-decoration: none;
+
+  font-size: 11px;
+
+  font-weight: 400;
+
+  cursor: pointer;
+
+  transition:
+    background
+    0.22s ease,
+
+    border-color
+    0.22s ease;
 }
 
+
+.portfolio-pill:hover {
+  border-color:
+    rgba(
+      255,
+      255,
+      255,
+      0.14
+    );
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.018
+    );
+}
+
+
+.portfolio-pill:active {
+  background:
+    rgba(
+      0,
+      0,
+      0,
+      0.14
+    );
+
+  box-shadow:
+    inset
+    5px
+    5px
+    9px
+    rgba(
+      0,
+      0,
+      0,
+      0.34
+    ),
+
+    inset
+    -4px
+    -4px
+    8px
+    rgba(
+      255,
+      255,
+      255,
+      0.08
+    );
+}
+
+
+/* =========================================
+   LOGO ABIERTO
+========================================= */
+
+.interface-left
 .expanded-logo {
-  width: 170px;
+  width: 225px;
+
+  max-width: none;
+
+  margin-top: 48px;
+
+  flex-shrink: 0;
 }
+
+
+/* =========================================
+   IZQUIERDA ABAJO
+========================================= */
 
 .left-bottom {
+  width: 100%;
+
   margin-top: auto;
 }
+
+
+.label {
+  display: block;
+
+  margin-bottom: 18px;
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.50
+    );
+
+  font-size: 7px;
+
+  line-height: 1.7;
+
+  letter-spacing: 3.2px;
+}
+
 
 .left-bottom h3 {
   margin:
@@ -823,345 +799,936 @@ a {
     0
     0;
 
-  color: var(--white);
+  color: white;
 
   font-size:
     clamp(
-      34px,
-      4vw,
-      58px
+      32px,
+      3.7vw,
+      54px
     );
 
-  line-height: 0.91;
+  line-height: 1.03;
+
   font-weight: 300;
-  letter-spacing: -3.7px;
+
+  letter-spacing: -3px;
 }
 
 
-/* =====================================================
-   LOCALIZACIÓN
-===================================================== */
+/* =========================================
+   UBICACIÓN
+========================================= */
 
 .location {
+  width: 100%;
+
   margin-top: 38px;
 
   display: flex;
-  gap: 22px;
 
-  color: var(--text-muted);
+  align-items: center;
 
-  font-size: 8px;
-  letter-spacing: 2.5px;
+  justify-content: flex-start;
+
+  gap: 16px;
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.58
+    );
+
+  font-size: 7px;
+
+  letter-spacing: 3px;
 }
 
 
-/* =====================================================
-   CENTRO — TOTALMENTE TRANSPARENTE
-===================================================== */
+.location span {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  white-space: nowrap;
+}
+
+
+.location span::before {
+  content: "•";
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.78
+    );
+}
+
+
+/* =========================================
+   CENTRO
+========================================= */
 
 .interface-content {
   position: relative;
 
-  padding: 48px;
+  padding:
+    42px
+    48px;
 
   display: flex;
-  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  isolation: isolate;
 
   background: transparent;
 
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-
   border-right:
     1px solid
-    rgba(255, 255, 255, 0.18);
+    rgba(
+      255,
+      255,
+      255,
+      0.30
+    );
 }
 
 
-/* =====================================================
-   CONTENIDO CENTRO
-===================================================== */
+/* =========================================
+   LUPA
+========================================= */
+
+.lens-canvas {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 0;
+
+  width: 100%;
+  height: 100%;
+
+  pointer-events: none;
+
+  opacity: 0;
+
+  transition:
+    opacity
+    0.55s ease;
+
+  filter:
+    brightness(1.03)
+    contrast(1.05);
+}
+
+
+.lens-canvas.lens-ready {
+  opacity: 1;
+}
+
+
+.lens-glass {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 1;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      115deg,
+
+      rgba(
+        255,
+        255,
+        255,
+        0.04
+      ),
+
+      transparent 45%,
+
+      rgba(
+        255,
+        255,
+        255,
+        0.018
+      )
+    );
+}
+
+
+/* =========================================
+   CONTENIDO CENTRAL
+========================================= */
 
 .content-inner {
-  margin-top: auto;
+  position: relative;
+
+  z-index: 3;
+
+  width: 100%;
+
+  max-width: 430px;
+
+  height: 100%;
+  min-height: 100%;
+
+  margin: 0 auto;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  text-align: left;
 
   animation:
     contentReveal
     0.55s
-    cubic-bezier(0.22, 1, 0.36, 1);
+    cubic-bezier(
+      0.22,
+      1,
+      0.36,
+      1
+    );
 }
 
+
 @keyframes contentReveal {
+
   from {
     opacity: 0;
-    transform: translateY(18px);
+
+    transform:
+      translateY(18px);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
+
+    transform:
+      translateY(0);
   }
 }
+
+
+/* =========================================
+   SECCIÓN
+========================================= */
 
 .section-number {
   display: block;
 
-  margin-bottom: 22px;
+  margin-bottom: 18px;
 
   color:
-    rgba(255, 255, 255, 0.78);
+    rgba(
+      255,
+      255,
+      255,
+      0.82
+    );
 
-  font-size: 8px;
-  letter-spacing: 2.8px;
+  font-size: 7px;
+
+  font-weight: 500;
+
+  letter-spacing: 3px;
 }
+
+
+/* =========================================
+   TITULOS
+========================================= */
 
 .content-inner h2 {
   margin: 0;
 
-  color: var(--white);
+  color: white;
+
+  font-family:
+    "Sora",
+    sans-serif;
 
   font-size:
     clamp(
-      50px,
-      5.2vw,
-      76px
+      44px,
+      4.4vw,
+      66px
     );
 
-  line-height: 0.90;
-  font-weight: 300;
-  letter-spacing: -5px;
+  line-height: 0.95;
 
-  text-shadow:
-    0 3px 18px
-    rgba(0, 0, 0, 0.34);
+  font-weight: 600;
+
+  letter-spacing: -4px;
 }
+
 
 .content-inner > p {
-  max-width: 330px;
+  max-width: 390px;
 
-  margin-top: 30px;
+  margin-top: 24px;
 
   color:
-    rgba(255, 255, 255, 0.82);
+    rgba(
+      255,
+      255,
+      255,
+      0.96
+    );
 
-  font-size: 13px;
-  line-height: 1.7;
+  font-size: 14px;
+
+  line-height: 1.75;
 
   text-shadow:
-    0 2px 12px
-    rgba(0, 0, 0, 0.38);
+    0 2px 14px
+    rgba(
+      0,
+      0,
+      0,
+      0.90
+    );
 }
 
 
-/* =====================================================
-   PROYECTOS
-===================================================== */
+/* =========================================
+   STUDIO
+========================================= */
 
-.project-list {
-  margin-top: 35px;
+.content-studio {
+  position: relative;
 
-  display: flex;
-  flex-direction: column;
+  width: 100%;
+  height: 100%;
+
+  display: block;
 }
 
-.project-list button {
-  padding: 16px 0;
 
-  display: flex;
-  justify-content: space-between;
+.content-studio
+.section-number {
+  position: absolute;
+
+  top:
+    calc(
+      50% - 125px
+    );
+
+  left: 0;
+
+  margin: 0;
+}
+
+
+.content-studio h2 {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  width: 100%;
+
+  transform:
+    translate(
+      -50%,
+      -50%
+    );
+
+  text-align: center;
+}
+
+
+.content-studio > p {
+  position: absolute;
+
+  top:
+    calc(
+      50% + 105px
+    );
+
+  left: 50%;
+
+  width: 90%;
+
+  max-width: 410px;
+
+  margin: 0;
+
+  transform:
+    translateX(-50%);
+
+  font-size: 14px;
+
+  line-height: 1.75;
+}
+
+
+/* =========================================
+   PROYECTOS Y SERVICIOS
+========================================= */
+
+.content-proyectos,
+.content-servicios {
+  width: 100%;
+
+  max-width: 430px;
+
+  height: auto;
+
+  min-height: 0;
+
+  margin: 0 auto;
+
+  justify-content: center;
+}
+
+
+.content-grid-list {
+  position: relative;
+
+  z-index: 10;
+
+  width: 100%;
+
+  height: 224px;
+
+  margin-top: 22px;
+
+  display: grid;
+
+  grid-template-rows:
+    repeat(
+      4,
+      56px
+    );
+
+  border-bottom:
+    1px solid
+    rgba(
+      255,
+      255,
+      255,
+      0.26
+    );
+}
+
+
+.project-item {
+  position: relative;
+
+  width: 100%;
+
+  height: 56px;
+}
+
+
+.content-row {
+  width: 100%;
+  height: 56px;
+
+  padding:
+    0
+    12px;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(
+      130px,
+      1fr
+    )
+    minmax(
+      160px,
+      1.35fr
+    );
+
   align-items: center;
+
+  gap: 18px;
 
   border: none;
 
   border-top:
     1px solid
-    rgba(255, 255, 255, 0.22);
+    rgba(
+      255,
+      255,
+      255,
+      0.28
+    );
 
-  background:
-    rgba(0, 0, 0, 0.10);
+  background: transparent;
 
-  color: var(--white);
+  color: white;
 
-  cursor: pointer;
   text-align: left;
 
+  text-decoration: none;
+
+  cursor: pointer;
+
   transition:
-    background 0.3s ease,
-    padding-left 0.3s ease;
+    background
+    0.28s ease,
+
+    padding-left
+    0.28s ease;
 }
 
-.project-list button:hover {
-  padding-left: 9px;
+
+.content-row:hover {
+  padding-left: 18px;
 
   background:
-    rgba(255, 255, 255, 0.07);
+    rgba(
+      0,
+      0,
+      0,
+      0.50
+    );
 }
 
-.project-list small {
+
+.row-name {
+  font-size: 13px;
+}
+
+
+.row-meta {
   color:
-    rgba(255, 255, 255, 0.55);
+    rgba(
+      255,
+      255,
+      255,
+      0.58
+    );
+
+  font-size: 7px;
+
+  text-align: right;
+
+  white-space: nowrap;
 }
 
 
-/* =====================================================
-   SERVICIOS
-===================================================== */
+.project-placeholder {
+  opacity: 0.74;
+}
 
-.services-list {
-  margin-top: 35px;
+
+/* =========================================
+   PREVIEW
+========================================= */
+
+.project-preview {
+  position: absolute;
+
+  left: 50%;
+
+  bottom:
+    calc(
+      100% + 12px
+    );
+
+  z-index: 50;
+
+  width:
+    min(
+      410px,
+      100%
+    );
+
+  height: 225px;
+
+  overflow: hidden;
+
+  border:
+    1px solid
+    rgba(
+      255,
+      255,
+      255,
+      0.48
+    );
+
+  border-radius: 18px;
+
+  background:
+    rgba(
+      13,
+      13,
+      13,
+      0.94
+    );
+
+  opacity: 0;
+
+  visibility: hidden;
+
+  pointer-events: none;
+
+  transform:
+    translateX(-50%)
+    translateY(12px)
+    scale(0.95);
+
+  transition:
+    opacity
+    0.28s ease,
+
+    transform
+    0.28s ease;
+}
+
+
+.project-preview-visible {
+  opacity: 1;
+
+  visibility: visible;
+
+  transform:
+    translateX(-50%)
+    translateY(0)
+    scale(1);
+}
+
+
+.project-preview-header {
+  position: relative;
+
+  height: 36px;
+
+  padding:
+    0
+    13px;
 
   display: flex;
+
+  align-items: center;
+
+  background:
+    rgba(
+      13,
+      13,
+      13,
+      0.95
+    );
+}
+
+
+.preview-dots {
+  display: flex;
+
+  gap: 5px;
+}
+
+
+.preview-dots span {
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.38
+    );
+}
+
+
+.project-preview-title {
+  position: absolute;
+
+  left: 50%;
+
+  transform:
+    translateX(-50%);
+
+  font-size: 6px;
+
+  letter-spacing: 2px;
+}
+
+
+.project-preview-browser {
+  position: relative;
+
+  width: 100%;
+
+  height:
+    calc(
+      100% - 36px
+    );
+
+  overflow: hidden;
+
+  background: white;
+}
+
+
+.project-preview-browser iframe {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 1280px;
+  height: 720px;
+
+  border: none;
+
+  pointer-events: none;
+
+  transform:
+    scale(0.32);
+
+  transform-origin:
+    top left;
+}
+
+
+.project-preview-empty {
+  width: 100%;
+
+  height:
+    calc(
+      100% - 36px
+    );
+
+  display: flex;
+
   flex-direction: column;
-}
 
-.services-list span {
-  padding: 13px 0;
+  align-items: center;
+  justify-content: center;
 
-  color: var(--white);
+  gap: 8px;
 
-  border-top:
-    1px solid
-    rgba(255, 255, 255, 0.22);
-
-  font-size: 17px;
-  font-weight: 300;
-
-  transition: padding-left 0.3s ease;
-}
-
-.services-list span:hover {
-  padding-left: 8px;
+  background:
+    rgba(
+      0,
+      0,
+      0,
+      0.4
+    );
 }
 
 
-/* =====================================================
+/* =========================================
    CONTACTO
-===================================================== */
+========================================= */
+
+.content-contacto {
+  width: 100%;
+
+  max-width: 430px;
+
+  margin: 0 auto;
+
+  align-items: flex-start;
+
+  justify-content: center;
+}
+
 
 .contact-link {
-  margin-top: 36px;
-  padding-bottom: 10px;
+  margin-top: 24px;
 
-  width: fit-content;
+  padding-bottom: 11px;
 
-  display: flex;
+  display: inline-flex;
+
   align-items: center;
-  gap: 42px;
 
-  color: var(--white);
+  gap: 35px;
+
+  color: white;
+
   text-decoration: none;
 
   border-bottom:
     1px solid
-    rgba(255, 255, 255, 0.55);
+    rgba(
+      255,
+      255,
+      255,
+      0.35
+    );
+
+  font-size: 13px;
 }
 
 
-/* =====================================================
-   FOOTER CENTRO
-===================================================== */
-
-.content-footer {
-  margin-top: auto;
-
-  display: flex;
-  justify-content: space-between;
-
-  color:
-    rgba(255, 255, 255, 0.50);
-
-  font-size: 7px;
-  letter-spacing: 2.6px;
-}
-
-
-/* =====================================================
-   DERECHA — CRISTAL
-===================================================== */
+/* =========================================
+   NAVEGACIÓN
+========================================= */
 
 .navigation {
-  padding: 40px;
+  padding:
+    56px
+    38px;
 
   display: flex;
+
   flex-direction: column;
+
   justify-content: center;
+
+  gap: 18px;
 
   background:
     linear-gradient(
       145deg,
-      rgba(255, 255, 255, 0.16),
-      rgba(255, 255, 255, 0.06)
+
+      rgba(
+        255,
+        255,
+        255,
+        0.13
+      ),
+
+      rgba(
+        255,
+        255,
+        255,
+        0.045
+      )
     );
 
   backdrop-filter:
-    blur(28px)
-    saturate(110%);
+    blur(28px);
 
   -webkit-backdrop-filter:
-    blur(28px)
-    saturate(110%);
+    blur(28px);
 }
 
 
-/* =====================================================
-   MENÚ
-===================================================== */
-
 .navigation button {
-  padding: 12px 0;
+  width: 100%;
 
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
+  min-height: 60px;
 
-  border: none;
+  padding:
+    0
+    14px;
+
+  display: grid;
+
+  grid-template-columns:
+    26px
+    1fr;
+
+  align-items: center;
+
+  gap: 10px;
+
+  border:
+    1px solid
+    transparent;
+
+  border-radius: 10px;
 
   background: transparent;
 
   color:
-    rgba(255, 255, 255, 0.42);
+    rgba(
+      255,
+      255,
+      255,
+      0.44
+    );
 
   cursor: pointer;
+
   text-align: left;
 
   font-size:
     clamp(
-      27px,
-      2.9vw,
-      43px
+      21px,
+      2.1vw,
+      33px
     );
 
-  line-height: 1;
   font-weight: 300;
-  letter-spacing: -2px;
 
   transition:
-    color 0.35s ease,
-    transform 0.35s ease;
+    background
+    0.22s ease,
+
+    border-color
+    0.22s ease,
+
+    color
+    0.22s ease;
 }
+
 
 .navigation button small {
-  margin-top: 5px;
-
   color:
-    rgba(255, 255, 255, 0.28);
+    rgba(
+      255,
+      255,
+      255,
+      0.26
+    );
 
   font-size: 7px;
-  letter-spacing: 1px;
 }
 
-.navigation button:hover,
+
+.navigation button:hover {
+  border-color:
+    rgba(
+      255,
+      255,
+      255,
+      0.12
+    );
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.018
+    );
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.87
+    );
+}
+
+
 .navigation button.active {
-  color: var(--white);
-
-  transform:
-    translateX(-7px);
+  color: white;
 }
 
 
-/* =====================================================
+/* =========================================
    CERRAR
-===================================================== */
+========================================= */
 
 .close {
   position: absolute;
@@ -1169,8 +1736,8 @@ a {
   top: 25px;
   right: 25px;
 
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
 
   padding: 0;
 
@@ -1179,57 +1746,63 @@ a {
   background: transparent;
 
   color:
-    rgba(255, 255, 255, 0.75);
+    rgba(
+      255,
+      255,
+      255,
+      0.80
+    );
 
-  font-size: 31px;
+  font-size: 38px;
+
+  font-weight: 300;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
 
   cursor: pointer;
 
   transition:
-    color 0.3s ease,
-    transform 0.35s ease;
+    transform
+    0.35s ease,
+
+    opacity
+    0.35s ease;
 }
+
 
 .close:hover {
-  color: white;
+  transform:
+    rotate(90deg);
 
-  transform: rotate(90deg);
+  opacity: 0.55;
 }
 
 
-/* =====================================================
+/* =========================================
    MÓVIL
-===================================================== */
+========================================= */
 
-@media (max-width: 850px) {
-  .video-background {
-    inset: -12%;
-  }
-
-  .background-video {
-    transform: scale(1.16);
-  }
-
-  .orbital-lines {
-    inset: -30%;
-    opacity: 0.20;
-  }
-
-  .top-info,
-  .bottom-info {
-    left: 18px;
-    right: 18px;
-  }
-
-  .top-info span:last-child,
-  .bottom-info span:first-child {
-    display: none;
-  }
+@media (
+  max-width: 850px
+) {
 
   .studio-card {
-    width: 290px;
-    height: 450px;
+    width: 300px;
+    height: 300px;
+
+    transform:
+      none !important;
   }
+
+
+  .hero::after {
+    width: 300px;
+    height: 300px;
+  }
+
 
   .studio-card.open {
     width:
@@ -1242,11 +1815,14 @@ a {
         100svh - 24px
       );
 
-    border-radius: 25px;
+    transform:
+      none !important;
   }
 
+
   .interface {
-    grid-template-columns: 1fr;
+    grid-template-columns:
+      1fr;
 
     grid-template-rows:
       25%
@@ -1254,42 +1830,43 @@ a {
       28%;
   }
 
+
   .interface-left {
     padding: 27px;
-
-    border-right: none;
-
-    border-bottom:
-      1px solid
-      rgba(255, 255, 255, 0.18);
   }
 
+
+  .interface-left
   .expanded-logo {
-    width: 140px;
+    width: 175px;
+
+    margin-top: 18px;
   }
+
 
   .left-bottom h3,
   .location {
     display: none;
   }
 
+
   .interface-content {
-    padding: 28px;
-
-    border-right: none;
-
-    border-bottom:
-      1px solid
-      rgba(255, 255, 255, 0.18);
+    padding: 25px;
   }
+
 
   .content-inner h2 {
-    font-size: 44px;
-    letter-spacing: -3px;
+    font-size: 38px;
   }
 
+
+  .project-preview {
+    display: none;
+  }
+
+
   .navigation {
-    padding: 25px;
+    padding: 14px;
 
     display: grid;
 
@@ -1297,38 +1874,34 @@ a {
       1fr
       1fr;
 
-    align-content: center;
+    gap: 8px;
   }
 
+
   .navigation button {
-    font-size: 25px;
+    min-height: 48px;
+
+    font-size: 17px;
   }
 }
 
 
-/* =====================================================
+/* =========================================
    REDUCIR MOVIMIENTO
-===================================================== */
+========================================= */
 
-@media (prefers-reduced-motion: reduce) {
-  .video-background,
-  .orbital-lines,
-  .background-glow,
+@media (
+  prefers-reduced-motion: reduce
+) {
+
   .studio-card {
-    transform: none;
+    transform:
+      none !important;
   }
 
-  .studio-card::before,
+
   .video-in,
   .video-out {
     animation: none;
-  }
-
-  .video-in {
-    opacity: 1;
-  }
-
-  .video-out {
-    opacity: 0;
   }
 }
