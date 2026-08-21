@@ -37,6 +37,11 @@ textarea {
   font-family: "Comfortaa", sans-serif;
 }
 
+button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
 
 /* =========================================
    HERO
@@ -102,12 +107,29 @@ textarea {
 
   transform: scale(1.08);
 
-  filter: brightness(0.5);
+  filter:
+    brightness(0.36)
+    blur(8px);
 
   will-change:
     opacity,
     transform,
     filter;
+
+  transition:
+    filter
+    1.05s
+    cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+
+/* El vídeo despierta cuando nace la interfaz */
+
+.hero:has(.studio-card.open)
+.background-video {
+  filter:
+    brightness(0.5)
+    blur(0);
 }
 
 
@@ -124,12 +146,12 @@ textarea {
   top: 50%;
   left: 50%;
 
-  width: 300px;
-  height: 300px;
+  width: 285px;
+  height: 92px;
 
   z-index: 5;
 
-  border-radius: 30px;
+  border-radius: 22px;
 
   background: transparent;
 
@@ -214,7 +236,8 @@ textarea {
 
 
 /* =========================================
-   TARJETA CERRADA
+   INICIO
+   LOGO SOBRE BASE GRIS ELEVADA
 ========================================= */
 
 .studio-card {
@@ -222,8 +245,8 @@ textarea {
 
   z-index: 20;
 
-  width: 300px;
-  height: 300px;
+  width: 285px;
+  height: 92px;
 
   flex-shrink: 0;
 
@@ -233,112 +256,376 @@ textarea {
 
   border:
     1px solid
-    rgba(255, 255, 255, 0.34);
+    rgba(255, 255, 255, 0.10);
 
-  border-radius: 30px;
+  border-radius: 22px;
 
   background:
-    rgba(255, 255, 255, 0.025);
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.19),
+      rgba(255, 255, 255, 0.075)
+    );
 
   backdrop-filter:
-    blur(10px)
+    blur(18px)
     saturate(105%);
 
   -webkit-backdrop-filter:
-    blur(10px)
+    blur(18px)
     saturate(105%);
 
   box-shadow:
-    0 35px 90px
-    rgba(0, 0, 0, 0.4);
+    0
+    22px
+    55px
+    rgba(0, 0, 0, 0.62),
 
-  transform: none !important;
+    inset
+    0
+    1px
+    0
+    rgba(255, 255, 255, 0.12),
+
+    inset
+    0
+    -1px
+    0
+    rgba(0, 0, 0, 0.30);
+
+  transform:
+    translateY(0)
+    scale(1);
+
+  transform-origin:
+    center center;
+
+  will-change:
+    width,
+    height,
+    border-radius,
+    transform;
 
   transition:
     width
-    0.95s
-    cubic-bezier(0.76, 0, 0.24, 1),
+    0.88s
+    cubic-bezier(0.16, 1, 0.3, 1),
 
     height
-    0.95s
-    cubic-bezier(0.76, 0, 0.24, 1),
+    0.88s
+    cubic-bezier(0.16, 1, 0.3, 1),
 
     border-radius
-    0.95s
-    cubic-bezier(0.76, 0, 0.24, 1),
+    0.88s
+    cubic-bezier(0.16, 1, 0.3, 1),
+
+    transform
+    0.16s
+    ease,
 
     background
-    0.45s ease,
+    0.28s
+    ease,
 
     border-color
-    0.3s ease;
+    0.28s
+    ease,
+
+    box-shadow
+    0.28s
+    ease;
 }
+
+
+/* brillo sutil sobre la base del logo */
 
 .studio-card::before {
-  display: none !important;
-}
+  content: "";
 
-.studio-card:not(.open):hover {
-  transform: none !important;
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 0;
+
+  border-radius: inherit;
+
+  pointer-events: none;
 
   background:
-    rgba(255, 255, 255, 0.018);
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.055),
+      transparent 42%,
+      rgba(0, 0, 0, 0.10)
+    );
 
-  border-color:
-    rgba(255, 255, 255, 0.42);
+  opacity: 1;
+
+  transition:
+    opacity
+    0.28s
+    ease;
 }
 
+
+
+/* El click queda registrado aunque el ratón se suelte enseguida */
+
+.studio-card.opening:not(.open) {
+  animation:
+    premiumPress
+    0.145s
+    cubic-bezier(0.4, 0, 0.2, 1)
+    both;
+}
+
+
+@keyframes premiumPress {
+
+  0% {
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
+  55% {
+    transform:
+      translateY(3px)
+      scale(0.972);
+
+    box-shadow:
+      inset
+      9px
+      9px
+      20px
+      rgba(0, 0, 0, 0.56),
+
+      inset
+      -5px
+      -5px
+      12px
+      rgba(255, 255, 255, 0.04),
+
+      0
+      7px
+      16px
+      rgba(0, 0, 0, 0.35);
+  }
+
+  100% {
+    transform:
+      translateY(1px)
+      scale(0.992);
+  }
+}
+
+
+/* =========================================
+   HOVER DEL LOGO
+   LIGERAMENTE MÁS ELEVADO
+========================================= */
+
+.studio-card:not(.open):hover {
+  transform:
+    translateY(-2px)
+    scale(1.006);
+
+  border-color:
+    rgba(255, 255, 255, 0.15);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.22),
+      rgba(255, 255, 255, 0.085)
+    );
+
+  box-shadow:
+    0
+    27px
+    68px
+    rgba(0, 0, 0, 0.68),
+
+    inset
+    0
+    1px
+    0
+    rgba(255, 255, 255, 0.14),
+
+    inset
+    0
+    -1px
+    0
+    rgba(0, 0, 0, 0.34);
+}
+
+
+/* =========================================
+   CLICK / EFECTO HUNDIDO
+========================================= */
+
 .studio-card:not(.open):active {
-  transform: none !important;
+  transform:
+    translateY(3px)
+    scale(0.985);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.105),
+      rgba(255, 255, 255, 0.045)
+    );
+
+  border-color:
+    rgba(0, 0, 0, 0.70);
+
+  box-shadow:
+    inset
+    8px
+    8px
+    18px
+    rgba(0, 0, 0, 0.54),
+
+    inset
+    -5px
+    -5px
+    12px
+    rgba(255, 255, 255, 0.045),
+
+    0
+    8px
+    18px
+    rgba(0, 0, 0, 0.38);
+}
+
+
+/* foco de teclado */
+
+.studio-card:not(.open):focus-visible {
+  outline:
+    1px solid
+    rgba(255, 255, 255, 0.34);
+
+  outline-offset: 5px;
 }
 
 
 /* =========================================
    TARJETA ABIERTA
+   CRECE DESDE EL LOGO
 ========================================= */
 
 .studio-card.open {
-  width: min(1240px, 91vw);
-  height: min(700px, 84vh);
+  width:
+    min(1240px, 91vw);
 
-  border: 1px solid rgba(0, 0, 0, 0.95);
-  border-radius: 30px;
+  height:
+    min(700px, 84vh);
+
+  border:
+    1.5px solid
+    rgba(0, 0, 0, 0.95);
+
+  border-radius: 32px;
 
   cursor: default;
 
   background: transparent;
 
   backdrop-filter: none;
+
   -webkit-backdrop-filter: none;
 
   box-shadow:
-    0 40px 110px
+    0
+    40px
+    110px
     rgba(0, 0, 0, 0.42);
 
-  transform: none !important;
+  transform:
+    translateY(0)
+    scale(1);
 
-  overflow: visible !important;
+  transform-origin:
+    center center;
+
+  overflow:
+    visible !important;
+}
+
+
+.studio-card.open::before {
+  opacity: 0;
+}
+
+
+/* El borde gana presencia al terminar de expandirse */
+
+.studio-card.open {
+  animation:
+    premiumShellSettle
+    0.90s
+    cubic-bezier(0.16, 1, 0.3, 1)
+    both;
+}
+
+
+@keyframes premiumShellSettle {
+
+  0% {
+    box-shadow:
+      0
+      10px
+      28px
+      rgba(0, 0, 0, 0.28);
+  }
+
+  68% {
+    box-shadow:
+      0
+      46px
+      125px
+      rgba(0, 0, 0, 0.48);
+  }
+
+  100% {
+    box-shadow:
+      0
+      40px
+      110px
+      rgba(0, 0, 0, 0.42);
+  }
 }
 
 
 /* =========================================
    PORTADA CERRADA
+   SOLO LOGO
 ========================================= */
 
 .intro {
+  position: relative;
+
+  z-index: 2;
+
   width: 100%;
   height: 100%;
 
-  padding: 24px;
+  padding:
+    18px
+    26px;
 
   display: flex;
-  flex-direction: column;
 
   align-items: center;
   justify-content: center;
 
   text-align: center;
+
+  pointer-events: none;
 }
+
 
 .studio-logo {
   height: auto;
@@ -348,84 +635,194 @@ textarea {
   object-fit: contain;
 }
 
+
+
+/* =========================================
+   ECO / FANTASMA DEL LOGO
+========================================= */
+
+.intro::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 18px 26px;
+
+  z-index: -1;
+
+  pointer-events: none;
+
+  background:
+    url("/logo.png")
+    center
+    center /
+    210px
+    auto
+    no-repeat;
+
+  opacity: 0;
+
+  filter:
+    blur(0);
+
+  transform:
+    scale(1);
+
+  transform-origin:
+    center center;
+}
+
+
+.studio-card.opening:not(.open)
+.intro::after {
+  animation:
+    logoGhost
+    0.30s
+    cubic-bezier(0.16, 1, 0.3, 1)
+    both;
+}
+
+
+@keyframes logoGhost {
+
+  0% {
+    opacity: 0;
+
+    filter:
+      blur(0);
+
+    transform:
+      scale(1);
+  }
+
+  28% {
+    opacity: 0.32;
+  }
+
+  100% {
+    opacity: 0;
+
+    filter:
+      blur(7px);
+
+    transform:
+      scale(1.32);
+  }
+}
+
+
+.studio-card.opening:not(.open)
 .intro-logo {
-  width: 205px;
+  animation:
+    logoLaunch
+    0.20s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    both;
+}
+
+
+@keyframes logoLaunch {
+
+  0% {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
+  60% {
+    opacity: 1;
+
+    transform:
+      translateY(2px)
+      scale(0.97);
+  }
+
+  100% {
+    opacity: 0.82;
+
+    transform:
+      translateY(0)
+      scale(1.035);
+  }
+}
+
+
+.intro-logo {
+  width: 210px;
 
   max-width: none;
 
   height: auto;
 
-  margin:
-    0
-    auto
-    25px;
-
-  flex-shrink: 0;
-}
-
-.intro-bottom {
-  width: 100%;
-
-  display: flex;
-  flex-direction: column;
-
-  align-items: center;
-  justify-content: center;
-
-  text-align: center;
-}
-
-.intro h1 {
-  width: 100%;
-
   margin: 0;
 
-  color: white;
+  flex-shrink: 0;
 
-  font-size: 27px;
+  filter:
+    drop-shadow(
+      0
+      4px
+      10px
+      rgba(0, 0, 0, 0.30)
+    );
 
-  line-height: 1.08;
-
-  font-weight: 400;
-
-  letter-spacing: -1.4px;
-
-  text-align: center;
-}
-
-.intro-pulse {
-  display: block;
-
-  margin-top: 22px;
-
-  color:
-    rgba(255, 255, 255, 0.6);
-
-  font-size: 11px;
-
-  font-weight: 400;
-
-  letter-spacing: 0.8px;
-
-  text-align: center;
+  transform:
+    translateY(0)
+    scale(1);
 
   transition:
-    color
-    0.25s ease;
+    transform
+    0.18s
+    ease,
+
+    filter
+    0.25s
+    ease;
 }
 
+
 .studio-card:not(.open):hover
-.intro-pulse {
-  color:
-    rgba(255, 255, 255, 0.95);
+.intro-logo {
+  transform:
+    translateY(-1px)
+    scale(1.015);
+
+  filter:
+    drop-shadow(
+      0
+      6px
+      13px
+      rgba(0, 0, 0, 0.38)
+    );
+}
+
+
+.studio-card:not(.open):active
+.intro-logo {
+  transform:
+    translateY(2px)
+    scale(0.975);
+
+  filter:
+    drop-shadow(
+      0
+      1px
+      3px
+      rgba(0, 0, 0, 0.18)
+    );
 }
 
 
 /* =========================================
    INTERFAZ ABIERTA
+   REVELADO DESDE EL LOGO
 ========================================= */
 
 .interface {
+  position: relative;
+
   width: 100%;
   height: 100%;
 
@@ -439,6 +836,483 @@ textarea {
   overflow: visible !important;
 
   border-radius: inherit;
+
+  transform-origin:
+    center center;
+
+  /*
+    Pequeña espera mientras la carcasa empieza
+    a crecer desde el botón del logo.
+  */
+  animation:
+    interfaceBaseReveal
+    0.44s
+    0.20s
+    ease
+    both;
+}
+
+
+
+/* =========================================
+   PULSO DEL BORDE AL TERMINAR
+========================================= */
+
+.interface::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 490;
+
+  pointer-events: none;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.42);
+
+  border-radius: inherit;
+
+  opacity: 0;
+
+  box-shadow:
+    inset
+    0
+    0
+    20px
+    rgba(255, 255, 255, 0.035);
+
+  animation:
+    premiumBorderPulse
+    0.56s
+    0.56s
+    ease-out
+    both;
+}
+
+
+@keyframes premiumBorderPulse {
+
+  0% {
+    opacity: 0;
+  }
+
+  40% {
+    opacity: 0.72;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+
+/* Línea central muy sutil que "enciende" la interfaz */
+
+.interface::after {
+  content: "";
+
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  z-index: 500;
+
+  width: 1px;
+  height: 0;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      to bottom,
+      transparent,
+      rgba(255, 255, 255, 0.42),
+      transparent
+    );
+
+  transform:
+    translate(-50%, -50%);
+
+  box-shadow:
+    0
+    0
+    18px
+    rgba(255, 255, 255, 0.16);
+
+  animation:
+    revealScanLine
+    0.74s
+    0.22s
+    cubic-bezier(0.16, 1, 0.3, 1)
+    both;
+}
+
+
+@keyframes interfaceBaseReveal {
+
+  0% {
+    opacity: 0;
+  }
+
+  35% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+
+@keyframes revealScanLine {
+
+  0% {
+    height: 0;
+
+    opacity: 0;
+  }
+
+  25% {
+    height: 42%;
+
+    opacity: 0.7;
+  }
+
+  58% {
+    height: 100%;
+
+    opacity: 0.72;
+  }
+
+  100% {
+    height: 100%;
+
+    opacity: 0;
+  }
+}
+
+
+/* =========================================
+   REVELADO DE LAS TRES COLUMNAS
+
+   IZQUIERDA: nace desde su borde derecho.
+   CENTRO: se abre desde una línea vertical.
+   DERECHA: nace desde su borde izquierdo.
+========================================= */
+
+.interface-left {
+  animation:
+    revealLeftPanel
+    0.72s
+    0.34s
+    cubic-bezier(0.16, 1, 0.3, 1)
+    both;
+
+  will-change:
+    clip-path,
+    opacity,
+    transform,
+    filter;
+}
+
+
+.interface-content {
+  animation:
+    revealCenterPanel
+    0.78s
+    0.24s
+    cubic-bezier(0.16, 1, 0.3, 1)
+    both;
+
+  will-change:
+    clip-path,
+    opacity,
+    transform,
+    filter;
+}
+
+
+.navigation {
+  animation:
+    revealRightPanel
+    0.72s
+    0.42s
+    cubic-bezier(0.16, 1, 0.3, 1)
+    both;
+
+  will-change:
+    clip-path,
+    opacity,
+    transform,
+    filter;
+}
+
+
+@keyframes revealLeftPanel {
+
+  0% {
+    opacity: 0;
+
+    clip-path:
+      inset(
+        0
+        0
+        0
+        100%
+      );
+
+    transform:
+      translateX(20px);
+
+    filter:
+      blur(10px);
+  }
+
+  35% {
+    opacity: 0.45;
+  }
+
+  100% {
+    opacity: 1;
+
+    clip-path:
+      inset(
+        0
+        0
+        0
+        0
+      );
+
+    transform:
+      translateX(0);
+
+    filter:
+      blur(0);
+  }
+}
+
+
+@keyframes revealCenterPanel {
+
+  0% {
+    opacity: 0;
+
+    clip-path:
+      inset(
+        0
+        49%
+        0
+        49%
+      );
+
+    transform:
+      scaleX(0.96);
+
+    filter:
+      blur(12px)
+      brightness(1.2);
+  }
+
+  25% {
+    opacity: 0.35;
+  }
+
+  70% {
+    opacity: 0.96;
+
+    filter:
+      blur(2px)
+      brightness(1.04);
+  }
+
+  100% {
+    opacity: 1;
+
+    clip-path:
+      inset(
+        0
+        0
+        0
+        0
+      );
+
+    transform:
+      scaleX(1);
+
+    filter:
+      blur(0)
+      brightness(1);
+  }
+}
+
+
+
+/* =========================================
+   ENTRADA ESCALONADA DEL MENÚ
+========================================= */
+
+.studio-card.open
+.navigation button {
+  opacity: 0;
+
+  transform:
+    translateX(9px);
+
+  animation:
+    premiumNavItem
+    0.42s
+    cubic-bezier(0.16, 1, 0.3, 1)
+    forwards;
+}
+
+
+.studio-card.open
+.navigation button:nth-child(1) {
+  animation-delay: 0.54s;
+}
+
+.studio-card.open
+.navigation button:nth-child(2) {
+  animation-delay: 0.60s;
+}
+
+.studio-card.open
+.navigation button:nth-child(3) {
+  animation-delay: 0.66s;
+}
+
+.studio-card.open
+.navigation button:nth-child(4) {
+  animation-delay: 0.72s;
+}
+
+
+@keyframes premiumNavItem {
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateX(0);
+  }
+}
+
+
+@keyframes revealRightPanel {
+
+  0% {
+    opacity: 0;
+
+    clip-path:
+      inset(
+        0
+        100%
+        0
+        0
+      );
+
+    transform:
+      translateX(-20px);
+
+    filter:
+      blur(10px);
+  }
+
+  35% {
+    opacity: 0.45;
+  }
+
+  100% {
+    opacity: 1;
+
+    clip-path:
+      inset(
+        0
+        0
+        0
+        0
+      );
+
+    transform:
+      translateX(0);
+
+    filter:
+      blur(0);
+  }
+}
+
+
+
+
+/* =========================================
+   MICRO-REVELADO DEL LATERAL IZQUIERDO
+========================================= */
+
+.studio-card.open
+.interface-left
+.portfolio-pill,
+
+.studio-card.open
+.interface-left
+.expanded-logo,
+
+.studio-card.open
+.interface-left
+.left-bottom,
+
+.studio-card.open
+.interface-left
+.close {
+  opacity: 0;
+
+  transform:
+    translateY(8px);
+
+  animation:
+    premiumLeftItem
+    0.46s
+    cubic-bezier(0.16, 1, 0.3, 1)
+    forwards;
+}
+
+
+.studio-card.open
+.interface-left
+.close {
+  animation-delay: 0.48s;
+}
+
+.studio-card.open
+.interface-left
+.portfolio-pill {
+  animation-delay: 0.52s;
+}
+
+.studio-card.open
+.interface-left
+.expanded-logo {
+  animation-delay: 0.59s;
+}
+
+.studio-card.open
+.interface-left
+.left-bottom {
+  animation-delay: 0.66s;
+}
+
+
+@keyframes premiumLeftItem {
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
 }
 
 
@@ -471,8 +1345,8 @@ textarea {
   background:
     linear-gradient(
       145deg,
-      rgba(255, 255, 255, 0.28),
-      rgba(255, 255, 255, 0.13)
+      rgba(255, 255, 255, 0.22),
+      rgba(255, 255, 255, 0.09)
     );
 
   backdrop-filter:
@@ -485,7 +1359,7 @@ textarea {
 
   border-right:
     1px solid
-    rgba(0, 0, 0, 0.72);
+    rgba(0, 0, 0, 0.55);
 
   text-align: center;
 }
@@ -807,7 +1681,7 @@ textarea {
 
   border-right:
     1px solid
-    rgba(0, 0, 0, 0.72);
+    rgba(0, 0, 0, 0.55);
 }
 
 
@@ -918,22 +1792,25 @@ textarea {
 
 
 /* =========================================
-   NÚMERO SECCIÓN
+   NÚMERO / ETIQUETA DE SECCIÓN
+   MISMO TAMAÑO EN TODAS
 ========================================= */
 
 .section-number {
   display: block;
 
-  margin-bottom: 18px;
-
   color:
-    rgba(255, 255, 255, 0.82);
+    rgba(255, 255, 255, 0.90);
 
-  font-size: 7px;
+  font-size: 9px;
 
   font-weight: 500;
 
-  letter-spacing: 3px;
+  line-height: 1;
+
+  letter-spacing: 3.2px;
+
+  white-space: nowrap;
 }
 
 
@@ -989,6 +1866,7 @@ textarea {
 
 /* =========================================
    STUDIO
+   CONTENIDO CENTRAL CENTRADO Y REPARTIDO
 ========================================= */
 
 .content-studio {
@@ -1001,19 +1879,44 @@ textarea {
 
   min-height: 100%;
 
-  display: block;
+  padding:
+    64px
+    0
+    58px;
+
+  display: grid;
+
+  grid-template-rows:
+    auto
+    1fr
+    auto;
+
+  align-items: center;
+  justify-items: center;
+
+  row-gap: 28px;
+
+  text-align: center;
 }
 
 .content-studio
 .section-number {
-  position: absolute;
-
-  top:
-    calc(50% - 205px);
-
-  left: 0;
+  position: static;
 
   margin: 0;
+
+  justify-self: center;
+
+  color:
+    rgba(255, 255, 255, 0.90);
+
+  font-size: 9px;
+
+  line-height: 1;
+
+  letter-spacing: 3.2px;
+
+  text-align: center;
 
   z-index: 4;
 }
@@ -1021,29 +1924,34 @@ textarea {
 
 /* =========================================
    DIGITAL STUDIO
+   CENTRADO REAL
 ========================================= */
 
 .content-studio h2 {
-  position: absolute !important;
+  position: static !important;
 
-  top: 45.5% !important;
-  left: 50% !important;
-
-  width: 115% !important;
+  width: 112% !important;
 
   margin: 0 !important;
 
-  transform:
-    translate(-50%, -50%) !important;
+  align-self: center;
+  justify-self: center;
 
-  color: #ffffff !important;
+  transform: none !important;
+
+  color:
+    #ffffff !important;
 
   font-family:
     "Ubuntu",
     sans-serif !important;
 
   font-size:
-    150px !important;
+    clamp(
+      112px,
+      9.2vw,
+      150px
+    ) !important;
 
   line-height:
     0.76 !important;
@@ -1063,15 +1971,11 @@ textarea {
 
 /* =========================================
    DESCRIPCIÓN STUDIO
+   CENTRADA DEBAJO DEL TÍTULO
 ========================================= */
 
 .content-studio > p {
-  position: absolute;
-
-  top:
-    calc(50% + 130px);
-
-  left: 50%;
+  position: static;
 
   width: 92%;
 
@@ -1079,8 +1983,10 @@ textarea {
 
   margin: 0;
 
-  transform:
-    translateX(-50%);
+  align-self: end;
+  justify-self: center;
+
+  transform: none;
 
   color:
     rgba(255, 255, 255, 0.98);
@@ -1091,14 +1997,17 @@ textarea {
 
   line-height: 1.75;
 
-  letter-spacing: -0.15px;
+  letter-spacing:
+    -0.15px;
 
-  text-align: left;
+  text-align: center;
 
   z-index: 4;
 
   text-shadow:
-    0 2px 16px
+    0
+    2px
+    16px
     rgba(0, 0, 0, 0.95);
 }
 
@@ -1109,15 +2018,18 @@ textarea {
 
 .content-proyectos,
 .content-servicios {
-  width: 100%;
+  position: relative;
 
+  width: 100%;
   max-width: 430px;
 
-  height: auto;
-
-  min-height: 0;
+  height: 100%;
+  min-height: 100%;
 
   margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
 
   justify-content: center;
 
@@ -1126,7 +2038,335 @@ textarea {
 
 
 /* =========================================
-   LISTAS
+   PROYECTOS + SERVICIOS
+   MISMA ALTURA, PERO A LA DERECHA
+========================================= */
+
+.content-proyectos .section-number,
+.content-servicios .section-number {
+  position: absolute;
+
+  top: 66px;
+
+  left: auto;
+  right: 0;
+
+  z-index: 20;
+
+  margin: 0;
+
+  text-align: right;
+}
+
+
+/* =========================================
+   SERVICIOS
+   SEPARADO TOTALMENTE DE PROYECTOS
+========================================= */
+
+.services-list {
+  position: relative;
+  z-index: 20;
+  width: 100%;
+  height: 224px;
+  margin-top: 22px;
+  display: grid;
+  grid-template-rows: repeat(4, 56px);
+  overflow: visible !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.26);
+}
+
+.service-item {
+  position: relative;
+  width: 100%;
+  height: 56px;
+  overflow: visible;
+}
+
+.service-card {
+  -webkit-appearance: none;
+  appearance: none;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  z-index: 4;
+  width: 100%;
+  height: 56px;
+  margin: 0;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 0;
+  outline: none;
+  background: transparent !important;
+  color: #ffffff;
+  font-family: "Comfortaa", sans-serif;
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+  transform: translateY(-50%);
+  transform-origin: center center;
+  box-shadow: none;
+  transition:
+    left 0.34s cubic-bezier(0.22, 1, 0.36, 1),
+    width 0.34s cubic-bezier(0.22, 1, 0.36, 1),
+    height 0.34s cubic-bezier(0.22, 1, 0.36, 1),
+    padding 0.34s cubic-bezier(0.22, 1, 0.36, 1),
+    gap 0.34s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.28s ease,
+    border-color 0.28s ease,
+    border-radius 0.34s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.34s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.34s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.24s ease;
+}
+
+/* =========================================
+   CAPA DE CRISTAL DEL SERVICIO
+========================================= */
+
+.service-card::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 1;
+
+  pointer-events: none;
+
+  border-radius: inherit;
+
+  background:
+    radial-gradient(
+      circle at 50% 42%,
+      rgba(255, 255, 255, 0.11) 0%,
+      rgba(255, 255, 255, 0.035) 42%,
+      rgba(255, 255, 255, 0.008) 72%,
+      transparent 100%
+    );
+
+  opacity: 0;
+
+  transition:
+    opacity 0.28s ease;
+}
+
+
+.service-title {
+  position: relative;
+  z-index: 3;
+  display: block;
+  width: 100%;
+  color: rgba(255, 255, 255, 0.96);
+  font-family: "Comfortaa", sans-serif;
+  font-size: 14px;
+  line-height: 1.3;
+  font-weight: 400;
+  letter-spacing: -0.25px;
+  text-align: left;
+  transition:
+    color 0.28s ease,
+    font-size 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.service-description {
+  position: relative;
+  z-index: 3;
+  display: block;
+  width: 100%;
+  max-width: 430px;
+  max-height: 0;
+  margin: 0;
+  overflow: hidden;
+  visibility: hidden;
+  color: rgba(255, 255, 255, 0.96);
+  font-family: "Comfortaa", sans-serif;
+  font-size: 10.5px;
+  line-height: 1.58;
+  font-weight: 300;
+  letter-spacing: -0.05px;
+  text-align: left;
+  white-space: normal;
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition:
+    opacity 0.22s ease,
+    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    max-height 0.34s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s linear 0.34s;
+}
+
+.service-card:hover,
+.service-card:focus-visible {
+  left: -32px;
+
+  z-index: 100;
+
+  width:
+    calc(100% + 64px);
+
+  height: 126px;
+
+  padding:
+    20px
+    26px;
+
+  justify-content: center;
+
+  gap: 11px;
+
+
+  /* BORDE NEGRO FINO */
+
+  border:
+    1px solid
+    rgba(0, 0, 0, 0.92);
+
+  border-radius: 14px;
+
+
+  /* =====================================
+     CRISTAL MUY TRANSPARENTE
+     El vídeo sigue siendo protagonista.
+  ====================================== */
+
+  background:
+    radial-gradient(
+      circle at 50% 42%,
+      rgba(255, 255, 255, 0.055) 0%,
+      rgba(255, 255, 255, 0.022) 44%,
+      rgba(255, 255, 255, 0.006) 100%
+    ) !important;
+
+
+  /* =====================================
+     EFECTO LUPA / VIDRIO
+  ====================================== */
+
+  backdrop-filter:
+    blur(2.5px)
+    brightness(1.18)
+    contrast(1.16)
+    saturate(112%);
+
+  -webkit-backdrop-filter:
+    blur(2.5px)
+    brightness(1.18)
+    contrast(1.16)
+    saturate(112%);
+
+
+  /*
+    Un pequeño aumento de la tarjeta da
+    sensación de que la zona se acerca.
+  */
+
+  transform:
+    translateY(-50%)
+    scale(1.025);
+
+
+  /* =====================================
+     SOMBRA NEGRA MARCADA
+  ====================================== */
+
+  box-shadow:
+
+    0
+    30px
+    72px
+    rgba(0, 0, 0, 0.64),
+
+    0
+    10px
+    26px
+    rgba(0, 0, 0, 0.46),
+
+    inset
+    0
+    1px
+    0
+    rgba(255, 255, 255, 0.18),
+
+    inset
+    0
+    -1px
+    0
+    rgba(0, 0, 0, 0.28);
+
+  overflow: hidden;
+}
+
+/* =========================================
+   ACTIVAR BRILLO DE CRISTAL
+========================================= */
+
+.service-card:hover::before,
+.service-card:focus-visible::before {
+  opacity: 1;
+}
+
+
+.service-card:hover .service-title,
+.service-card:focus-visible .service-title {
+  color: #ffffff;
+
+  font-size: 16px;
+
+  text-shadow:
+    0
+    2px
+    10px
+    rgba(0, 0, 0, 0.72);
+}
+
+.service-card:hover .service-description,
+.service-card:focus-visible .service-description {
+  max-height: 78px;
+  visibility: visible;
+  opacity: 1;
+
+  color:
+    rgba(255, 255, 255, 0.98);
+
+  transform:
+    translateY(0);
+
+  text-shadow:
+    0
+    2px
+    10px
+    rgba(0, 0, 0, 0.72);
+
+  transition:
+    opacity 0.22s ease 0.04s,
+    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    max-height 0.34s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s linear 0s;
+}
+
+.services-list:has(.service-card:hover)
+.service-card:not(:hover) {
+  opacity: 0.34;
+}
+
+.services-list:has(.service-card:focus-visible)
+.service-card:not(:focus-visible) {
+  opacity: 0.34;
+}
+
+
+/* =========================================
+   PROYECTOS
+   PREVIEW EN DIRECTO COMO ANTES
 ========================================= */
 
 .content-grid-list {
@@ -1135,7 +2375,6 @@ textarea {
   z-index: 10;
 
   width: 100%;
-
   height: 224px;
 
   margin-top: 22px;
@@ -1152,11 +2391,11 @@ textarea {
     rgba(255, 255, 255, 0.26);
 }
 
+
 .project-item {
   position: relative;
 
   width: 100%;
-
   height: 56px;
 
   overflow: visible !important;
@@ -1164,10 +2403,10 @@ textarea {
 
 
 /* =========================================
-   FILAS
+   FILAS DE PROYECTOS
 ========================================= */
 
-.content-row {
+.project-list .content-row {
   position: relative;
 
   z-index: 3;
@@ -1195,74 +2434,97 @@ textarea {
     1px solid
     rgba(255, 255, 255, 0.28);
 
+  border-radius: 0;
+
   background: transparent;
 
-  color: white;
+  color: #ffffff;
 
   text-align: left;
-
   text-decoration: none;
 
   cursor: pointer;
 
+  opacity: 1;
+
   transition:
-    background
-    0.28s ease,
-
-    padding-left
-    0.28s ease,
-
-    color
-    0.28s ease;
+    background 0.28s ease,
+    padding-left 0.28s ease,
+    color 0.28s ease,
+    opacity 0.28s ease;
 }
 
-.content-row:hover {
+
+.project-list .content-row:hover,
+.project-list .content-row:focus-visible {
   padding-left: 18px;
 
   background:
-    rgba(0, 0, 0, 0.55);
+    rgba(0, 0, 0, 0.32);
+
+  outline: none;
 }
 
-.row-name {
+
+.project-list .row-name {
   color:
     rgba(255, 255, 255, 0.95);
+
+  font-family:
+    "Comfortaa",
+    sans-serif;
 
   font-size: 13px;
 
   line-height: 1.3;
+
+  font-weight: 400;
+
+  text-align: left;
 }
 
-.row-meta {
+
+.project-list .row-meta {
   color:
     rgba(255, 255, 255, 0.58);
+
+  font-family:
+    "Comfortaa",
+    sans-serif;
 
   font-size: 7px;
 
   line-height: 1.45;
+
+  font-weight: 300;
 
   text-align: right;
 
   white-space: nowrap;
 }
 
-.content-row:hover
-.row-meta {
+
+.project-list .content-row:hover .row-meta,
+.project-list .content-row:focus-visible .row-meta {
   color:
     rgba(255, 255, 255, 0.92);
 }
 
-.project-placeholder {
+
+.project-list .project-placeholder {
   opacity: 0.74;
 }
 
-.project-placeholder:hover {
+
+.project-list .project-placeholder:hover,
+.project-list .project-placeholder:focus-visible {
   opacity: 1;
 }
 
 
 /* =========================================
-   PREVIEW PROYECTOS
-   MÁS PEQUEÑA
+   VENTANA PREVIEW
+   MISMAS MEDIDAS DE ANTES: 440 x 250
 ========================================= */
 
 .project-preview {
@@ -1271,29 +2533,22 @@ textarea {
   left: 50%;
 
   bottom:
-    calc(100% + 16px);
+    calc(100% + 10px);
 
   z-index: 9999;
 
-  /*
-     TAMAÑO DE LA VENTANA
-     Antes: 520 x 292
-     Ahora: 440 x 250
-  */
-
-  width: 440px;
-  height: 250px;
+  width: 300px;
+  height: 170px;
 
   overflow: hidden;
 
   border:
-    1px solid
-    rgba(255, 255, 255, 0.48);
+    1px solid rgba(0, 0, 0, 0.92);
 
-  border-radius: 16px;
+  border-radius: 13px;
 
   background:
-    rgba(13, 13, 13, 0.97);
+    rgba(13, 13, 13, 0.84);
 
   backdrop-filter:
     blur(24px);
@@ -1302,8 +2557,8 @@ textarea {
     blur(24px);
 
   box-shadow:
-    0 28px 80px
-    rgba(0, 0, 0, 0.72);
+    0 20px 45px
+    rgba(0, 0, 0, 0.48);
 
   opacity: 0;
 
@@ -1313,22 +2568,18 @@ textarea {
 
   transform:
     translateX(-50%)
-    translateY(10px)
+    translateY(8px)
     scale(0.96);
 
   transform-origin:
     bottom center;
 
   transition:
-    opacity
-    0.28s ease,
-
-    transform
-    0.28s ease,
-
-    visibility
-    0.28s;
+    opacity 0.28s ease,
+    transform 0.28s ease,
+    visibility 0.28s;
 }
+
 
 .project-preview-visible {
   opacity: 1;
@@ -1338,42 +2589,25 @@ textarea {
   transform:
     translateX(-50%)
     translateY(0)
-    scale(1);
+    scale(1.02);
 }
 
 
 /* =========================================
-   PREVIEW HEADER
+   CABECERA PREVIEW
 ========================================= */
 
 .project-preview-header {
-  position: relative;
-
-  z-index: 3;
-
-  height: 34px;
-
-  padding:
-    0
-    13px;
-
-  display: flex;
-
-  align-items: center;
-
-  background:
-    rgba(13, 13, 13, 0.97);
-
-  border-bottom:
-    1px solid
-    rgba(255, 255, 255, 0.12);
+  display: none;
 }
+
 
 .preview-dots {
   display: flex;
 
   gap: 5px;
 }
+
 
 .preview-dots span {
   width: 5px;
@@ -1384,6 +2618,7 @@ textarea {
   background:
     rgba(255, 255, 255, 0.38);
 }
+
 
 .project-preview-title {
   position: absolute;
@@ -1405,33 +2640,28 @@ textarea {
 
 
 /* =========================================
-   PREVIEW WEB
+   WEB REAL DENTRO DE LA PREVIEW
 ========================================= */
 
 .project-preview-browser {
   position: relative;
 
   width: 100%;
-
-  height:
-    calc(100% - 34px);
+  height: 100%;
 
   overflow: hidden;
 
   background: #ffffff;
+
+  border-radius: 12px;
 }
 
-
-/*
-   SIMULA UNA PANTALLA DE ESCRITORIO
-   Y LA REDUCE DENTRO DE LA PREVIEW
-*/
 
 .project-preview-browser iframe {
   position: absolute;
 
-  top: 0;
-  left: 0;
+  top: 50%;
+  left: 50%;
 
   width: 1440px;
   height: 900px;
@@ -1441,24 +2671,24 @@ textarea {
   pointer-events: none;
 
   transform:
-    scale(0.305);
+    translate(-50%, -50%)
+    scale(0.22);
 
   transform-origin:
-    top left;
+    center center;
 }
 
 
 /* =========================================
-   PREVIEW VACÍO
+   PROYECTOS SIN WEB TODAVÍA
 ========================================= */
 
 .project-preview-empty {
   width: 100%;
-
-  height:
-    calc(100% - 34px);
+  height: 100%;
 
   display: flex;
+
   flex-direction: column;
 
   align-items: center;
@@ -1466,9 +2696,12 @@ textarea {
 
   gap: 7px;
 
+  border-radius: 12px;
+
   background:
-    rgba(0, 0, 0, 0.4);
+    rgba(15, 15, 15, 0.82);
 }
+
 
 .project-preview-empty span {
   color:
@@ -1479,8 +2712,9 @@ textarea {
   letter-spacing: 3px;
 }
 
+
 .project-preview-empty strong {
-  color: white;
+  color: #ffffff;
 
   font-family:
     "Ubuntu",
@@ -1490,6 +2724,7 @@ textarea {
 
   font-weight: 500;
 }
+
 
 .project-preview-empty small {
   color:
@@ -1504,21 +2739,41 @@ textarea {
 ========================================= */
 
 .content-contacto {
-  width: 100%;
+  position: relative;
 
+  width: 100%;
   max-width: 430px;
 
-  height: auto;
-
-  min-height: 0;
+  height: 100%;
+  min-height: 100%;
 
   margin: 0 auto;
 
-  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
 
+  align-items: flex-start;
   justify-content: center;
 
   text-align: left;
+
+  overflow: visible !important;
+}
+
+
+/* =========================================
+   MISMA POSICIÓN: 04 / CONTACTO
+========================================= */
+
+.content-contacto .section-number {
+  position: absolute;
+
+  top: 66px;
+  left: 0;
+
+  z-index: 20;
+
+  margin: 0;
 }
 
 .content-contacto h2 {
@@ -1600,8 +2855,8 @@ textarea {
   background:
     linear-gradient(
       145deg,
-      rgba(255, 255, 255, 0.28),
-      rgba(255, 255, 255, 0.13)
+      rgba(255, 255, 255, 0.22),
+      rgba(255, 255, 255, 0.09)
     );
 
   backdrop-filter:
@@ -1800,6 +3055,111 @@ textarea {
 
 @media (max-width: 850px) {
 
+  /* =========================================
+     STUDIO CENTRADO EN MÓVIL
+  ========================================= */
+
+  .content-studio {
+    padding:
+      20px
+      0
+      18px;
+
+    grid-template-rows:
+      auto
+      1fr
+      auto;
+
+    row-gap: 14px;
+  }
+
+  .content-studio .section-number {
+    position: static;
+
+    margin: 0;
+
+    font-size: 7px;
+
+    letter-spacing: 2.5px;
+
+    text-align: center;
+  }
+
+  .content-studio h2 {
+    position: static !important;
+
+    top: auto !important;
+    left: auto !important;
+
+    width: 100% !important;
+
+    transform: none !important;
+
+    font-size: 66px !important;
+
+    line-height: 0.82 !important;
+
+    letter-spacing: -4px !important;
+  }
+
+  .content-studio > p {
+    position: static;
+
+    top: auto;
+    left: auto;
+
+    width: 100%;
+
+    margin: 0;
+
+    transform: none;
+
+    font-size: 10px;
+
+    line-height: 1.65;
+
+    text-align: center;
+  }
+
+
+
+  /* =========================================
+     INTERFAZ REVELADA EN MÓVIL
+  ========================================= */
+
+  .interface::after {
+    display: none;
+  }
+
+  .interface-left {
+    animation:
+      revealMobilePanel
+      0.58s
+      0.18s
+      cubic-bezier(0.16, 1, 0.3, 1)
+      both;
+  }
+
+  .interface-content {
+    animation:
+      revealMobilePanel
+      0.64s
+      0.26s
+      cubic-bezier(0.16, 1, 0.3, 1)
+      both;
+  }
+
+  .navigation {
+    animation:
+      revealMobilePanel
+      0.58s
+      0.34s
+      cubic-bezier(0.16, 1, 0.3, 1)
+      both;
+  }
+
+
+
   .video-background {
     inset: -12%;
   }
@@ -1811,10 +3171,15 @@ textarea {
   }
 
   .studio-card {
-    width: 300px;
-    height: 300px;
+    width: 240px;
+    height: 80px;
 
-    transform: none !important;
+    border-radius: 19px;
+  }
+
+  .studio-card:not(.open) .intro-logo,
+  .studio-card:not(.open):hover .intro-logo {
+    width: 178px;
   }
 
   .hero::after {
@@ -1822,11 +3187,12 @@ textarea {
     height: 300px;
   }
 
-  .hero::after {
-    width: 300px;
-    height: 300px;
 
-    border-radius: 30px;
+  .hero::after {
+    width: 240px;
+    height: 80px;
+
+    border-radius: 19px;
   }
 
   .hero:has(.studio-card.open)::after {
@@ -1939,6 +3305,14 @@ textarea {
     min-height: auto;
   }
 
+  .content-studio,
+  .content-proyectos,
+  .content-servicios,
+  .content-contacto {
+    height: 100%;
+    min-height: 100%;
+  }
+
   .content-inner h2 {
     font-size: 38px;
 
@@ -1964,10 +3338,32 @@ textarea {
       -4px !important;
   }
 
-  .content-studio
-  .section-number {
-    top:
-      calc(50% - 115px);
+  .content-studio .section-number,
+  .content-contacto .section-number {
+    top: 18px;
+
+    left: 0;
+    right: auto;
+
+    font-size: 7px;
+
+    letter-spacing: 2.5px;
+
+    text-align: left;
+  }
+
+  .content-proyectos .section-number,
+  .content-servicios .section-number {
+    top: 18px;
+
+    left: auto;
+    right: 0;
+
+    font-size: 7px;
+
+    letter-spacing: 2.5px;
+
+    text-align: right;
   }
 
   .content-studio > p {
@@ -1981,44 +3377,68 @@ textarea {
     line-height: 1.65;
   }
 
-  .content-grid-list {
+  /* =========================================
+     SERVICIOS EN MÓVIL
+  ========================================= */
+
+  .services-list {
     height: 168px;
-
-    grid-template-rows:
-      repeat(4, 42px);
-
+    grid-template-rows: repeat(4, 42px);
     margin-top: 15px;
   }
 
-  .project-item {
+  .service-item {
     height: 42px;
   }
 
-  .content-row {
+  .service-card,
+  .service-card:hover,
+  .service-card:focus-visible {
+    top: 50%;
+    left: 0;
+    z-index: 4;
+    width: 100%;
     height: 42px;
-
-    padding:
-      0
-      7px;
-
-    grid-template-columns:
-      1fr
-      1fr;
-
-    gap: 8px;
+    padding: 0 8px;
+    gap: 0;
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 0;
+    background: transparent !important;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    overflow: hidden;
+    transform: translateY(-50%);
   }
 
-  .row-name {
+  .service-title,
+  .service-card:hover .service-title,
+  .service-card:focus-visible .service-title {
+    width: 100%;
     font-size: 9px;
+    line-height: 1.25;
   }
 
-  .row-meta {
-    font-size: 5.5px;
-  }
-
-  .project-preview {
+  .service-card::before,
+  .service-card:hover::before,
+  .service-card:focus-visible::before {
     display: none;
   }
+
+  .service-description,
+  .service-card:hover .service-description,
+  .service-card:focus-visible .service-description {
+    display: none;
+  }
+
+  .services-list:has(.service-card:hover)
+  .service-card:not(:hover),
+  .services-list:has(.service-card:focus-visible)
+  .service-card:not(:focus-visible) {
+    opacity: 1;
+  }
+
 
   .content-contacto > p {
     font-size: 10px;
@@ -2061,6 +3481,49 @@ textarea {
 
     letter-spacing: -1px;
   }
+
+  /* PROYECTOS EN MÓVIL */
+
+  .content-grid-list {
+    height: 168px;
+
+    grid-template-rows:
+      repeat(4, 42px);
+
+    margin-top: 15px;
+  }
+
+  .project-item {
+    height: 42px;
+  }
+
+  .project-list .content-row {
+    height: 42px;
+
+    padding:
+      0
+      7px;
+
+    grid-template-columns:
+      1fr
+      1fr;
+
+    gap: 8px;
+  }
+
+  .project-list .row-name {
+    font-size: 9px;
+  }
+
+  .project-list .row-meta {
+    font-size: 5.5px;
+  }
+
+  .project-preview {
+    display: none;
+  }
+
+
 }
 
 
@@ -2068,7 +3531,82 @@ textarea {
    REDUCIR MOVIMIENTO
 ========================================= */
 
+
+@keyframes revealMobilePanel {
+
+  0% {
+    opacity: 0;
+
+    clip-path:
+      inset(
+        50%
+        0
+        50%
+        0
+      );
+
+    transform:
+      translateY(10px);
+
+    filter:
+      blur(8px);
+  }
+
+  100% {
+    opacity: 1;
+
+    clip-path:
+      inset(
+        0
+        0
+        0
+        0
+      );
+
+    transform:
+      translateY(0);
+
+    filter:
+      blur(0);
+  }
+}
+
+
 @media (prefers-reduced-motion: reduce) {
+
+  .studio-card,
+  .studio-card::after,
+  .intro::after,
+  .intro-logo,
+  .interface::before,
+  .interface::after,
+  .navigation button,
+  .interface-left .portfolio-pill,
+  .interface-left .expanded-logo,
+  .interface-left .left-bottom,
+  .interface-left .close {
+    animation: none !important;
+    transition: none !important;
+  }
+
+
+
+  .interface,
+  .interface-left,
+  .interface-content,
+  .navigation {
+    animation: none !important;
+  }
+
+  .interface::after {
+    display: none;
+  }
+
+  .interface {
+    animation: none;
+  }
+
+
 
   .studio-card {
     transform: none !important;
@@ -2087,7 +3625,9 @@ textarea {
     opacity: 0;
   }
 
-  .project-preview {
+  .service-card,
+  .service-title,
+  .service-description {
     transition: none;
   }
 

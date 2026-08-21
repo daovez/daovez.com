@@ -55,26 +55,30 @@ const projects = [
 const services = [
   {
     id: "web-design",
-    title: "Web Design",
-    meta: "Diseño digital",
+    title: "Diseño web y UI / UX",
+    description:
+      "Diseñamos webs modernas, atractivas e intuitivas, adaptadas a cualquier dispositivo y cuidando cada detalle de la experiencia de usuario.",
   },
 
   {
     id: "development",
-    title: "Development",
-    meta: "Desarrollo web",
+    title: "Desarrollo web full-stack",
+    description:
+      "Desarrollamos webs y aplicaciones completas, desde la interfaz hasta el servidor, incluyendo bases de datos, APIs e integraciones a medida.",
   },
 
   {
-    id: "ui-ux",
-    title: "UI / UX",
-    meta: "Interfaces",
+    id: "ecommerce",
+    title: "Tiendas online y eCommerce",
+    description:
+      "Creamos tiendas online rápidas, seguras y fáciles de gestionar, pensadas para vender y ofrecer una experiencia de compra sencilla y agradable.",
   },
 
   {
-    id: "creative-development",
-    title: "Creative Development",
-    meta: "Experiencias digitales",
+    id: "seo",
+    title: "SEO y optimización web",
+    description:
+      "Mejoramos velocidad, rendimiento, estructura y SEO técnico para que tu web cargue mejor, sea más fácil de usar y gane visibilidad en buscadores.",
   },
 ];
 
@@ -229,8 +233,14 @@ function App() {
   const transitionTimerRef =
     useRef(null);
 
+  const openingTimerRef =
+    useRef(null);
+
 
   const [open, setOpen] =
+    useState(false);
+
+  const [opening, setOpening] =
     useState(false);
 
   const [section, setSection] =
@@ -255,6 +265,7 @@ function App() {
     previewProject,
     setPreviewProject,
   ] = useState(null);
+
 
 
 
@@ -376,7 +387,333 @@ function App() {
   }, []);
 
 
-  
+  /* =========================================
+     LUPA VIDEO CENTRAL
+  ========================================= */
+
+  useEffect(() => {
+
+    if (!open) return;
+
+
+    const canvas =
+      lensCanvasRef.current;
+
+    const lens =
+      lensContainerRef.current;
+
+
+    if (
+      !canvas ||
+      !lens
+    ) {
+      return;
+    }
+
+
+    const context =
+      canvas.getContext(
+        "2d",
+        {
+          alpha: false,
+        }
+      );
+
+
+    if (!context) return;
+
+
+    canvas.classList.remove(
+      "lens-ready"
+    );
+
+
+    let animationFrame;
+
+    let firstFrameDrawn =
+      false;
+
+
+    const drawLens = () => {
+
+      const video =
+        mainVideoRef.current;
+
+
+      if (
+        video &&
+        video.readyState >= 2 &&
+        video.videoWidth > 0 &&
+        video.videoHeight > 0
+      ) {
+
+        const videoRect =
+          video.getBoundingClientRect();
+
+        const lensRect =
+          lens.getBoundingClientRect();
+
+
+        const cssWidth =
+          Math.max(
+            1,
+            lensRect.width
+          );
+
+
+        const cssHeight =
+          Math.max(
+            1,
+            lensRect.height
+          );
+
+
+        const dpr =
+          Math.min(
+            window.devicePixelRatio ||
+              1,
+            2
+          );
+
+
+        const pixelWidth =
+          Math.round(
+            cssWidth *
+            dpr
+          );
+
+
+        const pixelHeight =
+          Math.round(
+            cssHeight *
+            dpr
+          );
+
+
+        if (
+          canvas.width !==
+            pixelWidth ||
+          canvas.height !==
+            pixelHeight
+        ) {
+
+          canvas.width =
+            pixelWidth;
+
+          canvas.height =
+            pixelHeight;
+        }
+
+
+        context.setTransform(
+          dpr,
+          0,
+          0,
+          dpr,
+          0,
+          0
+        );
+
+
+        context.clearRect(
+          0,
+          0,
+          cssWidth,
+          cssHeight
+        );
+
+
+        const coverScale =
+          Math.max(
+            videoRect.width /
+              video.videoWidth,
+
+            videoRect.height /
+              video.videoHeight
+          );
+
+
+        const visibleSourceWidth =
+          videoRect.width /
+          coverScale;
+
+
+        const visibleSourceHeight =
+          videoRect.height /
+          coverScale;
+
+
+        const sourceOffsetX =
+          (
+            video.videoWidth -
+            visibleSourceWidth
+          ) /
+          2;
+
+
+        const sourceOffsetY =
+          (
+            video.videoHeight -
+            visibleSourceHeight
+          ) /
+          2;
+
+
+        const lensCenterX =
+          lensRect.left +
+          lensRect.width /
+            2;
+
+
+        const lensCenterY =
+          lensRect.top +
+          lensRect.height /
+            2;
+
+
+        const relativeCenterX =
+          lensCenterX -
+          videoRect.left;
+
+
+        const relativeCenterY =
+          lensCenterY -
+          videoRect.top;
+
+
+        const sourceCenterX =
+          sourceOffsetX +
+          relativeCenterX /
+            coverScale;
+
+
+        const sourceCenterY =
+          sourceOffsetY +
+          relativeCenterY /
+            coverScale;
+
+
+        let sourceWidth =
+          cssWidth /
+          coverScale /
+          LENS_ZOOM;
+
+
+        let sourceHeight =
+          cssHeight /
+          coverScale /
+          LENS_ZOOM;
+
+
+        sourceWidth =
+          Math.min(
+            sourceWidth,
+            video.videoWidth
+          );
+
+
+        sourceHeight =
+          Math.min(
+            sourceHeight,
+            video.videoHeight
+          );
+
+
+        let sourceX =
+          sourceCenterX -
+          sourceWidth /
+            2;
+
+
+        let sourceY =
+          sourceCenterY -
+          sourceHeight /
+            2;
+
+
+        sourceX =
+          Math.max(
+            0,
+            Math.min(
+              sourceX,
+              video.videoWidth -
+                sourceWidth
+            )
+          );
+
+
+        sourceY =
+          Math.max(
+            0,
+            Math.min(
+              sourceY,
+              video.videoHeight -
+                sourceHeight
+            )
+          );
+
+
+        context.drawImage(
+          video,
+
+          sourceX,
+          sourceY,
+
+          sourceWidth,
+          sourceHeight,
+
+          0,
+          0,
+
+          cssWidth,
+          cssHeight
+        );
+
+
+        if (
+          !firstFrameDrawn
+        ) {
+
+          firstFrameDrawn =
+            true;
+
+
+          requestAnimationFrame(
+            () => {
+
+              canvas.classList.add(
+                "lens-ready"
+              );
+
+            }
+          );
+        }
+      }
+
+
+      animationFrame =
+        requestAnimationFrame(
+          drawLens
+        );
+    };
+
+
+    drawLens();
+
+
+    return () => {
+
+      cancelAnimationFrame(
+        animationFrame
+      );
+
+    };
+
+  }, [
+    open,
+    currentVideo,
+  ]);
+
 
   /* =========================================
      LIMPIAR TIMER
@@ -396,9 +733,105 @@ function App() {
 
       }
 
+      if (
+        openingTimerRef.current
+      ) {
+
+        clearTimeout(
+          openingTimerRef.current
+        );
+
+      }
+
     };
 
   }, []);
+
+
+  /* =========================================
+     APERTURA PREMIUM
+     1. Hundimiento/destello.
+     2. Expansión desde el logo.
+     3. Revelado escalonado de la interfaz.
+  ========================================= */
+
+  const openStudio = () => {
+
+    if (
+      open ||
+      opening
+    ) {
+      return;
+    }
+
+
+    setOpening(
+      true
+    );
+
+
+    if (
+      openingTimerRef.current
+    ) {
+      clearTimeout(
+        openingTimerRef.current
+      );
+    }
+
+
+    openingTimerRef.current =
+      setTimeout(
+        () => {
+
+          setOpen(
+            true
+          );
+
+
+          openingTimerRef.current =
+            setTimeout(
+              () => {
+
+                setOpening(
+                  false
+                );
+
+              },
+              1150
+            );
+
+        },
+        145
+      );
+  };
+
+
+  const closeStudio = () => {
+
+    if (
+      openingTimerRef.current
+    ) {
+      clearTimeout(
+        openingTimerRef.current
+      );
+
+      openingTimerRef.current =
+        null;
+    }
+
+
+    setOpening(
+      false
+    );
+
+    setPreviewProject(
+      null
+    );
+
+    setOpen(
+      false
+    );
+  };
 
 
   /* =========================================
@@ -419,6 +852,7 @@ function App() {
       setPreviewProject(
         null
       );
+
 
 
       if (
@@ -464,7 +898,8 @@ function App() {
 
 
   /* =========================================
-     PREVIEW
+     PREVIEW EN DIRECTO DE PROYECTOS
+     Ventana original: 440 x 250 px
   ========================================= */
 
   const ProjectPreview =
@@ -512,9 +947,7 @@ function App() {
             <div className="project-preview-browser">
 
               <iframe
-                src={
-                  project.previewUrl
-                }
+                src={project.previewUrl}
                 title={`Preview ${project.title}`}
                 loading="lazy"
                 tabIndex="-1"
@@ -551,6 +984,7 @@ function App() {
 
   /* =========================================
      PROYECTOS
+     Recupera el hover con preview web real.
   ========================================= */
 
   const renderProjects =
@@ -562,16 +996,12 @@ function App() {
           (project) => (
 
             <div
-              key={
-                project.id
-              }
+              key={project.id}
               className="project-item"
             >
 
               <ProjectPreview
-                project={
-                  project
-                }
+                project={project}
               />
 
 
@@ -581,9 +1011,7 @@ function App() {
                 <a
                   className="content-row project-link"
 
-                  href={
-                    project.url
-                  }
+                  href={project.url}
 
                   target="_blank"
 
@@ -613,12 +1041,8 @@ function App() {
                     )
                   }
 
-                  onClick={(
-                    event
-                  ) => {
-
+                  onClick={(event) => {
                     event.stopPropagation();
-
                   }}
                 >
 
@@ -651,6 +1075,18 @@ function App() {
                       null
                     )
                   }
+
+                  onFocus={() =>
+                    setPreviewProject(
+                      project
+                    )
+                  }
+
+                  onBlur={() =>
+                    setPreviewProject(
+                      null
+                    )
+                  }
                 >
 
                   <span className="row-name">
@@ -677,36 +1113,41 @@ function App() {
 
   /* =========================================
      SERVICIOS
+     Independiente de Proyectos.
+     En reposo: solo título.
+     En hover/focus: tarjeta glass + descripción.
   ========================================= */
 
   const renderServices =
     () => (
 
-      <div className="content-grid-list services-list">
+      <div className="services-list">
 
         {services.map(
           (service) => (
 
-            <button
-              key={
-                service.id
-              }
-
-              type="button"
-
-              className="content-row service-row"
+            <div
+              key={service.id}
+              className="service-item"
             >
 
-              <span className="row-name">
-                {service.title}
-              </span>
+              <button
+                type="button"
+                className="service-card"
+                aria-label={`${service.title}. ${service.description}`}
+              >
 
+                <span className="service-title">
+                  {service.title}
+                </span>
 
-              <small className="row-meta">
-                {service.meta}
-              </small>
+                <span className="service-description">
+                  {service.description}
+                </span>
 
-            </button>
+              </button>
+
+            </div>
 
           )
         )}
@@ -755,9 +1196,9 @@ function App() {
 
 
         <h2>
-          Selected
+          Nuestros
           <br />
-          Work.
+          proyectos.
         </h2>
 
 
@@ -776,9 +1217,9 @@ function App() {
 
 
         <h2>
-          What
+          ¿Qué
           <br />
-          we do.
+          hacemos?
         </h2>
 
 
@@ -797,9 +1238,9 @@ function App() {
 
 
         <h2>
-          Start a
+          Comienza
           <br />
-          project.
+          ya!
         </h2>
 
 
@@ -918,20 +1359,58 @@ function App() {
         className={`
           studio-card
           ${
+            opening
+              ? "opening"
+              : ""
+          }
+          ${
             open
               ? "open"
               : ""
           }
         `}
 
-        onClick={() => {
+        role={
+          open
+            ? undefined
+            : "button"
+        }
 
+        tabIndex={
+          open
+            ? -1
+            : 0
+        }
+
+        aria-label={
+          open
+            ? undefined
+            : "Abrir Daovez Studio"
+        }
+
+        onClick={() => {
 
           if (!open) {
 
-            setOpen(
-              true
-            );
+            openStudio();
+
+          }
+
+        }}
+
+        onKeyDown={(event) => {
+
+          if (
+            !open &&
+            (
+              event.key === "Enter" ||
+              event.key === " "
+            )
+          ) {
+
+            event.preventDefault();
+
+            openStudio();
 
           }
 
@@ -951,24 +1430,6 @@ function App() {
               alt="Studio Web"
               className="studio-logo intro-logo"
             />
-
-
-            <div className="intro-bottom">
-
-              <h1>
-                Experiencias
-                <br />
-                digitales
-                <br />
-                modernas.
-              </h1>
-
-
-              <span className="intro-pulse">
-                Pulse
-              </span>
-
-            </div>
 
           </div>
 
@@ -1000,9 +1461,7 @@ function App() {
 
                   event.stopPropagation();
 
-                  setOpen(
-                    false
-                  );
+                  closeStudio();
 
                 }}
               >
