@@ -112,7 +112,8 @@ textarea {
 
 
 /* =========================================
-   NEGRO INICIAL
+   NEGRO FUERA DE LA TARJETA
+   EL VIDEO SOLO SE VE DENTRO
 ========================================= */
 
 .hero::after {
@@ -139,16 +140,25 @@ textarea {
 
   transform: translate(-50%, -50%);
 
-  opacity: 1;
-
   transition:
-    opacity
-    0.8s
-    cubic-bezier(0.22, 1, 0.36, 1);
+    width
+    0.95s
+    cubic-bezier(0.76, 0, 0.24, 1),
+
+    height
+    0.95s
+    cubic-bezier(0.76, 0, 0.24, 1),
+
+    border-radius
+    0.95s
+    cubic-bezier(0.76, 0, 0.24, 1);
 }
 
-.hero.background-revealed::after {
-  opacity: 0;
+.hero:has(.studio-card.open)::after {
+  width: min(1240px, 91vw);
+  height: min(700px, 84vh);
+
+  border-radius: 32px;
 }
 
 
@@ -291,7 +301,8 @@ textarea {
   width: min(1240px, 91vw);
   height: min(700px, 84vh);
 
-  border-radius: 32px;
+  border: 1px solid rgba(0, 0, 0, 0.95);
+  border-radius: 30px;
 
   cursor: default;
 
@@ -439,14 +450,15 @@ textarea {
   position: relative;
 
   padding:
-    44px
-    44px
-    42px;
+    34px
+    34px
+    34px;
 
   display: flex;
   flex-direction: column;
 
-  align-items: flex-start;
+  align-items: center;
+  justify-content: space-between;
 
   overflow: hidden;
 
@@ -473,7 +485,9 @@ textarea {
 
   border-right:
     1px solid
-    rgba(255, 255, 255, 0.3);
+    rgba(0, 0, 0, 0.72);
+
+  text-align: center;
 }
 
 
@@ -491,6 +505,8 @@ textarea {
 
   align-items: center;
   justify-content: center;
+
+  align-self: center;
 
   flex-shrink: 0;
 
@@ -570,7 +586,10 @@ textarea {
 
   height: auto;
 
-  margin-top: 22px;
+  margin:
+    18px
+    auto
+    0;
 
   display: block;
 
@@ -593,16 +612,19 @@ textarea {
 
   min-height: 0;
 
-  margin-top: 34px;
+  margin-top: 24px;
 
   display: flex;
   flex-direction: column;
 
-  align-items: flex-start;
-
+  align-items: center;
   justify-content: space-between;
 
-  padding-top: 4px;
+  gap: 18px;
+
+  padding-top: 0;
+
+  text-align: center;
 }
 
 
@@ -610,7 +632,24 @@ textarea {
    TYPEWRITER
 ========================================= */
 
-.typewriter-title {
+.typewriter-block {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: space-evenly;
+
+  flex: 1;
+
+  gap: 20px;
+
+  text-align: center;
+}
+
+.typewriter-title,
+.typewriter-claim {
   width: 100%;
 
   margin: 0;
@@ -622,20 +661,45 @@ textarea {
     sans-serif;
 
   font-size:
-    clamp(38px, 3.9vw, 58px);
+    clamp(
+      29px,
+      2.45vw,
+      40px
+    );
 
-  line-height: 1.02;
+  line-height: 1.08;
 
   font-weight: 300;
 
-  letter-spacing: -3px;
+  letter-spacing: -2px;
 
-  text-align: left;
+  text-align: center;
 
   white-space: pre-line;
 }
 
-.typing-cursor {
+.typewriter-claim {
+  min-height: 132px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0;
+
+  transition:
+    opacity
+    0.3s
+    ease;
+}
+
+.typewriter-claim.claim-visible {
+  opacity: 1;
+}
+
+.typing-cursor,
+.claim-cursor {
   display: inline-block;
 
   margin-left: 3px;
@@ -674,14 +738,14 @@ textarea {
 
   width: 100%;
 
-  margin-top: auto;
+  margin-top: 0;
 
-  padding-top: 30px;
+  padding-top: 12px;
 
   display: flex;
 
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
 
   gap: 18px;
 
@@ -692,7 +756,7 @@ textarea {
 
   letter-spacing: 3px;
 
-  text-align: left;
+  text-align: center;
 }
 
 .location span {
@@ -743,7 +807,7 @@ textarea {
 
   border-right:
     1px solid
-    rgba(255, 255, 255, 0.3);
+    rgba(0, 0, 0, 0.72);
 }
 
 
@@ -791,10 +855,14 @@ textarea {
 
   background:
     linear-gradient(
+      rgba(0, 0, 0, 0.18),
+      rgba(0, 0, 0, 0.18)
+    ),
+    linear-gradient(
       115deg,
-      rgba(255, 255, 255, 0.035),
+      rgba(255, 255, 255, 0.025),
       transparent 45%,
-      rgba(255, 255, 255, 0.015)
+      rgba(255, 255, 255, 0.01)
     );
 }
 
@@ -1754,6 +1822,23 @@ textarea {
     height: 300px;
   }
 
+  .hero::after {
+    width: 300px;
+    height: 300px;
+
+    border-radius: 30px;
+  }
+
+  .hero:has(.studio-card.open)::after {
+    width:
+      calc(100vw - 24px);
+
+    height:
+      calc(100svh - 24px);
+
+    border-radius: 25px;
+  }
+
   .studio-card.open {
     width:
       calc(100vw - 24px);
@@ -1828,7 +1913,7 @@ textarea {
     padding: 0;
   }
 
-  .typewriter-title,
+  .typewriter-block,
   .location {
     display: none;
   }
@@ -2006,7 +2091,8 @@ textarea {
     transition: none;
   }
 
-  .typing-cursor {
+  .typing-cursor,
+  .claim-cursor {
     animation: none;
   }
 }

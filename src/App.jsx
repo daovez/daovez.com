@@ -84,80 +84,126 @@ const services = [
 ========================================= */
 
 function TypewriterText() {
-  const fullText =
+  const mainText =
     "Creamos\nexperiencias\ndigitales.";
 
-  const [text, setText] =
+  const claimText =
+    "Diseño.\nCódigo.\nIdentidad.";
+
+  const [mainVisible, setMainVisible] =
     useState("");
 
-  const [finished, setFinished] =
+  const [claimVisible, setClaimVisible] =
+    useState("");
+
+  const [mainFinished, setMainFinished] =
+    useState(false);
+
+  const [claimFinished, setClaimFinished] =
     useState(false);
 
 
   useEffect(() => {
     let index = 0;
+    let interval = null;
 
-    setText("");
-    setFinished(false);
+    setMainVisible("");
+    setMainFinished(false);
 
-
-    const startTimer =
+    const timer =
       setTimeout(() => {
-
-        const interval =
+        interval =
           setInterval(() => {
-
             index += 1;
 
-            setText(
-              fullText.slice(
-                0,
-                index
-              )
+            setMainVisible(
+              mainText.slice(0, index)
             );
 
-
-            if (
-              index >=
-              fullText.length
-            ) {
-              clearInterval(
-                interval
-              );
-
-              setFinished(true);
+            if (index >= mainText.length) {
+              clearInterval(interval);
+              setMainFinished(true);
             }
-
           }, 55);
-
-
-        return () =>
-          clearInterval(
-            interval
-          );
-
-      }, 350);
-
+      }, 300);
 
     return () => {
-      clearTimeout(
-        startTimer
-      );
-    };
+      clearTimeout(timer);
 
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
   }, []);
 
 
-  return (
-    <h3 className="typewriter-title">
-      {text}
+  useEffect(() => {
+    if (!mainFinished) return;
 
-      {!finished && (
-        <span className="typing-cursor">
-          |
-        </span>
-      )}
-    </h3>
+    let index = 0;
+    let interval = null;
+
+    setClaimVisible("");
+    setClaimFinished(false);
+
+    const timer =
+      setTimeout(() => {
+        interval =
+          setInterval(() => {
+            index += 1;
+
+            setClaimVisible(
+              claimText.slice(0, index)
+            );
+
+            if (index >= claimText.length) {
+              clearInterval(interval);
+              setClaimFinished(true);
+            }
+          }, 55);
+      }, 420);
+
+    return () => {
+      clearTimeout(timer);
+
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
+  }, [mainFinished]);
+
+
+  return (
+    <div className="typewriter-block">
+      <h3 className="typewriter-title">
+        {mainVisible}
+
+        {!mainFinished && (
+          <span className="typing-cursor">
+            |
+          </span>
+        )}
+      </h3>
+
+      <p
+        className={`
+          typewriter-claim
+          ${
+            mainFinished
+              ? "claim-visible"
+              : ""
+          }
+        `}
+      >
+        {claimVisible}
+
+        {mainFinished && !claimFinished && (
+          <span className="claim-cursor">
+            |
+          </span>
+        )}
+      </p>
+    </div>
   );
 }
 
@@ -210,11 +256,6 @@ function App() {
     setPreviewProject,
   ] = useState(null);
 
-
-  const [
-    backgroundRevealed,
-    setBackgroundRevealed,
-  ] = useState(false);
 
 
   /* =========================================
@@ -335,333 +376,7 @@ function App() {
   }, []);
 
 
-  /* =========================================
-     LUPA VIDEO CENTRAL
-  ========================================= */
-
-  useEffect(() => {
-
-    if (!open) return;
-
-
-    const canvas =
-      lensCanvasRef.current;
-
-    const lens =
-      lensContainerRef.current;
-
-
-    if (
-      !canvas ||
-      !lens
-    ) {
-      return;
-    }
-
-
-    const context =
-      canvas.getContext(
-        "2d",
-        {
-          alpha: false,
-        }
-      );
-
-
-    if (!context) return;
-
-
-    canvas.classList.remove(
-      "lens-ready"
-    );
-
-
-    let animationFrame;
-
-    let firstFrameDrawn =
-      false;
-
-
-    const drawLens = () => {
-
-      const video =
-        mainVideoRef.current;
-
-
-      if (
-        video &&
-        video.readyState >= 2 &&
-        video.videoWidth > 0 &&
-        video.videoHeight > 0
-      ) {
-
-        const videoRect =
-          video.getBoundingClientRect();
-
-        const lensRect =
-          lens.getBoundingClientRect();
-
-
-        const cssWidth =
-          Math.max(
-            1,
-            lensRect.width
-          );
-
-
-        const cssHeight =
-          Math.max(
-            1,
-            lensRect.height
-          );
-
-
-        const dpr =
-          Math.min(
-            window.devicePixelRatio ||
-              1,
-            2
-          );
-
-
-        const pixelWidth =
-          Math.round(
-            cssWidth *
-            dpr
-          );
-
-
-        const pixelHeight =
-          Math.round(
-            cssHeight *
-            dpr
-          );
-
-
-        if (
-          canvas.width !==
-            pixelWidth ||
-          canvas.height !==
-            pixelHeight
-        ) {
-
-          canvas.width =
-            pixelWidth;
-
-          canvas.height =
-            pixelHeight;
-        }
-
-
-        context.setTransform(
-          dpr,
-          0,
-          0,
-          dpr,
-          0,
-          0
-        );
-
-
-        context.clearRect(
-          0,
-          0,
-          cssWidth,
-          cssHeight
-        );
-
-
-        const coverScale =
-          Math.max(
-            videoRect.width /
-              video.videoWidth,
-
-            videoRect.height /
-              video.videoHeight
-          );
-
-
-        const visibleSourceWidth =
-          videoRect.width /
-          coverScale;
-
-
-        const visibleSourceHeight =
-          videoRect.height /
-          coverScale;
-
-
-        const sourceOffsetX =
-          (
-            video.videoWidth -
-            visibleSourceWidth
-          ) /
-          2;
-
-
-        const sourceOffsetY =
-          (
-            video.videoHeight -
-            visibleSourceHeight
-          ) /
-          2;
-
-
-        const lensCenterX =
-          lensRect.left +
-          lensRect.width /
-            2;
-
-
-        const lensCenterY =
-          lensRect.top +
-          lensRect.height /
-            2;
-
-
-        const relativeCenterX =
-          lensCenterX -
-          videoRect.left;
-
-
-        const relativeCenterY =
-          lensCenterY -
-          videoRect.top;
-
-
-        const sourceCenterX =
-          sourceOffsetX +
-          relativeCenterX /
-            coverScale;
-
-
-        const sourceCenterY =
-          sourceOffsetY +
-          relativeCenterY /
-            coverScale;
-
-
-        let sourceWidth =
-          cssWidth /
-          coverScale /
-          LENS_ZOOM;
-
-
-        let sourceHeight =
-          cssHeight /
-          coverScale /
-          LENS_ZOOM;
-
-
-        sourceWidth =
-          Math.min(
-            sourceWidth,
-            video.videoWidth
-          );
-
-
-        sourceHeight =
-          Math.min(
-            sourceHeight,
-            video.videoHeight
-          );
-
-
-        let sourceX =
-          sourceCenterX -
-          sourceWidth /
-            2;
-
-
-        let sourceY =
-          sourceCenterY -
-          sourceHeight /
-            2;
-
-
-        sourceX =
-          Math.max(
-            0,
-            Math.min(
-              sourceX,
-              video.videoWidth -
-                sourceWidth
-            )
-          );
-
-
-        sourceY =
-          Math.max(
-            0,
-            Math.min(
-              sourceY,
-              video.videoHeight -
-                sourceHeight
-            )
-          );
-
-
-        context.drawImage(
-          video,
-
-          sourceX,
-          sourceY,
-
-          sourceWidth,
-          sourceHeight,
-
-          0,
-          0,
-
-          cssWidth,
-          cssHeight
-        );
-
-
-        if (
-          !firstFrameDrawn
-        ) {
-
-          firstFrameDrawn =
-            true;
-
-
-          requestAnimationFrame(
-            () => {
-
-              canvas.classList.add(
-                "lens-ready"
-              );
-
-            }
-          );
-        }
-      }
-
-
-      animationFrame =
-        requestAnimationFrame(
-          drawLens
-        );
-    };
-
-
-    drawLens();
-
-
-    return () => {
-
-      cancelAnimationFrame(
-        animationFrame
-      );
-
-    };
-
-  }, [
-    open,
-    currentVideo,
-  ]);
-
+  
 
   /* =========================================
      LIMPIAR TIMER
@@ -1130,15 +845,7 @@ function App() {
 
     <main
       ref={heroRef}
-
-      className={`
-        hero
-        ${
-          backgroundRevealed
-            ? "background-revealed"
-            : ""
-        }
-      `}
+      className="hero"
     >
 
       {/* =====================================
@@ -1217,19 +924,7 @@ function App() {
           }
         `}
 
-        onPointerEnter={() => {
-
-          setBackgroundRevealed(
-            true
-          );
-
-        }}
-
         onClick={() => {
-
-          setBackgroundRevealed(
-            true
-          );
 
 
           if (!open) {
