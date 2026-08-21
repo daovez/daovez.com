@@ -1,17 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import "./App.css";
 
-
 const videos = {
   studio: "/background-studio.mp4",
   proyectos: "/background-projects.mp4",
   servicios: "/background-services.mp4",
   contacto: "/background-contact.mp4",
 };
-
-
-const LENS_ZOOM = 1.16;
-
 
 const projects = [
   {
@@ -22,7 +17,6 @@ const projects = [
     previewUrl: "https://daovez.dev",
     enabled: true,
   },
-
   {
     id: "project-02",
     title: "Proyecto 02",
@@ -31,7 +25,6 @@ const projects = [
     previewUrl: "",
     enabled: false,
   },
-
   {
     id: "project-03",
     title: "Proyecto 03",
@@ -40,7 +33,6 @@ const projects = [
     previewUrl: "",
     enabled: false,
   },
-
   {
     id: "project-04",
     title: "Proyecto 04",
@@ -51,7 +43,6 @@ const projects = [
   },
 ];
 
-
 const services = [
   {
     id: "web-design",
@@ -59,21 +50,18 @@ const services = [
     description:
       "Diseñamos webs modernas, atractivas e intuitivas, adaptadas a cualquier dispositivo y cuidando cada detalle de la experiencia de usuario.",
   },
-
   {
     id: "development",
     title: "Desarrollo web full-stack",
     description:
       "Desarrollamos webs y aplicaciones completas, desde la interfaz hasta el servidor, incluyendo bases de datos, APIs e integraciones a medida.",
   },
-
   {
     id: "ecommerce",
     title: "Tiendas online y eCommerce",
     description:
       "Creamos tiendas online rápidas, seguras y fáciles de gestionar, pensadas para vender y ofrecer una experiencia de compra sencilla y agradable.",
   },
-
   {
     id: "seo",
     title: "SEO y optimización web",
@@ -82,363 +70,153 @@ const services = [
   },
 ];
 
-
-/* =========================================
-   TEXTO ESCRITO CON JAVASCRIPT
-========================================= */
+const LENS_ZOOM = 1.16;
 
 function TypewriterText() {
-  const mainText =
-    "Creamos\nexperiencias\ndigitales.";
+  const mainText = "Creamos\nexperiencias\ndigitales.";
+  const claimText = "Diseño.\nCódigo.\nIdentidad.";
 
-  const claimText =
-    "Diseño.\nCódigo.\nIdentidad.";
-
-  const [mainVisible, setMainVisible] =
-    useState("");
-
-  const [claimVisible, setClaimVisible] =
-    useState("");
-
-  const [mainFinished, setMainFinished] =
-    useState(false);
-
-  const [claimFinished, setClaimFinished] =
-    useState(false);
-
+  const [mainVisible, setMainVisible] = useState("");
+  const [claimVisible, setClaimVisible] = useState("");
+  const [mainFinished, setMainFinished] = useState(false);
+  const [claimFinished, setClaimFinished] = useState(false);
 
   useEffect(() => {
     let index = 0;
-    let interval = null;
+    let intervalId;
 
-    setMainVisible("");
-    setMainFinished(false);
+    const startId = window.setTimeout(() => {
+      intervalId = window.setInterval(() => {
+        index += 1;
+        setMainVisible(mainText.slice(0, index));
 
-    const timer =
-      setTimeout(() => {
-        interval =
-          setInterval(() => {
-            index += 1;
-
-            setMainVisible(
-              mainText.slice(0, index)
-            );
-
-            if (index >= mainText.length) {
-              clearInterval(interval);
-              setMainFinished(true);
-            }
-          }, 55);
-      }, 300);
+        if (index >= mainText.length) {
+          window.clearInterval(intervalId);
+          setMainFinished(true);
+        }
+      }, 55);
+    }, 300);
 
     return () => {
-      clearTimeout(timer);
-
-      if (interval) {
-        clearInterval(interval);
-      }
+      window.clearTimeout(startId);
+      window.clearInterval(intervalId);
     };
   }, []);
 
-
   useEffect(() => {
-    if (!mainFinished) return;
+    if (!mainFinished) return undefined;
 
     let index = 0;
-    let interval = null;
+    let intervalId;
 
-    setClaimVisible("");
-    setClaimFinished(false);
+    const startId = window.setTimeout(() => {
+      intervalId = window.setInterval(() => {
+        index += 1;
+        setClaimVisible(claimText.slice(0, index));
 
-    const timer =
-      setTimeout(() => {
-        interval =
-          setInterval(() => {
-            index += 1;
-
-            setClaimVisible(
-              claimText.slice(0, index)
-            );
-
-            if (index >= claimText.length) {
-              clearInterval(interval);
-              setClaimFinished(true);
-            }
-          }, 55);
-      }, 420);
+        if (index >= claimText.length) {
+          window.clearInterval(intervalId);
+          setClaimFinished(true);
+        }
+      }, 55);
+    }, 420);
 
     return () => {
-      clearTimeout(timer);
-
-      if (interval) {
-        clearInterval(interval);
-      }
+      window.clearTimeout(startId);
+      window.clearInterval(intervalId);
     };
   }, [mainFinished]);
-
 
   return (
     <div className="typewriter-block">
       <h3 className="typewriter-title">
         {mainVisible}
-
-        {!mainFinished && (
-          <span className="typing-cursor">
-            |
-          </span>
-        )}
+        {!mainFinished && <span className="typing-cursor">|</span>}
       </h3>
 
-      <p
-        className={`
-          typewriter-claim
-          ${
-            mainFinished
-              ? "claim-visible"
-              : ""
-          }
-        `}
-      >
+      <p className={`typewriter-claim ${mainFinished ? "claim-visible" : ""}`}>
         {claimVisible}
-
         {mainFinished && !claimFinished && (
-          <span className="claim-cursor">
-            |
-          </span>
+          <span className="claim-cursor">|</span>
         )}
       </p>
     </div>
   );
 }
 
-
-/* =========================================
-   APP
-========================================= */
-
 function App() {
+  const heroRef = useRef(null);
+  const mainVideoRef = useRef(null);
+  const lensContainerRef = useRef(null);
+  const lensCanvasRef = useRef(null);
+  const transitionTimerRef = useRef(null);
+  const openingTimerRef = useRef(null);
 
-  const heroRef =
-    useRef(null);
-
-  const mainVideoRef =
-    useRef(null);
-
-  const lensContainerRef =
-    useRef(null);
-
-  const lensCanvasRef =
-    useRef(null);
-
-  const transitionTimerRef =
-    useRef(null);
-
-  const openingTimerRef =
-    useRef(null);
-
-
-  const [open, setOpen] =
-    useState(false);
-
-  const [opening, setOpening] =
-    useState(false);
-
-  const [section, setSection] =
-    useState("studio");
-
-
-  const [
-    currentVideo,
-    setCurrentVideo,
-  ] = useState(
-    videos.studio
-  );
-
-
-  const [
-    previousVideo,
-    setPreviousVideo,
-  ] = useState(null);
-
-
-  const [
-    previewProject,
-    setPreviewProject,
-  ] = useState(null);
-
-
-
-
-  /* =========================================
-     MOVIMIENTO SOLO DEL VIDEO
-  ========================================= */
+  const [open, setOpen] = useState(false);
+  const [opening, setOpening] = useState(false);
+  const [section, setSection] = useState("studio");
+  const [currentVideo, setCurrentVideo] = useState(videos.studio);
+  const [previousVideo, setPreviousVideo] = useState(null);
+  const [previewProject, setPreviewProject] = useState(null);
 
   useEffect(() => {
-
-    const hero =
-      heroRef.current;
-
-
-    if (!hero) return;
-
+    const hero = heroRef.current;
+    if (!hero) return undefined;
 
     let targetX = 0;
     let targetY = 0;
-
     let currentX = 0;
     let currentY = 0;
-
-    let animationFrame;
-
+    let frameId;
 
     const animate = () => {
+      currentX += (targetX - currentX) * 0.055;
+      currentY += (targetY - currentY) * 0.055;
 
-      currentX +=
-        (targetX - currentX) *
-        0.055;
+      hero.style.setProperty("--x", currentX);
+      hero.style.setProperty("--y", currentY);
 
-      currentY +=
-        (targetY - currentY) *
-        0.055;
-
-
-      hero.style.setProperty(
-        "--x",
-        currentX
-      );
-
-      hero.style.setProperty(
-        "--y",
-        currentY
-      );
-
-
-      animationFrame =
-        requestAnimationFrame(
-          animate
-        );
+      frameId = window.requestAnimationFrame(animate);
     };
 
-
-    const handlePointerMove =
-      (event) => {
-
-        targetX =
-          (
-            event.clientX /
-            window.innerWidth -
-            0.5
-          ) *
-          2;
-
-
-        targetY =
-          (
-            event.clientY /
-            window.innerHeight -
-            0.5
-          ) *
-          2;
-      };
-
+    const handlePointerMove = (event) => {
+      targetX = (event.clientX / window.innerWidth - 0.5) * 2;
+      targetY = (event.clientY / window.innerHeight - 0.5) * 2;
+    };
 
     const resetPosition = () => {
       targetX = 0;
       targetY = 0;
     };
 
-
-    window.addEventListener(
-      "pointermove",
-      handlePointerMove
-    );
-
-
-    document.documentElement
-      .addEventListener(
-        "mouseleave",
-        resetPosition
-      );
-
-
+    window.addEventListener("pointermove", handlePointerMove);
+    document.documentElement.addEventListener("mouseleave", resetPosition);
     animate();
 
-
     return () => {
-
-      window.removeEventListener(
-        "pointermove",
-        handlePointerMove
-      );
-
-
-      document.documentElement
-        .removeEventListener(
-          "mouseleave",
-          resetPosition
-        );
-
-
-      cancelAnimationFrame(
-        animationFrame
-      );
+      window.removeEventListener("pointermove", handlePointerMove);
+      document.documentElement.removeEventListener("mouseleave", resetPosition);
+      window.cancelAnimationFrame(frameId);
     };
-
   }, []);
 
-
-  /* =========================================
-     LUPA VIDEO CENTRAL
-  ========================================= */
-
   useEffect(() => {
+    if (!open) return undefined;
 
-    if (!open) return;
+    const canvas = lensCanvasRef.current;
+    const lens = lensContainerRef.current;
+    if (!canvas || !lens) return undefined;
 
+    const context = canvas.getContext("2d", { alpha: false });
+    if (!context) return undefined;
 
-    const canvas =
-      lensCanvasRef.current;
+    canvas.classList.remove("lens-ready");
 
-    const lens =
-      lensContainerRef.current;
-
-
-    if (
-      !canvas ||
-      !lens
-    ) {
-      return;
-    }
-
-
-    const context =
-      canvas.getContext(
-        "2d",
-        {
-          alpha: false,
-        }
-      );
-
-
-    if (!context) return;
-
-
-    canvas.classList.remove(
-      "lens-ready"
-    );
-
-
-    let animationFrame;
-
-    let firstFrameDrawn =
-      false;
-
+    let frameId;
+    let firstFrameDrawn = false;
 
     const drawLens = () => {
-
-      const video =
-        mainVideoRef.current;
-
+      const video = mainVideoRef.current;
 
       if (
         video &&
@@ -446,1276 +224,419 @@ function App() {
         video.videoWidth > 0 &&
         video.videoHeight > 0
       ) {
+        const videoRect = video.getBoundingClientRect();
+        const lensRect = lens.getBoundingClientRect();
+        const cssWidth = Math.max(1, lensRect.width);
+        const cssHeight = Math.max(1, lensRect.height);
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const pixelWidth = Math.round(cssWidth * dpr);
+        const pixelHeight = Math.round(cssHeight * dpr);
 
-        const videoRect =
-          video.getBoundingClientRect();
-
-        const lensRect =
-          lens.getBoundingClientRect();
-
-
-        const cssWidth =
-          Math.max(
-            1,
-            lensRect.width
-          );
-
-
-        const cssHeight =
-          Math.max(
-            1,
-            lensRect.height
-          );
-
-
-        const dpr =
-          Math.min(
-            window.devicePixelRatio ||
-              1,
-            2
-          );
-
-
-        const pixelWidth =
-          Math.round(
-            cssWidth *
-            dpr
-          );
-
-
-        const pixelHeight =
-          Math.round(
-            cssHeight *
-            dpr
-          );
-
-
-        if (
-          canvas.width !==
-            pixelWidth ||
-          canvas.height !==
-            pixelHeight
-        ) {
-
-          canvas.width =
-            pixelWidth;
-
-          canvas.height =
-            pixelHeight;
+        if (canvas.width !== pixelWidth || canvas.height !== pixelHeight) {
+          canvas.width = pixelWidth;
+          canvas.height = pixelHeight;
         }
 
+        context.setTransform(dpr, 0, 0, dpr, 0, 0);
+        context.clearRect(0, 0, cssWidth, cssHeight);
 
-        context.setTransform(
-          dpr,
-          0,
-          0,
-          dpr,
-          0,
-          0
+        const coverScale = Math.max(
+          videoRect.width / video.videoWidth,
+          videoRect.height / video.videoHeight,
         );
 
+        const visibleSourceWidth = videoRect.width / coverScale;
+        const visibleSourceHeight = videoRect.height / coverScale;
+        const sourceOffsetX = (video.videoWidth - visibleSourceWidth) / 2;
+        const sourceOffsetY = (video.videoHeight - visibleSourceHeight) / 2;
+        const lensCenterX = lensRect.left + lensRect.width / 2;
+        const lensCenterY = lensRect.top + lensRect.height / 2;
+        const relativeCenterX = lensCenterX - videoRect.left;
+        const relativeCenterY = lensCenterY - videoRect.top;
+        const sourceCenterX = sourceOffsetX + relativeCenterX / coverScale;
+        const sourceCenterY = sourceOffsetY + relativeCenterY / coverScale;
 
-        context.clearRect(
+        let sourceWidth = cssWidth / coverScale / LENS_ZOOM;
+        let sourceHeight = cssHeight / coverScale / LENS_ZOOM;
+
+        sourceWidth = Math.min(sourceWidth, video.videoWidth);
+        sourceHeight = Math.min(sourceHeight, video.videoHeight);
+
+        let sourceX = sourceCenterX - sourceWidth / 2;
+        let sourceY = sourceCenterY - sourceHeight / 2;
+
+        sourceX = Math.max(
           0,
-          0,
-          cssWidth,
-          cssHeight
+          Math.min(sourceX, video.videoWidth - sourceWidth),
         );
-
-
-        const coverScale =
-          Math.max(
-            videoRect.width /
-              video.videoWidth,
-
-            videoRect.height /
-              video.videoHeight
-          );
-
-
-        const visibleSourceWidth =
-          videoRect.width /
-          coverScale;
-
-
-        const visibleSourceHeight =
-          videoRect.height /
-          coverScale;
-
-
-        const sourceOffsetX =
-          (
-            video.videoWidth -
-            visibleSourceWidth
-          ) /
-          2;
-
-
-        const sourceOffsetY =
-          (
-            video.videoHeight -
-            visibleSourceHeight
-          ) /
-          2;
-
-
-        const lensCenterX =
-          lensRect.left +
-          lensRect.width /
-            2;
-
-
-        const lensCenterY =
-          lensRect.top +
-          lensRect.height /
-            2;
-
-
-        const relativeCenterX =
-          lensCenterX -
-          videoRect.left;
-
-
-        const relativeCenterY =
-          lensCenterY -
-          videoRect.top;
-
-
-        const sourceCenterX =
-          sourceOffsetX +
-          relativeCenterX /
-            coverScale;
-
-
-        const sourceCenterY =
-          sourceOffsetY +
-          relativeCenterY /
-            coverScale;
-
-
-        let sourceWidth =
-          cssWidth /
-          coverScale /
-          LENS_ZOOM;
-
-
-        let sourceHeight =
-          cssHeight /
-          coverScale /
-          LENS_ZOOM;
-
-
-        sourceWidth =
-          Math.min(
-            sourceWidth,
-            video.videoWidth
-          );
-
-
-        sourceHeight =
-          Math.min(
-            sourceHeight,
-            video.videoHeight
-          );
-
-
-        let sourceX =
-          sourceCenterX -
-          sourceWidth /
-            2;
-
-
-        let sourceY =
-          sourceCenterY -
-          sourceHeight /
-            2;
-
-
-        sourceX =
-          Math.max(
-            0,
-            Math.min(
-              sourceX,
-              video.videoWidth -
-                sourceWidth
-            )
-          );
-
-
-        sourceY =
-          Math.max(
-            0,
-            Math.min(
-              sourceY,
-              video.videoHeight -
-                sourceHeight
-            )
-          );
-
+        sourceY = Math.max(
+          0,
+          Math.min(sourceY, video.videoHeight - sourceHeight),
+        );
 
         context.drawImage(
           video,
-
           sourceX,
           sourceY,
-
           sourceWidth,
           sourceHeight,
-
           0,
           0,
-
           cssWidth,
-          cssHeight
+          cssHeight,
         );
 
-
-        if (
-          !firstFrameDrawn
-        ) {
-
-          firstFrameDrawn =
-            true;
-
-
-          requestAnimationFrame(
-            () => {
-
-              canvas.classList.add(
-                "lens-ready"
-              );
-
-            }
-          );
+        if (!firstFrameDrawn) {
+          firstFrameDrawn = true;
+          window.requestAnimationFrame(() => canvas.classList.add("lens-ready"));
         }
       }
 
-
-      animationFrame =
-        requestAnimationFrame(
-          drawLens
-        );
+      frameId = window.requestAnimationFrame(drawLens);
     };
-
 
     drawLens();
 
-
-    return () => {
-
-      cancelAnimationFrame(
-        animationFrame
-      );
-
-    };
-
-  }, [
-    open,
-    currentVideo,
-  ]);
-
-
-  /* =========================================
-     LIMPIAR TIMER
-  ========================================= */
+    return () => window.cancelAnimationFrame(frameId);
+  }, [open, currentVideo]);
 
   useEffect(() => {
-
     return () => {
-
-      if (
-        transitionTimerRef.current
-      ) {
-
-        clearTimeout(
-          transitionTimerRef.current
-        );
-
-      }
-
-      if (
-        openingTimerRef.current
-      ) {
-
-        clearTimeout(
-          openingTimerRef.current
-        );
-
-      }
-
+      window.clearTimeout(transitionTimerRef.current);
+      window.clearTimeout(openingTimerRef.current);
     };
-
   }, []);
 
-
-  /* =========================================
-     APERTURA PREMIUM
-     1. Hundimiento/destello.
-     2. Expansión desde el logo.
-     3. Revelado escalonado de la interfaz.
-  ========================================= */
-
   const openStudio = () => {
+    if (open || opening) return;
 
-    if (
-      open ||
-      opening
-    ) {
-      return;
-    }
+    setOpening(true);
+    window.clearTimeout(openingTimerRef.current);
 
+    openingTimerRef.current = window.setTimeout(() => {
+      setOpen(true);
 
-    setOpening(
-      true
-    );
-
-
-    if (
-      openingTimerRef.current
-    ) {
-      clearTimeout(
-        openingTimerRef.current
-      );
-    }
-
-
-    openingTimerRef.current =
-      setTimeout(
-        () => {
-
-          setOpen(
-            true
-          );
-
-
-          openingTimerRef.current =
-            setTimeout(
-              () => {
-
-                setOpening(
-                  false
-                );
-
-              },
-              1150
-            );
-
-        },
-        145
-      );
+      openingTimerRef.current = window.setTimeout(() => {
+        setOpening(false);
+      }, 1000);
+    }, 145);
   };
-
 
   const closeStudio = () => {
+    window.clearTimeout(openingTimerRef.current);
+    openingTimerRef.current = null;
 
-    if (
-      openingTimerRef.current
-    ) {
-      clearTimeout(
-        openingTimerRef.current
-      );
+    setOpening(false);
+    setPreviewProject(null);
+    setOpen(false);
+  };
 
-      openingTimerRef.current =
-        null;
-    }
+  const changeSection = (nextSection) => {
+    if (nextSection === section) return;
 
+    setPreviewProject(null);
+    window.clearTimeout(transitionTimerRef.current);
 
-    setOpening(
-      false
-    );
+    setPreviousVideo(currentVideo);
+    setSection(nextSection);
+    setCurrentVideo(videos[nextSection]);
 
-    setPreviewProject(
-      null
-    );
+    transitionTimerRef.current = window.setTimeout(() => {
+      setPreviousVideo(null);
+    }, 1250);
+  };
 
-    setOpen(
-      false
+  const ProjectPreview = ({ project }) => {
+    const visible = previewProject?.id === project.id;
+
+    return (
+      <div
+        className={`project-preview ${visible ? "project-preview-visible" : ""}`}
+        aria-hidden="true"
+      >
+        {project.previewUrl ? (
+          <div className="project-preview-browser">
+            <iframe
+              src={project.previewUrl}
+              title={`Preview ${project.title}`}
+              loading="lazy"
+              tabIndex="-1"
+            />
+          </div>
+        ) : (
+          <div className="project-preview-empty">
+            <span>PRÓXIMAMENTE</span>
+            <strong>{project.title}</strong>
+            <small>Preview pendiente</small>
+          </div>
+        )}
+      </div>
     );
   };
 
+  const renderProjects = () => (
+    <div className="project-list">
+      {projects.map((project) => (
+        <div key={project.id} className="project-item">
+          <ProjectPreview project={project} />
 
-  /* =========================================
-     CAMBIAR SECCIÓN
-  ========================================= */
-
-  const changeSection =
-    (nextSection) => {
-
-      if (
-        nextSection ===
-        section
-      ) {
-        return;
-      }
-
-
-      setPreviewProject(
-        null
-      );
-
-
-
-      if (
-        transitionTimerRef.current
-      ) {
-
-        clearTimeout(
-          transitionTimerRef.current
-        );
-
-      }
-
-
-      setPreviousVideo(
-        currentVideo
-      );
-
-
-      setSection(
-        nextSection
-      );
-
-
-      setCurrentVideo(
-        videos[
-          nextSection
-        ]
-      );
-
-
-      transitionTimerRef.current =
-        setTimeout(
-          () => {
-
-            setPreviousVideo(
-              null
-            );
-
-          },
-          1400
-        );
-    };
-
-
-  /* =========================================
-     PREVIEW EN DIRECTO DE PROYECTOS
-     Ventana original: 440 x 250 px
-  ========================================= */
-
-  const ProjectPreview =
-    ({
-      project,
-    }) => {
-
-      const visible =
-        previewProject?.id ===
-        project.id;
-
-
-      return (
-
-        <div
-          className={`
-            project-preview
-            ${
-              visible
-                ? "project-preview-visible"
-                : ""
-            }
-          `}
-          aria-hidden="true"
-        >
-
-          <div className="project-preview-header">
-
-            <div className="preview-dots">
-              <span />
-              <span />
-              <span />
-            </div>
-
-
-            <span className="project-preview-title">
-              {project.title}
-            </span>
-
-          </div>
-
-
-          {project.previewUrl ? (
-
-            <div className="project-preview-browser">
-
-              <iframe
-                src={project.previewUrl}
-                title={`Preview ${project.title}`}
-                loading="lazy"
-                tabIndex="-1"
-              />
-
-            </div>
-
+          {project.enabled && project.url ? (
+            <a
+              className="project-row"
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              onMouseEnter={() => setPreviewProject(project)}
+              onMouseLeave={() => setPreviewProject(null)}
+              onFocus={() => setPreviewProject(project)}
+              onBlur={() => setPreviewProject(null)}
+              onClick={(event) => event.stopPropagation()}
+            >
+              <span className="row-name">{project.title}</span>
+              <small className="row-meta">{project.meta}</small>
+            </a>
           ) : (
-
-            <div className="project-preview-empty">
-
-              <span>
-                PRÓXIMAMENTE
-              </span>
-
-
-              <strong>
-                {project.title}
-              </strong>
-
-
-              <small>
-                Preview pendiente
-              </small>
-
-            </div>
-
+            <button
+              type="button"
+              className="project-row project-placeholder"
+              onMouseEnter={() => setPreviewProject(project)}
+              onMouseLeave={() => setPreviewProject(null)}
+              onFocus={() => setPreviewProject(project)}
+              onBlur={() => setPreviewProject(null)}
+            >
+              <span className="row-name">{project.title}</span>
+              <small className="row-meta">{project.meta}</small>
+            </button>
           )}
-
         </div>
-      );
-    };
+      ))}
+    </div>
+  );
 
-
-  /* =========================================
-     PROYECTOS
-     Recupera el hover con preview web real.
-  ========================================= */
-
-  const renderProjects =
-    () => (
-
-      <div className="content-grid-list project-list">
-
-        {projects.map(
-          (project) => (
-
-            <div
-              key={project.id}
-              className="project-item"
-            >
-
-              <ProjectPreview
-                project={project}
-              />
-
-
-              {project.enabled &&
-              project.url ? (
-
-                <a
-                  className="content-row project-link"
-
-                  href={project.url}
-
-                  target="_blank"
-
-                  rel="noopener noreferrer"
-
-                  onMouseEnter={() =>
-                    setPreviewProject(
-                      project
-                    )
-                  }
-
-                  onMouseLeave={() =>
-                    setPreviewProject(
-                      null
-                    )
-                  }
-
-                  onFocus={() =>
-                    setPreviewProject(
-                      project
-                    )
-                  }
-
-                  onBlur={() =>
-                    setPreviewProject(
-                      null
-                    )
-                  }
-
-                  onClick={(event) => {
-                    event.stopPropagation();
-                  }}
-                >
-
-                  <span className="row-name">
-                    {project.title}
-                  </span>
-
-
-                  <small className="row-meta">
-                    {project.meta}
-                  </small>
-
-                </a>
-
-              ) : (
-
-                <button
-                  type="button"
-
-                  className="content-row project-placeholder"
-
-                  onMouseEnter={() =>
-                    setPreviewProject(
-                      project
-                    )
-                  }
-
-                  onMouseLeave={() =>
-                    setPreviewProject(
-                      null
-                    )
-                  }
-
-                  onFocus={() =>
-                    setPreviewProject(
-                      project
-                    )
-                  }
-
-                  onBlur={() =>
-                    setPreviewProject(
-                      null
-                    )
-                  }
-                >
-
-                  <span className="row-name">
-                    {project.title}
-                  </span>
-
-
-                  <small className="row-meta">
-                    {project.meta}
-                  </small>
-
-                </button>
-
-              )}
-
-            </div>
-
-          )
-        )}
-
-      </div>
-    );
-
-
-  /* =========================================
-     SERVICIOS
-     Independiente de Proyectos.
-     En reposo: solo título.
-     En hover/focus: tarjeta glass + descripción.
-  ========================================= */
-
-  const renderServices =
-    () => (
-
-      <div className="services-list">
-
-        {services.map(
-          (service) => (
-
-            <div
-              key={service.id}
-              className="service-item"
-            >
-
-              <button
-                type="button"
-                className="service-card"
-                aria-label={`${service.title}. ${service.description}`}
-              >
-
-                <span className="service-title">
-                  {service.title}
-                </span>
-
-                <span className="service-description">
-                  {service.description}
-                </span>
-
-              </button>
-
-            </div>
-
-          )
-        )}
-
-      </div>
-    );
-
-
-  /* =========================================
-     CONTENIDO
-  ========================================= */
+  const renderServices = () => (
+    <div className="services-list">
+      {services.map((service) => (
+        <div key={service.id} className="service-item">
+          <button
+            type="button"
+            className="service-card"
+            aria-label={`${service.title}. ${service.description}`}
+          >
+            <span className="service-title">{service.title}</span>
+            <span className="service-description">{service.description}</span>
+          </button>
+        </div>
+      ))}
+    </div>
+  );
 
   const content = {
-
     studio: (
       <>
-
-        <span className="section-number">
-          01 / STUDIO
-        </span>
-
-
+        <span className="section-number">01 / STUDIO</span>
         <h2>
-          Digital
+          Estudio
           <br />
-          Studio.
+          digital web.
         </h2>
-
-
+        <br />
+  
         <p>
-          Creamos experiencias digitales donde diseño,
-          desarrollo y tecnología trabajan juntos para
-          construir productos con identidad propia.
+          Creamos experiencias digitales donde diseño, desarrollo y tecnología
+          trabajan juntos para construir productos con identidad propia.
         </p>
-
       </>
     ),
-
-
     proyectos: (
       <>
-
-        <span className="section-number">
-          02 / PROYECTOS
-        </span>
-
-
+        <span className="section-number">02 / PROYECTOS</span>
         <h2>
-          Nuestros
+          Nuestro
           <br />
-          proyectos.
+          Trabajo.
         </h2>
-
-
         {renderProjects()}
-
       </>
     ),
-
-
     servicios: (
       <>
-
-        <span className="section-number">
-          03 / SERVICIOS
-        </span>
-
-
+        <span className="section-number">03 / SERVICIOS</span>
         <h2>
           ¿Qué
           <br />
           hacemos?
         </h2>
-
-
         {renderServices()}
-
       </>
     ),
-
-
     contacto: (
       <>
-
-        <span className="section-number">
-          04 / CONTACTO
-        </span>
-
-
+        <span className="section-number">04 / CONTACTO</span>
         <h2>
-          Comienza
+          Comienza ya 
           <br />
-          ya!
+          yu proyecto.
         </h2>
-
-
         <p>
           ¿Tienes una idea?
           <br />
-          Vamos hacerla realidad.
-          Escribenos sin compromiso.
+          Vamos a hacerla realidad. Escríbenos sin compromiso.
         </p>
-
-
         <a
           className="contact-link"
-
           href="mailto:yo@daovez.com"
-
-          onClick={(
-            event
-          ) => {
-
-            event.stopPropagation();
-
-          }}
+          onClick={(event) => event.stopPropagation()}
         >
-
-          <span>
-            yo@daovez.com
-          </span>
-
-
-          <span>
-            ↗
-          </span>
-
+          <span>yo@daovez.com</span>
+          <span aria-hidden="true">↗</span>
         </a>
-
       </>
     ),
   };
 
-
   return (
-
     <main
       ref={heroRef}
-      className="hero"
+      className={`hero ${open ? "hero-open" : ""}`}
     >
-
-      {/* =====================================
-          VIDEOS
-      ====================================== */}
-
-      <div className="video-background">
-
+      <div className="video-background" aria-hidden="true">
         {previousVideo && (
-
           <video
             key={`previous-${previousVideo}`}
-
             className="background-video video-out"
-
             autoPlay
             muted
             loop
             playsInline
             preload="auto"
           >
-
-            <source
-              src={
-                previousVideo
-              }
-              type="video/mp4"
-            />
-
+            <source src={previousVideo} type="video/mp4" />
           </video>
-
         )}
 
-
         <video
-          ref={
-            mainVideoRef
-          }
-
-          key={
-            currentVideo
-          }
-
+          ref={mainVideoRef}
+          key={currentVideo}
           className="background-video video-in"
-
           autoPlay
           muted
           loop
           playsInline
           preload="auto"
         >
-
-          <source
-            src={
-              currentVideo
-            }
-            type="video/mp4"
-          />
-
+          <source src={currentVideo} type="video/mp4" />
         </video>
-
       </div>
 
-
-      {/* =====================================
-          TARJETA
-      ====================================== */}
-
       <article
-        className={`
-          studio-card
-          ${
-            opening
-              ? "opening"
-              : ""
-          }
-          ${
-            open
-              ? "open"
-              : ""
-          }
-        `}
-
-        role={
-          open
-            ? undefined
-            : "button"
-        }
-
-        tabIndex={
-          open
-            ? -1
-            : 0
-        }
-
-        aria-label={
-          open
-            ? undefined
-            : "Abrir Daovez Studio"
-        }
-
+        className={`studio-card ${opening ? "opening" : ""} ${open ? "open" : ""}`}
+        role={open ? undefined : "button"}
+        tabIndex={open ? -1 : 0}
+        aria-label={open ? undefined : "Abrir Daovez Studio"}
         onClick={() => {
-
-          if (!open) {
-
-            openStudio();
-
-          }
-
+          if (!open) openStudio();
         }}
-
         onKeyDown={(event) => {
-
-          if (
-            !open &&
-            (
-              event.key === "Enter" ||
-              event.key === " "
-            )
-          ) {
-
+          if (!open && (event.key === "Enter" || event.key === " ")) {
             event.preventDefault();
-
             openStudio();
-
           }
-
         }}
       >
-
         {!open ? (
-
-          /* =================================
-             PORTADA CERRADA
-          ================================= */
-
           <div className="intro">
-
             <img
               src="/logo.png"
               alt="Studio Web"
               className="studio-logo intro-logo"
             />
-
           </div>
-
         ) : (
-
-          /* =================================
-             INTERFAZ ABIERTA
-          ================================= */
-
           <div className="interface">
-
-
-            {/* ===============================
-                IZQUIERDA
-            ================================ */}
-
             <section className="interface-left">
-
               <button
                 type="button"
-
                 className="close"
-
                 aria-label="Cerrar"
-
-                onClick={(
-                  event
-                ) => {
-
+                onClick={(event) => {
                   event.stopPropagation();
-
                   closeStudio();
-
                 }}
               >
                 ×
               </button>
 
-
               <a
                 className="portfolio-pill"
-
                 href="https://daovez.dev"
-
                 target="_blank"
-
                 rel="noopener noreferrer"
-
-                onClick={(
-                  event
-                ) => {
-
-                  event.stopPropagation();
-
-                }}
+                onClick={(event) => event.stopPropagation()}
               >
                 daovez.dev
               </a>
 
-
               <img
                 src="/logo.png"
-
                 alt="Studio Web"
-
                 className="studio-logo expanded-logo"
               />
 
-
               <div className="left-bottom">
-
-                {/* TEXTO ESCRITO CON JS */}
-
                 <TypewriterText />
-
-
                 <div className="location">
-
-                  <span>
-                    MÁLAGA
-                  </span>
-
-
-                  <span>
-                    SPAIN
-                  </span>
-
+                  <span>MÁLAGA</span>
+                  <span>SPAIN</span>
                 </div>
-
               </div>
-
             </section>
-
-
-            {/* ===============================
-                CENTRO
-            ================================ */}
 
             <section
-              ref={
-                lensContainerRef
-              }
-
-              className={`
-                interface-content
-                section-${section}
-              `}
+              ref={lensContainerRef}
+              className={`interface-content section-${section}`}
             >
-
               <canvas
-                ref={
-                  lensCanvasRef
-                }
-
+                ref={lensCanvasRef}
                 className="lens-canvas"
-
                 aria-hidden="true"
               />
-
-
-              <div
-                className="lens-glass"
-                aria-hidden="true"
-              />
-
+              <div className="lens-glass" aria-hidden="true" />
 
               <div
-                key={
-                  section
-                }
-
-                className={`
-                  content-inner
-                  content-${section}
-                `}
+                key={section}
+                className={`content-inner content-${section}`}
               >
-
-                {
-                  content[
-                    section
-                  ]
-                }
-
+                {content[section]}
               </div>
-
             </section>
-
-
-            {/* ===============================
-                DERECHA
-            ================================ */}
 
             <nav
               className="navigation"
-
-              onClick={(
-                event
-              ) => {
-
-                event.stopPropagation();
-
-              }}
+              aria-label="Secciones"
+              onClick={(event) => event.stopPropagation()}
             >
-
-              <button
-                type="button"
-
-                className={
-                  section ===
-                  "studio"
-                    ? "active"
-                    : ""
-                }
-
-                onClick={() =>
-                  changeSection(
-                    "studio"
-                  )
-                }
-              >
-
-                <small>
-                  01
-                </small>
-
-                <span>
-                  Studio
-                </span>
-
-              </button>
-
-
-              <button
-                type="button"
-
-                className={
-                  section ===
-                  "proyectos"
-                    ? "active"
-                    : ""
-                }
-
-                onClick={() =>
-                  changeSection(
-                    "proyectos"
-                  )
-                }
-              >
-
-                <small>
-                  02
-                </small>
-
-                <span>
-                  Proyectos
-                </span>
-
-              </button>
-
-
-              <button
-                type="button"
-
-                className={
-                  section ===
-                  "servicios"
-                    ? "active"
-                    : ""
-                }
-
-                onClick={() =>
-                  changeSection(
-                    "servicios"
-                  )
-                }
-              >
-
-                <small>
-                  03
-                </small>
-
-                <span>
-                  Servicios
-                </span>
-
-              </button>
-
-
-              <button
-                type="button"
-
-                className={
-                  section ===
-                  "contacto"
-                    ? "active"
-                    : ""
-                }
-
-                onClick={() =>
-                  changeSection(
-                    "contacto"
-                  )
-                }
-              >
-
-                <small>
-                  04
-                </small>
-
-                <span>
-                  Contacto
-                </span>
-
-              </button>
-
+              {[
+                ["studio", "01", "Studio"],
+                ["proyectos", "02", "Proyectos"],
+                ["servicios", "03", "Servicios"],
+                ["contacto", "04", "Contacto"],
+              ].map(([id, number, label]) => (
+                <button
+                  key={id}
+                  type="button"
+                  className={section === id ? "active" : ""}
+                  onClick={() => changeSection(id)}
+                >
+                  <small>{number}</small>
+                  <span>{label}</span>
+                </button>
+              ))}
             </nav>
-
           </div>
-
         )}
-
       </article>
-
     </main>
   );
 }
-
 
 export default App;
