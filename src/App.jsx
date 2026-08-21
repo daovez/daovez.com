@@ -435,12 +435,10 @@ function App() {
       <>
         <span className="section-number">01 / STUDIO</span>
         <h2>
-          Estudio
+          Estudio.
           <br />
-          digital web.
+          digital.
         </h2>
-        <br />
-  
         <p>
           Creamos experiencias digitales donde diseño, desarrollo y tecnología
           trabajan juntos para construir productos con identidad propia.
@@ -451,9 +449,9 @@ function App() {
       <>
         <span className="section-number">02 / PROYECTOS</span>
         <h2>
-          Nuestro
+          Nuestros 
           <br />
-          Trabajo.
+          trabajos.
         </h2>
         {renderProjects()}
       </>
@@ -473,9 +471,9 @@ function App() {
       <>
         <span className="section-number">04 / CONTACTO</span>
         <h2>
-          Comienza ya 
+          Comienza tu
           <br />
-          yu proyecto.
+          proyecto.
         </h2>
         <p>
           ¿Tienes una idea?
