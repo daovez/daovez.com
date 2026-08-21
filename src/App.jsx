@@ -433,9 +433,9 @@ function App() {
   const content = {
     studio: (
       <>
-        <span className="section-number">01 / STUDIO</span>
+        <span className="section-number">01 / ESTUDIO</span>
         <h2>
-          Estudio.
+          Estudio
           <br />
           digital.
         </h2>
@@ -614,7 +614,7 @@ function App() {
               onClick={(event) => event.stopPropagation()}
             >
               {[
-                ["studio", "01", "Studio"],
+                ["estudio", "01", "Estudio"],
                 ["proyectos", "02", "Proyectos"],
                 ["servicios", "03", "Servicios"],
                 ["contacto", "04", "Contacto"],
