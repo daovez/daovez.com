@@ -1,19 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import "./App.css";
 
-/* =========================================================
-   NAVEGACIÓN
-========================================================= */
-
 const navigationItems = [
   { id: "proyectos", label: "Proyectos" },
   { id: "servicios", label: "Servicios" },
   { id: "contacto", label: "Contacto" },
 ];
-
-/* =========================================================
-   PROYECTOS
-========================================================= */
 
 const projects = [
   {
@@ -41,10 +33,6 @@ const projects = [
     url: "",
   },
 ];
-
-/* =========================================================
-   SERVICIOS
-========================================================= */
 
 const services = [
   {
@@ -77,10 +65,6 @@ const services = [
   },
 ];
 
-/* =========================================================
-   APP
-========================================================= */
-
 function App() {
   const pageRef = useRef(null);
   const openingTimerRef = useRef(null);
@@ -93,16 +77,10 @@ function App() {
   const [previewProject, setPreviewProject] = useState(null);
   const [previewService, setPreviewService] = useState(null);
 
-  /* =====================================================
-     MOVIMIENTO SUAVE HERO
-  ===================================================== */
-
   useEffect(() => {
     const page = pageRef.current;
 
-    if (!page) {
-      return undefined;
-    }
+    if (!page) return undefined;
 
     let targetX = 0;
     let targetY = 0;
@@ -162,10 +140,6 @@ function App() {
     };
   }, []);
 
-  /* =====================================================
-     CLEANUP
-  ===================================================== */
-
   useEffect(() => {
     return () => {
       window.clearTimeout(
@@ -174,23 +148,13 @@ function App() {
     };
   }, []);
 
-  /* =====================================================
-     RESET PREVIEWS
-  ===================================================== */
-
   useEffect(() => {
     setPreviewProject(null);
     setPreviewService(null);
   }, [section]);
 
-  /* =====================================================
-     ABRIR STUDIO
-  ===================================================== */
-
   const openStudio = () => {
-    if (open || opening) {
-      return;
-    }
+    if (open || opening) return;
 
     setOpening(true);
 
@@ -209,19 +173,11 @@ function App() {
       }, 120);
   };
 
-  /* =====================================================
-     HOME
-  ===================================================== */
-
   const goHome = () => {
     setSection(null);
     setPreviewProject(null);
     setPreviewService(null);
   };
-
-  /* =====================================================
-     CAMBIAR SECCIÓN
-  ===================================================== */
 
   const changeSection = (nextSection) => {
     setSection(nextSection);
@@ -230,10 +186,6 @@ function App() {
     setPreviewService(null);
   };
 
-  /* =====================================================
-     CERRAR TARJETA
-  ===================================================== */
-
   const closeCard = (event) => {
     event.stopPropagation();
 
@@ -241,10 +193,6 @@ function App() {
     setPreviewProject(null);
     setPreviewService(null);
   };
-
-  /* =====================================================
-     TOUCH
-  ===================================================== */
 
   const isTouchDevice = () => {
     return window.matchMedia(
@@ -263,7 +211,9 @@ function App() {
       </header>
 
       <div className="projects-layout">
+
         <div className="projects-list">
+
           {projects.map((project) => {
             const isActive =
               previewProject?.id === project.id;
@@ -317,9 +267,11 @@ function App() {
                 <span className="row-meta">
                   {project.meta}
                 </span>
+
               </button>
             );
           })}
+
         </div>
 
         {previewProject?.url && (
@@ -327,9 +279,11 @@ function App() {
             key={previewProject.id}
             className="hover-preview-area project-preview-area"
           >
+
             <div className="project-preview">
 
               <div className="project-preview-toolbar">
+
                 <div className="preview-dots">
                   <span />
                   <span />
@@ -345,20 +299,25 @@ function App() {
                 <span className="preview-live">
                   LIVE
                 </span>
+
               </div>
 
               <div className="project-preview-window">
+
                 <iframe
                   src={previewProject.url}
                   title={`Vista previa de ${previewProject.title}`}
                   className="project-preview-frame"
                   loading="lazy"
                 />
+
               </div>
 
             </div>
+
           </div>
         )}
+
       </div>
     </>
   );
@@ -376,6 +335,7 @@ function App() {
       <div className="services-layout">
 
         <div className="services-list">
+
           {services.map((service) => {
             const isActive =
               previewService?.id === service.id;
@@ -411,6 +371,7 @@ function App() {
                   }
                 }}
               >
+
                 <span className="row-title">
                   {service.title}
                 </span>
@@ -418,9 +379,11 @@ function App() {
                 <span className="row-meta">
                   {service.meta}
                 </span>
+
               </button>
             );
           })}
+
         </div>
 
         {previewService && (
@@ -428,6 +391,7 @@ function App() {
             key={previewService.id}
             className="hover-preview-area service-preview-area"
           >
+
             <div className="service-preview-content">
 
               <span className="service-preview-label">
@@ -455,8 +419,10 @@ function App() {
               </div>
 
             </div>
+
           </div>
         )}
+
       </div>
     </>
   );
@@ -467,12 +433,6 @@ function App() {
 
   const renderContact = () => (
     <div className="contact-circle-content">
-
-      {/* ===============================================
-          VIDEO
-          SIN LOOP:
-          se reproduce una vez y queda en último frame
-      =============================================== */}
 
       <div className="contact-circle-video-wrap">
 
@@ -492,10 +452,6 @@ function App() {
         <div className="contact-circle-video-overlay" />
 
       </div>
-
-      {/* ===============================================
-          CONTENIDO
-      =============================================== */}
 
       <div className="contact-circle-inner">
 
@@ -534,10 +490,6 @@ function App() {
     </div>
   );
 
-  /* =====================================================
-     RENDER SECCIÓN
-  ===================================================== */
-
   const renderSectionCard = () => {
     if (section === "proyectos") {
       return renderProjects();
@@ -554,26 +506,31 @@ function App() {
     return null;
   };
 
-  /* =====================================================
-     JSX
-  ===================================================== */
-
   return (
     <main
       ref={pageRef}
       className="page"
     >
+
       <article
         className={`studio-shell ${
-          open ? "is-open" : ""
+          open
+            ? "is-open"
+            : ""
         } ${
-          opening ? "is-opening" : ""
+          opening
+            ? "is-opening"
+            : ""
         }`}
         role={
-          open ? undefined : "button"
+          open
+            ? undefined
+            : "button"
         }
         tabIndex={
-          open ? -1 : 0
+          open
+            ? -1
+            : 0
         }
         aria-label={
           open
@@ -594,27 +551,27 @@ function App() {
             )
           ) {
             event.preventDefault();
+
             openStudio();
           }
         }}
       >
+
         {!open ? (
 
           <div className="studio-entry">
+
             <img
               src="/logo.png"
               alt="DAO Studio"
               className="studio-entry-logo"
             />
+
           </div>
 
         ) : (
 
           <div className="studio-interface">
-
-            {/* ===========================================
-                NAVBAR
-            =========================================== */}
 
             <header className="topbar">
 
@@ -624,17 +581,20 @@ function App() {
                 onClick={goHome}
                 aria-label="Volver a portada"
               >
+
                 <img
                   src="/logo.png"
                   alt="DAO Studio"
                   className="topbar-logo"
                 />
+
               </button>
 
               <nav
                 className="topbar-nav"
                 aria-label="Navegación principal"
               >
+
                 {navigationItems.map(
                   (item) => (
                     <button
@@ -655,13 +615,10 @@ function App() {
                     </button>
                   )
                 )}
+
               </nav>
 
             </header>
-
-            {/* ===========================================
-                HERO
-            =========================================== */}
 
             <div className="hero-area">
 
@@ -688,6 +645,7 @@ function App() {
                     key={section}
                     className={`section-card section-card-${section}`}
                   >
+
                     <button
                       type="button"
                       className="section-card-close"
@@ -698,6 +656,7 @@ function App() {
                     </button>
 
                     {renderSectionCard()}
+
                   </div>
                 )}
 
@@ -707,7 +666,9 @@ function App() {
 
           </div>
         )}
+
       </article>
+
     </main>
   );
 }

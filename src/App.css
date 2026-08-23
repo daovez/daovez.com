@@ -15,7 +15,6 @@ body,
 #root {
   width: 100%;
   height: 100%;
-
   margin: 0;
   padding: 0;
 }
@@ -27,15 +26,8 @@ body {
 
 body {
   overflow: hidden;
-
   color: #050505;
-
-  font-family:
-    "Ubuntu Sans",
-    Ubuntu,
-    Arial,
-    sans-serif;
-
+  font-family: "Ubuntu Sans", Ubuntu, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -48,17 +40,12 @@ a {
 button {
   appearance: none;
   -webkit-appearance: none;
-
   margin: 0;
   padding: 0;
-
   border: 0;
   outline: 0;
-
   background: transparent;
-
   color: inherit;
-
   cursor: pointer;
 }
 
@@ -72,31 +59,10 @@ video {
 ========================================================= */
 
 :root {
-  --navbar-height:
-    clamp(
-      105px,
-      12vh,
-      130px
-    );
-
-  --page-x:
-    clamp(
-      34px,
-      5vw,
-      86px
-    );
-
-  --page-background:
-    #f3f3f5;
-
-  --transition:
-    800ms
-    cubic-bezier(
-      0.16,
-      1,
-      0.3,
-      1
-    );
+  --navbar-height: clamp(105px, 12vh, 130px);
+  --page-x: clamp(34px, 5vw, 86px);
+  --page-background: #f3f3f5;
+  --transition: 800ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* =========================================================
@@ -108,19 +74,15 @@ video {
   --y: 0;
 
   position: relative;
-
   width: 100vw;
   height: 100vh;
-
   overflow: hidden;
 
   display: flex;
-
   align-items: center;
   justify-content: center;
 
-  background:
-    var(--page-background);
+  background: var(--page-background);
 }
 
 /* =========================================================
@@ -129,19 +91,12 @@ video {
 
 .studio-shell {
   position: relative;
-
   width: 160px;
   height: 160px;
-
   flex: 0 0 160px;
-
   overflow: hidden;
-
   border-radius: 50%;
-
-  background:
-    var(--page-background);
-
+  background: var(--page-background);
   cursor: pointer;
 
   transition:
@@ -153,57 +108,41 @@ video {
 }
 
 .studio-shell:not(.is-open):hover {
-  transform:
-    scale(1.05);
+  transform: scale(1.05);
 }
 
 .studio-shell.is-opening {
-  transform:
-    scale(1.02);
+  transform: scale(1.02);
 }
 
 .studio-shell.is-open {
   width: 100vw;
   height: 100vh;
-
   flex-basis: auto;
-
   border-radius: 0;
-
   cursor: default;
-
   transform: none;
 }
 
 /* =========================================================
-   ENTRADA
+   ENTRY
 ========================================================= */
 
 .studio-entry {
   position: absolute;
-
   inset: 0;
-
   display: flex;
-
   align-items: center;
   justify-content: center;
-
   background: #ffffff;
 }
 
 .studio-entry-logo {
   width: 100px;
-
   max-width: 100px;
-
   height: auto;
-
   object-fit: contain;
-
-  filter:
-    brightness(0)
-    saturate(100%);
+  filter: brightness(0) saturate(100%);
 }
 
 /* =========================================================
@@ -212,16 +151,11 @@ video {
 
 .studio-interface {
   position: absolute;
-
   inset: 0;
-
   width: 100%;
   height: 100%;
-
   overflow: hidden;
-
-  background:
-    var(--page-background);
+  background: var(--page-background);
 }
 
 /* =========================================================
@@ -230,73 +164,27 @@ video {
 
 .topbar {
   position: absolute;
-
   top: 0;
   left: 0;
   right: 0;
-
   z-index: 100;
 
   width: 100%;
-
-  height:
-    var(--navbar-height);
-
-  padding:
-    0
-    var(--page-x);
+  height: var(--navbar-height);
+  padding: 0 var(--page-x);
 
   display: flex;
-
   align-items: center;
   justify-content: space-between;
 
-  background:
-    rgba(
-      255,
-      255,
-      255,
-      0.66
-    );
-
-  backdrop-filter:
-    blur(22px)
-    saturate(125%);
-
-  -webkit-backdrop-filter:
-    blur(22px)
-    saturate(125%);
-
-  border-bottom:
-    1px
-    solid
-    rgba(
-      255,
-      255,
-      255,
-      0.72
-    );
+  background: rgba(255, 255, 255, 0.66);
+  backdrop-filter: blur(22px) saturate(125%);
+  -webkit-backdrop-filter: blur(22px) saturate(125%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.72);
 
   box-shadow:
-    0
-    14px
-    35px
-    rgba(
-      30,
-      35,
-      55,
-      0.075
-    ),
-
-    0
-    2px
-    8px
-    rgba(
-      0,
-      0,
-      0,
-      0.02
-    );
+    0 14px 35px rgba(30, 35, 55, 0.075),
+    0 2px 8px rgba(0, 0, 0, 0.02);
 }
 
 /* =========================================================
@@ -305,18 +193,14 @@ video {
 
 .topbar-brand {
   position: relative;
-
   z-index: 5;
-
   flex-shrink: 0;
 
   display: flex;
-
   align-items: center;
   justify-content: center;
 
   padding: 0;
-
   background: transparent;
 
   transition:
@@ -325,32 +209,18 @@ video {
 }
 
 .topbar-brand:hover {
-  transform:
-    scale(0.985);
+  transform: scale(0.985);
 }
 
 .topbar-logo {
-  width:
-    clamp(
-      115px,
-      9vw,
-      155px
-    );
-
+  width: clamp(115px, 9vw, 155px);
   height: auto;
-
   object-fit: contain;
-
-  filter:
-    brightness(0)
-    saturate(100%);
-
-  transition:
-    opacity 220ms ease;
+  filter: brightness(0) saturate(100%);
+  transition: opacity 220ms ease;
 }
 
-.topbar-brand:hover
-.topbar-logo {
+.topbar-brand:hover .topbar-logo {
   opacity: 0.55;
 }
 
@@ -360,59 +230,30 @@ video {
 
 .topbar-nav {
   position: relative;
-
   z-index: 5;
 
   display: flex;
-
   align-items: center;
-
-  gap:
-    clamp(
-      34px,
-      3.5vw,
-      64px
-    );
+  gap: clamp(34px, 3.5vw, 64px);
 }
 
 .topbar-link {
   position: relative;
 
   display: inline-flex;
-
   align-items: center;
   justify-content: center;
 
-  padding:
-    12px
-    0;
+  padding: 12px 0;
 
-  color:
-    rgba(
-      5,
-      5,
-      5,
-      0.56
-    );
-
-  font-size:
-    clamp(
-      16px,
-      1.05vw,
-      20px
-    );
-
+  color: rgba(5, 5, 5, 0.56);
+  font-size: clamp(16px, 1.05vw, 20px);
   font-weight: 500;
-
   line-height: 1;
-
-  letter-spacing:
-    -0.035em;
-
+  letter-spacing: -0.035em;
   white-space: nowrap;
 
-  transition:
-    color 200ms ease;
+  transition: color 200ms ease;
 }
 
 .topbar-link:hover,
@@ -422,33 +263,20 @@ video {
 
 .topbar-link::after {
   content: "";
-
   position: absolute;
-
   left: 0;
   bottom: 2px;
-
   width: 100%;
   height: 1px;
-
   background: #050505;
-
-  transform:
-    scaleX(0);
-
-  transform-origin:
-    right center;
-
-  transition:
-    transform 300ms ease;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 300ms ease;
 }
 
 .topbar-link.is-active::after {
-  transform:
-    scaleX(1);
-
-  transform-origin:
-    left center;
+  transform: scaleX(1);
+  transform-origin: left center;
 }
 
 /* =========================================================
@@ -457,40 +285,27 @@ video {
 
 .hero-area {
   position: absolute;
-
-  top:
-    var(--navbar-height);
-
+  top: var(--navbar-height);
   left: 0;
   right: 0;
   bottom: 0;
-
   overflow: hidden;
-
-  background:
-    var(--page-background);
+  background: var(--page-background);
 }
 
 .hero-left {
   position: absolute;
-
   inset: 0;
-
   z-index: 1;
 
-  padding:
-    35px
-    var(--page-x);
+  padding: 35px var(--page-x);
 
   display: flex;
-
   align-items: center;
   justify-content: flex-start;
 
   overflow: hidden;
-
-  background:
-    var(--page-background);
+  background: var(--page-background);
 }
 
 /* =========================================================
@@ -499,98 +314,50 @@ video {
 
 .background-title {
   margin: 0;
-
   width: max-content;
 
   display: flex;
-
   flex-direction: column;
-
   align-items: flex-start;
 
-  transform:
-    translate(
-      calc(
-        var(--x) *
-        -3px
-      ),
-      calc(
-        var(--y) *
-        -2px
-      )
-    );
+  transform: translate(calc(var(--x) * -3px), calc(var(--y) * -2px));
 
   pointer-events: none;
-
   user-select: none;
 }
 
 .art-tech-title {
   display: block;
-
   white-space: nowrap;
-
   color: #050505;
-
-  font-size:
-    clamp(
-      72px,
-      7vw,
-      135px
-    );
-
+  font-size: clamp(72px, 7vw, 135px);
   font-weight: 700;
-
   line-height: 0.92;
-
-  letter-spacing:
-    -0.075em;
-
+  letter-spacing: -0.075em;
   margin-left: 4px;
-
-  margin-bottom:
-    clamp(
-      10px,
-      1.1vh,
-      16px
-    );
+  margin-bottom: clamp(10px, 1.1vh, 16px);
 }
 
 .studio-title {
   display: block;
-
   white-space: nowrap;
-
   color: #050505;
-
-  font-size:
-    clamp(
-      165px,
-      16vw,
-      310px
-    );
-
+  font-size: clamp(165px, 16vw, 310px);
   font-weight: 800;
-
   line-height: 0.72;
-
-  letter-spacing:
-    -0.095em;
+  letter-spacing: -0.095em;
 }
 
 /* =========================================================
-   CAPA DE TARJETAS
+   LAYER CARDS
 ========================================================= */
 
 .hero-right {
   position: absolute;
-
   inset: 0;
-
   z-index: 20;
 
   display: flex;
-
   align-items: center;
   justify-content: center;
 
@@ -598,250 +365,111 @@ video {
 }
 
 /* =========================================================
-   TARJETA GENERAL
+   CARD
 ========================================================= */
 
 .section-card {
   position: relative;
-
   z-index: 30;
 
-  width:
-    min(
-      64vw,
-      1120px
-    );
-
-  height:
-    min(
-      calc(
-        100% -
-        90px
-      ),
-      690px
-    );
-
+  width: min(64vw, 1120px);
+  height: min(calc(100% - 90px), 690px);
   min-height: 500px;
 
-  padding:
-    clamp(
-      52px,
-      4.5vw,
-      78px
-    );
+  padding: clamp(52px, 4.5vw, 78px);
 
   display: flex;
-
   flex-direction: column;
-
   overflow: hidden;
 
-  border-radius:
-    clamp(
-      28px,
-      2.5vw,
-      42px
-    );
+  border-radius: clamp(28px, 2.5vw, 42px);
 
-  background:
-    linear-gradient(
-      135deg,
-      rgba(
-        255,
-        255,
-        255,
-        0.30
-      )
-      0%,
-      rgba(
-        245,
-        247,
-        255,
-        0.18
-      )
-      55%,
-      rgba(
-        226,
-        233,
-        255,
-        0.13
-      )
-      100%
-    );
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(245, 247, 255, 0.18) 55%,
+    rgba(226, 233, 255, 0.13) 100%
+  );
 
-  border:
-    1px
-    solid
-    rgba(
-      255,
-      255,
-      255,
-      0.5
-    );
+  border: 1px solid rgba(255, 255, 255, 0.5);
 
-  backdrop-filter:
-    blur(28px)
-    saturate(130%);
-
-  -webkit-backdrop-filter:
-    blur(28px)
-    saturate(130%);
+  backdrop-filter: blur(28px) saturate(130%);
+  -webkit-backdrop-filter: blur(28px) saturate(130%);
 
   box-shadow:
-    0
-    22px
-    55px
-    rgba(
-      45,
-      55,
-      90,
-      0.10
-    ),
-
-    0
-    4px
-    14px
-    rgba(
-      0,
-      0,
-      0,
-      0.025
-    ),
-
-    inset
-    0
-    1px
-    0
-    rgba(
-      255,
-      255,
-      255,
-      0.40
-    );
+    0 22px 55px rgba(45, 55, 90, 0.1),
+    0 4px 14px rgba(0, 0, 0, 0.025),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
 
   pointer-events: auto;
 
-  animation:
-    cardIn
-    520ms
-    cubic-bezier(
-      0.16,
-      1,
-      0.3,
-      1
-    )
-    both;
+  animation: cardIn 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
-
-/* =========================================================
-   PROYECTOS + SERVICIOS
-========================================================= */
 
 .section-card-proyectos,
 .section-card-servicios {
-  width:
-    min(
-      76vw,
-      1320px
-    );
+  width: min(76vw, 1320px);
 }
 
 /* =========================================================
-   CONTACTO CIRCULAR GRANDE
+   CONTACTO CIRCULO
 ========================================================= */
+
 .section-card-contacto {
   width: min(68vh, 720px);
   height: min(68vh, 720px);
-
   min-width: 560px;
   min-height: 560px;
 
   padding: 0;
-
   aspect-ratio: 1 / 1;
-
   border-radius: 50%;
 
   background: rgba(255, 255, 255, 0.18);
-
   border: 1px solid rgba(255, 255, 255, 0.45);
 
   backdrop-filter: blur(20px) saturate(120%);
   -webkit-backdrop-filter: blur(20px) saturate(120%);
 
   box-shadow:
-    0 32px 80px rgba(35, 40, 70, 0.14),
+    0 28px 70px rgba(35, 40, 70, 0.14),
     inset 0 1px 0 rgba(255, 255, 255, 0.55);
 }
-/* =========================================================
-   ANIMACIÓN
-========================================================= */
 
 @keyframes cardIn {
   from {
     opacity: 0;
-
-    transform:
-      translateY(22px)
-      scale(0.98);
+    transform: translateY(22px) scale(0.98);
   }
 
   to {
     opacity: 1;
-
-    transform:
-      translateY(0)
-      scale(1);
+    transform: translateY(0) scale(1);
   }
 }
 
 /* =========================================================
-   X
+   CLOSE
 ========================================================= */
 
 .section-card-close {
   position: absolute;
-
-  top:
-    clamp(
-      20px,
-      2vw,
-      32px
-    );
-
-  right:
-    clamp(
-      22px,
-      2.2vw,
-      36px
-    );
-
+  top: clamp(20px, 2vw, 32px);
+  right: clamp(22px, 2.2vw, 36px);
   z-index: 50;
 
   width: 42px;
   height: 42px;
 
   display: flex;
-
   align-items: center;
   justify-content: center;
 
-  color:
-    rgba(
-      5,
-      5,
-      5,
-      0.38
-    );
+  color: rgba(5, 5, 5, 0.38);
 
-  font-family:
-    Arial,
-    sans-serif;
-
+  font-family: Arial, sans-serif;
   font-size: 32px;
-
   font-weight: 300;
-
   line-height: 1;
 
   transition:
@@ -851,166 +479,85 @@ video {
 
 .section-card-close:hover {
   color: #050505;
+  transform: rotate(90deg);
+}
 
-  transform:
-    rotate(90deg);
+.section-card-contacto .section-card-close {
+  top: 52px;
+  right: 64px;
 }
 
 /* =========================================================
-   X CONTACTO
-========================================================= */
-
-.section-card-contacto
-.section-card-close {
-  top: 68px;
-  right: 82px;
-
-  color:
-    rgba(
-      5,
-      5,
-      5,
-      0.50
-    );
-}
-
-/* =========================================================
-   HEADER TARJETAS
+   HEADER
 ========================================================= */
 
 .section-card-header {
   position: relative;
-
   z-index: 5;
-
   width: 100%;
 }
 
 .section-card-header h2 {
   margin: 0;
-
   color: #050505;
-
-  font-size:
-    clamp(
-      68px,
-      5.3vw,
-      102px
-    );
-
+  font-size: clamp(68px, 5.3vw, 102px);
   font-weight: 700;
-
   line-height: 0.9;
-
-  letter-spacing:
-    -0.075em;
+  letter-spacing: -0.075em;
 }
 
 .section-card-content {
   position: relative;
-
   z-index: 5;
-
   width: 100%;
-
   margin-top: auto;
 }
 
 /* =========================================================
-   PROYECTOS + SERVICIOS LAYOUT
+   PROYECTOS + SERVICIOS
 ========================================================= */
 
 .projects-layout,
 .services-layout {
   position: relative;
-
   z-index: 5;
 
   flex: 1;
-
   min-height: 0;
-
-  margin-top:
-    clamp(
-      30px,
-      4vh,
-      50px
-    );
+  margin-top: clamp(30px, 4vh, 50px);
 
   display: grid;
-
-  grid-template-columns:
-    minmax(
-      240px,
-      0.8fr
-    )
-    minmax(
-      380px,
-      1.45fr
-    );
-
-  gap:
-    clamp(
-      30px,
-      4vw,
-      65px
-    );
-
+  grid-template-columns: minmax(240px, 0.8fr) minmax(380px, 1.45fr);
+  gap: clamp(30px, 4vw, 65px);
   align-items: stretch;
 }
-
-/* =========================================================
-   LISTAS
-========================================================= */
 
 .projects-list,
 .services-list {
   min-width: 0;
-
   display: grid;
-
-  grid-template-rows:
-    repeat(
-      4,
-      1fr
-    );
+  grid-template-rows: repeat(4, 1fr);
 }
 
 /* =========================================================
-   FILAS
+   ROWS
 ========================================================= */
 
 .project-row,
 .service-row {
   width: 100%;
-
   min-width: 0;
 
   display: flex;
-
   align-items: center;
   justify-content: space-between;
 
   gap: 20px;
-
-  padding:
-    0
-    3px;
+  padding: 0 3px;
 
   background: transparent;
-
-  border-bottom:
-    1px
-    solid
-    rgba(
-      5,
-      5,
-      5,
-      0.07
-    );
-
+  border-bottom: 1px solid rgba(5, 5, 5, 0.07);
   color: #050505;
-
   text-align: left;
 
   transition:
@@ -1020,28 +567,18 @@ video {
 
 .project-row:first-child,
 .service-row:first-child {
-  border-top:
-    1px
-    solid
-    rgba(
-      5,
-      5,
-      5,
-      0.07
-    );
+  border-top: 1px solid rgba(5, 5, 5, 0.07);
 }
 
 .project-row:hover,
 .project-row.is-previewing,
 .service-row:hover,
 .service-row.is-previewing {
-  transform:
-    translateX(8px);
+  transform: translateX(8px);
 }
 
 .project-row.is-disabled {
   cursor: default;
-
   opacity: 0.42;
 }
 
@@ -1050,110 +587,40 @@ video {
 }
 
 .row-title {
-  font-size:
-    clamp(
-      18px,
-      1.2vw,
-      23px
-    );
-
+  font-size: clamp(18px, 1.2vw, 23px);
   font-weight: 500;
-
-  line-height: 1;
+  line-height: 1.15;
 }
 
 .row-meta {
   flex-shrink: 0;
-
-  color:
-    rgba(
-      5,
-      5,
-      5,
-      0.38
-    );
-
-  font-size:
-    clamp(
-      10px,
-      0.68vw,
-      12px
-    );
-
+  color: rgba(5, 5, 5, 0.38);
+  font-size: clamp(10px, 0.68vw, 12px);
   white-space: nowrap;
 }
 
 /* =========================================================
-   PREVIEW COMPARTIDA
+   HOVER CARD
 ========================================================= */
 
 .hover-preview-area {
   min-width: 0;
-
   min-height: 300px;
-
   overflow: hidden;
 
   border-radius: 24px;
 
-  background:
-    rgba(
-      255,
-      255,
-      255,
-      0.35
-    );
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.55);
 
-  border:
-    1px
-    solid
-    rgba(
-      255,
-      255,
-      255,
-      0.55
-    );
-
-  backdrop-filter:
-    blur(22px)
-    saturate(120%);
-
-  -webkit-backdrop-filter:
-    blur(22px)
-    saturate(120%);
+  backdrop-filter: blur(22px) saturate(120%);
+  -webkit-backdrop-filter: blur(22px) saturate(120%);
 
   box-shadow:
-    0
-    16px
-    40px
-    rgba(
-      40,
-      50,
-      90,
-      0.09
-    ),
+    0 16px 40px rgba(40, 50, 90, 0.09),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
 
-    inset
-    0
-    1px
-    0
-    rgba(
-      255,
-      255,
-      255,
-      0.5
-    );
-
-  animation:
-    previewAppear
-    420ms
-    cubic-bezier(
-      0.16,
-      1,
-      0.3,
-      1
-    )
-    both;
+  animation: previewAppear 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
 
   pointer-events: none;
 }
@@ -1161,366 +628,187 @@ video {
 @keyframes previewAppear {
   from {
     opacity: 0;
-
-    transform:
-      translateX(18px)
-      scale(0.965);
-
-    filter:
-      blur(5px);
+    transform: translateX(18px) scale(0.965);
+    filter: blur(5px);
   }
 
   to {
     opacity: 1;
-
-    transform:
-      translateX(0)
-      scale(1);
-
-    filter:
-      blur(0);
+    transform: translateX(0) scale(1);
+    filter: blur(0);
   }
 }
 
 /* =========================================================
-   PREVIEW PROYECTO
+   PROJECT PREVIEW
 ========================================================= */
 
 .project-preview {
   width: 100%;
   height: 100%;
-
   min-height: 300px;
 
   display: flex;
-
   flex-direction: column;
-
   overflow: hidden;
 
   background: #ffffff;
 }
 
 .project-preview-toolbar {
-  flex:
-    0
-    0
-    42px;
-
+  flex: 0 0 42px;
   height: 42px;
-
-  padding:
-    0
-    13px;
+  padding: 0 13px;
 
   display: grid;
-
-  grid-template-columns:
-    auto
-    minmax(
-      0,
-      1fr
-    )
-    auto;
-
+  grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
-
   gap: 12px;
 
   background: #f4f4f6;
-
-  border-bottom:
-    1px
-    solid
-    rgba(
-      5,
-      5,
-      5,
-      0.06
-    );
+  border-bottom: 1px solid rgba(5, 5, 5, 0.06);
 }
 
 .preview-dots {
   display: flex;
-
   gap: 5px;
 }
 
 .preview-dots span {
   width: 7px;
   height: 7px;
-
   border-radius: 50%;
-
-  background:
-    rgba(
-      5,
-      5,
-      5,
-      0.18
-    );
+  background: rgba(5, 5, 5, 0.18);
 }
 
 .preview-address {
   min-width: 0;
-
   overflow: hidden;
-
-  color:
-    rgba(
-      5,
-      5,
-      5,
-      0.42
-    );
-
+  color: rgba(5, 5, 5, 0.42);
   font-size: 10px;
-
   text-align: center;
-
   white-space: nowrap;
-
   text-overflow: ellipsis;
 }
 
 .preview-live {
-  color:
-    rgba(
-      5,
-      5,
-      5,
-      0.38
-    );
-
+  color: rgba(5, 5, 5, 0.38);
   font-size: 9px;
-
   font-weight: 700;
-
-  letter-spacing:
-    0.12em;
+  letter-spacing: 0.12em;
 }
 
 .project-preview-window {
   position: relative;
-
   flex: 1;
-
   min-height: 0;
-
   overflow: hidden;
-
   background: #ffffff;
 }
 
 .project-preview-frame {
   position: absolute;
-
   inset: 0;
-
   width: 100%;
   height: 100%;
-
   border: 0;
-
   background: #ffffff;
-
   pointer-events: none;
 }
 
 /* =========================================================
-   SERVICIOS PREVIEW
+   SERVICE PREVIEW
 ========================================================= */
 
 .service-preview-area {
   display: flex;
-
   align-items: stretch;
 }
 
 .service-preview-content {
   position: relative;
-
   width: 100%;
   height: 100%;
-
   min-height: 300px;
-
-  padding:
-    clamp(
-      35px,
-      3.2vw,
-      55px
-    );
+  padding: clamp(32px, 2.8vw, 48px);
 
   display: flex;
-
   flex-direction: column;
-
   align-items: flex-start;
-
   overflow: hidden;
 }
 
 .service-preview-content::before {
   content: "";
-
   position: absolute;
-
   width: 300px;
   height: 300px;
-
   right: -120px;
   bottom: -150px;
-
   border-radius: 50%;
-
-  background:
-    rgba(
-      105,
-      135,
-      255,
-      0.10
-    );
-
-  filter:
-    blur(65px);
-
+  background: rgba(105, 135, 255, 0.1);
+  filter: blur(65px);
   pointer-events: none;
 }
 
 .service-preview-label {
   position: relative;
-
   z-index: 2;
-
-  margin-bottom:
-    clamp(
-      18px,
-      2.5vh,
-      30px
-    );
-
-  color:
-    rgba(
-      5,
-      5,
-      5,
-      0.35
-    );
-
-  font-size: 10px;
-
+  margin-bottom: 18px;
+  color: rgba(5, 5, 5, 0.35);
+  font-size: 9px;
   font-weight: 700;
-
-  letter-spacing:
-    0.16em;
+  letter-spacing: 0.16em;
 }
 
 .service-preview-content h3 {
   position: relative;
-
   z-index: 2;
 
-  margin:
-    0
-    0
-    clamp(
-      22px,
-      3vh,
-      34px
-    );
-
-  max-width: 90%;
+  margin: 0 0 22px;
+  max-width: 95%;
 
   color: #050505;
-
-  font-size:
-    clamp(
-      35px,
-      3.3vw,
-      58px
-    );
-
+  font-size: clamp(28px, 2.7vw, 46px);
   font-weight: 600;
-
-  line-height: 0.95;
-
-  letter-spacing:
-    -0.06em;
+  line-height: 0.98;
+  letter-spacing: -0.055em;
 }
 
 .service-preview-content p {
   position: relative;
-
   z-index: 2;
 
   margin: 0;
-
   max-width: 650px;
 
-  color:
-    rgba(
-      5,
-      5,
-      5,
-      0.58
-    );
-
-  font-size:
-    clamp(
-      14px,
-      1.05vw,
-      18px
-    );
-
-  line-height: 1.55;
-
-  letter-spacing:
-    -0.018em;
+  color: rgba(5, 5, 5, 0.58);
+  font-size: clamp(13px, 0.95vw, 17px);
+  line-height: 1.5;
+  letter-spacing: -0.015em;
 }
 
 .service-preview-bottom {
   position: relative;
-
   z-index: 2;
 
   width: 100%;
-
   margin-top: auto;
-
-  padding-top: 28px;
+  padding-top: 20px;
 
   display: flex;
-
   align-items: center;
   justify-content: space-between;
 
-  border-top:
-    1px
-    solid
-    rgba(
-      5,
-      5,
-      5,
-      0.07
-    );
+  border-top: 1px solid rgba(5, 5, 5, 0.07);
 
-  color:
-    rgba(
-      5,
-      5,
-      5,
-      0.40
-    );
-
-  font-size: 11px;
+  color: rgba(5, 5, 5, 0.4);
+  font-size: 10px;
 }
 
-.service-preview-bottom
-span:last-child {
+.service-preview-bottom span:last-child {
   color: #050505;
-
-  font-size: 20px;
+  font-size: 18px;
 }
 
 /* =========================================================
@@ -1529,220 +817,92 @@ span:last-child {
 
 .contact-circle-content {
   position: relative;
-
   width: 100%;
   height: 100%;
-
   overflow: hidden;
-
   border-radius: 50%;
 }
 
-/* =========================================================
-   VIDEO CONTACTO
-========================================================= */
-
 .contact-circle-video-wrap {
   position: absolute;
-
   inset: 0;
-
   z-index: 1;
-
   overflow: hidden;
-
   border-radius: 50%;
 }
 
 .contact-circle-video {
   width: 100%;
   height: 100%;
-
   object-fit: cover;
-
   object-position: center;
-
   opacity: 0.78;
-
-  transform:
-    scale(1.03);
+  transform: scale(1.03);
 }
-
-/* =========================================================
-   CAPA GLASS SOBRE VIDEO
-========================================================= */
 
 .contact-circle-video-overlay {
   position: absolute;
-
   inset: 0;
 
-  background:
-    linear-gradient(
-      145deg,
-      rgba(
-        255,
-        255,
-        255,
-        0.48
-      )
-      0%,
-      rgba(
-        255,
-        255,
-        255,
-        0.18
-      )
-      40%,
-      rgba(
-        255,
-        255,
-        255,
-        0.34
-      )
-      100%
-    );
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.48) 0%,
+    rgba(255, 255, 255, 0.18) 40%,
+    rgba(255, 255, 255, 0.34) 100%
+  );
 
-  backdrop-filter:
-    blur(11px)
-    saturate(115%);
-
-  -webkit-backdrop-filter:
-    blur(11px)
-    saturate(115%);
+  backdrop-filter: blur(11px) saturate(115%);
+  -webkit-backdrop-filter: blur(11px) saturate(115%);
 }
-
-/* =========================================================
-   CONTENIDO CONTACTO
-========================================================= */
 
 .contact-circle-inner {
   position: relative;
-
   z-index: 5;
 
   width: 100%;
   height: 100%;
-
-  padding:
-    110px
-    100px
-    95px;
+  padding: 90px 82px 76px;
 
   display: flex;
-
   flex-direction: column;
-
   align-items: center;
   justify-content: center;
 
   text-align: center;
 }
 
-/* =========================================================
-   LABEL
-========================================================= */
-
 .contact-circle-label {
-  margin-bottom: 22px;
-
-  color:
-    rgba(
-      5,
-      5,
-      5,
-      0.45
-    );
-
-  font-size: 11px;
-
+  margin-bottom: 18px;
+  color: rgba(5, 5, 5, 0.45);
+  font-size: 10px;
   font-weight: 700;
-
-  letter-spacing:
-    0.18em;
+  letter-spacing: 0.18em;
 }
-
-/* =========================================================
-   TITULO CONTACTO
-========================================================= */
 
 .contact-circle-inner h2 {
-  margin:
-    0
-    0
-    25px;
-
+  margin: 0 0 22px;
   color: #050505;
-
-  font-size:
-    clamp(
-      58px,
-      5.3vw,
-      96px
-    );
-
+  font-size: clamp(52px, 4.7vw, 82px);
   font-weight: 700;
-
   line-height: 0.88;
-
-  letter-spacing:
-    -0.075em;
+  letter-spacing: -0.075em;
 }
-
-/* =========================================================
-   TEXTO CONTACTO
-========================================================= */
 
 .contact-circle-inner p {
-  margin:
-    0
-    0
-    34px;
-
-  max-width: 430px;
-
-  color:
-    rgba(
-      5,
-      5,
-      5,
-      0.68
-    );
-
-  font-size:
-    clamp(
-      17px,
-      1.3vw,
-      23px
-    );
-
+  margin: 0 0 28px;
+  max-width: 390px;
+  color: rgba(5, 5, 5, 0.68);
+  font-size: clamp(16px, 1.15vw, 20px);
   line-height: 1.45;
-
-  letter-spacing:
-    -0.025em;
+  letter-spacing: -0.025em;
 }
 
-/* =========================================================
-   EMAIL
-========================================================= */
-
 .contact-circle-email {
-  margin-bottom: 16px;
-
+  margin-bottom: 14px;
   color: #050505;
-
-  font-size:
-    clamp(
-      23px,
-      1.7vw,
-      31px
-    );
-
+  font-size: clamp(21px, 1.5vw, 27px);
   font-weight: 600;
-
-  letter-spacing:
-    -0.035em;
-
+  letter-spacing: -0.035em;
   text-decoration: none;
 
   transition:
@@ -1752,33 +912,15 @@ span:last-child {
 
 .contact-circle-email:hover {
   opacity: 0.55;
-
-  transform:
-    translateY(-2px);
+  transform: translateY(-2px);
 }
 
-/* =========================================================
-   LINK
-========================================================= */
-
 .contact-circle-link {
-  color:
-    rgba(
-      5,
-      5,
-      5,
-      0.50
-    );
-
-  font-size: 14px;
-
+  color: rgba(5, 5, 5, 0.5);
+  font-size: 13px;
   font-weight: 500;
-
   text-decoration: none;
-
-  transition:
-    color 200ms ease,
-    opacity 200ms ease;
+  transition: color 200ms ease;
 }
 
 .contact-circle-link:hover {
@@ -1790,13 +932,9 @@ span:last-child {
 ========================================================= */
 
 @media (max-width: 1100px) {
-
   :root {
-    --navbar-height:
-      100px;
-
-    --page-x:
-      38px;
+    --navbar-height: 100px;
+    --page-x: 38px;
   }
 
   .topbar-logo {
@@ -1812,37 +950,18 @@ span:last-child {
   }
 
   .art-tech-title {
-    font-size:
-      clamp(
-        58px,
-        7vw,
-        96px
-      );
+    font-size: clamp(58px, 7vw, 96px);
   }
 
   .studio-title {
-    font-size:
-      clamp(
-        125px,
-        16vw,
-        215px
-      );
+    font-size: clamp(125px, 16vw, 215px);
   }
 
   .section-card {
     width: 72vw;
-
-    height:
-      calc(
-        100% -
-        70px
-      );
-
+    height: calc(100% - 70px);
     min-height: 430px;
-
-    padding:
-      48px
-      54px;
+    padding: 48px 54px;
   }
 
   .section-card-proyectos,
@@ -1852,53 +971,26 @@ span:last-child {
 
   .projects-layout,
   .services-layout {
-    grid-template-columns:
-      minmax(
-        210px,
-        0.8fr
-      )
-      minmax(
-        280px,
-        1.3fr
-      );
-
+    grid-template-columns: minmax(210px, 0.8fr) minmax(280px, 1.3fr);
     gap: 28px;
   }
 
-  /* CONTACTO */
-
   .section-card-contacto {
-    width:
-      min(
-        80vw,
-        760px
-      );
-
-    height:
-      min(
-        80vw,
-        760px
-      );
-
-    min-width: 560px;
-    min-height: 560px;
-
+    width: min(68vw, 660px);
+    height: min(68vw, 660px);
+    min-width: 520px;
+    min-height: 520px;
     padding: 0;
-
     border-radius: 50%;
   }
 
   .contact-circle-inner {
-    padding:
-      90px
-      72px
-      72px;
+    padding: 78px 60px 62px;
   }
 
-  .section-card-contacto
-  .section-card-close {
-    top: 50px;
-    right: 58px;
+  .section-card-contacto .section-card-close {
+    top: 42px;
+    right: 50px;
   }
 }
 
@@ -1907,13 +999,9 @@ span:last-child {
 ========================================================= */
 
 @media (max-width: 768px) {
-
   :root {
-    --navbar-height:
-      82px;
-
-    --page-x:
-      20px;
+    --navbar-height: 82px;
+    --page-x: 20px;
   }
 
   .studio-shell.is-open {
@@ -1921,19 +1009,9 @@ span:last-child {
   }
 
   .topbar {
-    background:
-      rgba(
-        255,
-        255,
-        255,
-        0.72
-      );
-
-    backdrop-filter:
-      blur(16px);
-
-    -webkit-backdrop-filter:
-      blur(16px);
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
   }
 
   .topbar-logo {
@@ -1946,88 +1024,43 @@ span:last-child {
 
   .topbar-link {
     font-size: 12px;
-
-    padding:
-      10px
-      0;
+    padding: 10px 0;
   }
 
   .hero-left {
-    padding:
-      20px
-      var(--page-x);
+    padding: 20px var(--page-x);
   }
 
   .art-tech-title {
-    font-size:
-      clamp(
-        42px,
-        12vw,
-        68px
-      );
-
+    font-size: clamp(42px, 12vw, 68px);
     margin-bottom: 6px;
   }
 
   .studio-title {
-    font-size:
-      clamp(
-        92px,
-        27vw,
-        150px
-      );
+    font-size: clamp(92px, 27vw, 150px);
   }
 
   .section-card,
   .section-card-proyectos,
   .section-card-servicios {
-    width:
-      calc(
-        100% -
-        30px
-      );
-
-    height:
-      calc(
-        100% -
-        42px
-      );
-
+    width: calc(100% - 30px);
+    height: calc(100% - 42px);
     min-height: 0;
-
-    max-height: none;
-
-    padding:
-      32px
-      26px;
-
+    padding: 28px 22px;
     border-radius: 26px;
   }
 
   .section-card-header h2 {
-    font-size:
-      clamp(
-        45px,
-        11vw,
-        66px
-      );
+    font-size: clamp(43px, 11vw, 62px);
   }
 
   .projects-layout,
   .services-layout {
-    margin-top: 24px;
-
+    margin-top: 20px;
     overflow-y: auto;
-
-    grid-template-columns:
-      1fr;
-
-    grid-template-rows:
-      auto
-      auto;
-
-    gap: 20px;
-
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    gap: 14px;
     scrollbar-width: none;
   }
 
@@ -2038,102 +1071,85 @@ span:last-child {
 
   .projects-list,
   .services-list {
-    min-height: 200px;
+    min-height: 180px;
   }
 
   .project-row,
   .service-row {
-    min-height: 50px;
+    min-height: 45px;
   }
 
-  .hover-preview-area,
-  .project-preview,
-  .service-preview-content {
-    min-height: 250px;
-  }
-
-  .row-meta {
-    font-size: 9px;
-  }
-
-  .service-preview-content {
-    padding: 32px;
-  }
-
-  .service-preview-content h3 {
-    font-size:
-      clamp(
-        34px,
-        8vw,
-        50px
-      );
-  }
-
-  .service-preview-content p {
+  .row-title {
     font-size: 15px;
   }
 
-  /* CONTACTO */
+  .row-meta {
+    font-size: 8px;
+  }
+
+  .service-preview-area {
+    min-height: 230px;
+  }
+
+  .service-preview-content {
+    min-height: 230px;
+    padding: 24px 22px;
+  }
+
+  .service-preview-label {
+    margin-bottom: 12px;
+    font-size: 8px;
+  }
+
+  .service-preview-content h3 {
+    margin: 0 0 15px;
+    max-width: 100%;
+    font-size: clamp(24px, 6vw, 31px);
+    line-height: 0.99;
+    letter-spacing: -0.045em;
+  }
+
+  .service-preview-content p {
+    max-width: 100%;
+    font-size: 13px;
+    line-height: 1.44;
+  }
+
+  .service-preview-bottom {
+    padding-top: 12px;
+    font-size: 8px;
+  }
 
   .section-card-contacto {
-    width:
-      min(
-        calc(
-          100vw -
-          20px
-        ),
-        620px
-      );
-
-    height:
-      min(
-        calc(
-          100vw -
-          20px
-        ),
-        620px
-      );
-
+    width: min(calc(100vw - 30px), 520px);
+    height: min(calc(100vw - 30px), 520px);
     min-width: 0;
     min-height: 0;
-
     padding: 0;
-
     aspect-ratio: 1 / 1;
-
     border-radius: 50%;
   }
 
   .contact-circle-inner {
-    padding:
-      78px
-      45px
-      48px;
+    padding: 70px 38px 40px;
   }
 
   .contact-circle-inner h2 {
-    font-size:
-      clamp(
-        45px,
-        10vw,
-        70px
-      );
+    font-size: clamp(42px, 10vw, 64px);
   }
 
   .contact-circle-inner p {
     font-size: 15px;
-
-    margin-bottom: 24px;
+    margin-bottom: 22px;
   }
 
   .contact-circle-email {
-    font-size: 19px;
+    font-size: 18px;
   }
 
-  .section-card-contacto
-  .section-card-close {
-    top: 28px;
-    right: 32px;
+  .section-card-contacto .section-card-close {
+    top: 25px;
+    right: 30px;
   }
 }
 
@@ -2142,13 +1158,9 @@ span:last-child {
 ========================================================= */
 
 @media (max-width: 520px) {
-
   :root {
-    --navbar-height:
-      74px;
-
-    --page-x:
-      14px;
+    --navbar-height: 74px;
+    --page-x: 14px;
   }
 
   .topbar-logo {
@@ -2164,114 +1176,110 @@ span:last-child {
   }
 
   .art-tech-title {
-    font-size:
-      clamp(
-        36px,
-        11vw,
-        54px
-      );
+    font-size: clamp(36px, 11vw, 54px);
   }
 
   .studio-title {
-    font-size:
-      clamp(
-        82px,
-        25vw,
-        122px
-      );
+    font-size: clamp(82px, 25vw, 122px);
   }
 
   .section-card,
   .section-card-proyectos,
   .section-card-servicios {
-    width:
-      calc(
-        100% -
-        20px
-      );
-
-    height:
-      calc(
-        100% -
-        28px
-      );
-
-    padding:
-      28px
-      22px;
-
+    width: calc(100% - 20px);
+    height: calc(100% - 24px);
+    padding: 24px 18px;
     border-radius: 24px;
+  }
+
+  .section-card-header h2 {
+    font-size: 42px;
   }
 
   .row-meta {
     display: none;
   }
 
-  .service-preview-content {
-    padding:
-      28px
-      24px;
+  .services-layout {
+    margin-top: 16px;
+    gap: 12px;
   }
 
-  /* CONTACTO */
+  .services-list {
+    min-height: 170px;
+  }
+
+  .service-row {
+    min-height: 42px;
+  }
+
+  .service-preview-area {
+    min-height: 220px;
+    border-radius: 20px;
+  }
+
+  .service-preview-content {
+    min-height: 220px;
+    padding: 20px 18px 16px;
+  }
+
+  .service-preview-label {
+    margin-bottom: 9px;
+    font-size: 7px;
+    letter-spacing: 0.14em;
+  }
+
+  .service-preview-content h3 {
+    margin: 0 0 12px;
+    max-width: 100%;
+    font-size: 21px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+
+  .service-preview-content p {
+    font-size: 11.8px;
+    line-height: 1.4;
+  }
+
+  .service-preview-bottom {
+    padding-top: 10px;
+    font-size: 7px;
+  }
+
+  .service-preview-bottom span:last-child {
+    font-size: 14px;
+  }
 
   .section-card-contacto {
-    width:
-      min(
-        calc(
-          100vw -
-          12px
-        ),
-        500px
-      );
-
-    height:
-      min(
-        calc(
-          100vw -
-          12px
-        ),
-        500px
-      );
-
+    width: min(calc(100vw - 12px), 500px);
+    height: min(calc(100vw - 12px), 500px);
     padding: 0;
-
     border-radius: 50%;
   }
 
   .contact-circle-inner {
-    padding:
-      64px
-      28px
-      32px;
+    padding: 64px 28px 32px;
   }
 
   .contact-circle-label {
     margin-bottom: 12px;
-
     font-size: 9px;
   }
 
   .contact-circle-inner h2 {
     margin-bottom: 16px;
-
-    font-size:
-      clamp(
-        40px,
-        12vw,
-        58px
-      );
+    font-size: clamp(40px, 12vw, 58px);
   }
 
   .contact-circle-inner p {
     margin-bottom: 18px;
-
     font-size: 14px;
   }
 
   .contact-circle-email {
     margin-bottom: 10px;
-
     font-size: 17px;
   }
 
@@ -2279,19 +1287,17 @@ span:last-child {
     font-size: 12px;
   }
 
-  .section-card-contacto
-  .section-card-close {
+  .section-card-contacto .section-card-close {
     top: 19px;
     right: 22px;
   }
 }
 
 /* =========================================================
-   MÓVIL MUY PEQUEÑO
+   IPHONE SE / MUY PEQUEÑO
 ========================================================= */
 
 @media (max-width: 390px) {
-
   .topbar-logo {
     width: 58px;
   }
@@ -2307,56 +1313,68 @@ span:last-child {
   .section-card,
   .section-card-proyectos,
   .section-card-servicios {
-    padding:
-      25px
-      18px;
-
+    padding: 22px 16px;
     border-radius: 21px;
   }
 
+  .section-card-header h2 {
+    font-size: 38px;
+  }
+
   .row-title {
-    font-size: 14px;
+    font-size: 13px;
+  }
+
+  .services-layout {
+    margin-top: 14px;
+    gap: 10px;
+  }
+
+  .services-list {
+    min-height: 160px;
+  }
+
+  .service-row {
+    min-height: 40px;
+  }
+
+  .service-preview-area {
+    min-height: 210px;
+  }
+
+  .service-preview-content {
+    min-height: 210px;
+    padding: 18px 16px 14px;
+  }
+
+  .service-preview-label {
+    margin-bottom: 8px;
   }
 
   .service-preview-content h3 {
-    font-size: 32px;
+    margin-bottom: 10px;
+    font-size: 21px;
+    line-height: 1;
   }
 
   .service-preview-content p {
-    font-size: 14px;
+    font-size: 11.2px;
+    line-height: 1.38;
   }
 
-  /* CONTACTO */
+  .service-preview-bottom {
+    padding-top: 8px;
+  }
 
   .section-card-contacto {
-    width:
-      min(
-        calc(
-          100vw -
-          8px
-        ),
-        382px
-      );
-
-    height:
-      min(
-        calc(
-          100vw -
-          8px
-        ),
-        382px
-      );
-
+    width: min(calc(100vw - 8px), 382px);
+    height: min(calc(100vw - 8px), 382px);
     padding: 0;
-
     border-radius: 50%;
   }
 
   .contact-circle-inner {
-    padding:
-      52px
-      22px
-      24px;
+    padding: 52px 22px 24px;
   }
 
   .contact-circle-inner h2 {
@@ -2371,33 +1389,127 @@ span:last-child {
     font-size: 16px;
   }
 
-  .section-card-contacto
-  .section-card-close {
+  .section-card-contacto .section-card-close {
     top: 14px;
     right: 16px;
-
     font-size: 27px;
   }
 }
 
 /* =========================================================
-   REDUCIR MOVIMIENTO
+   REDUCED MOTION
 ========================================================= */
 
-@media (
-  prefers-reduced-motion:
-  reduce
-) {
-
+@media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
-    animation-duration:
-      0.01ms
-      !important;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+/* =========================================================
+   IPHONE / MÓVIL PEQUEÑO
+========================================================= */
 
-    transition-duration:
-      0.01ms
-      !important;
+@media (max-width: 520px) {
+
+  .service-preview-area {
+    min-height: 225px;
+    border-radius: 20px;
+  }
+
+  .service-preview-content {
+    min-height: 225px;
+    padding: 20px 18px 16px;
+  }
+
+  .service-preview-label {
+    margin-bottom: 9px;
+
+    font-size: 8px;
+    letter-spacing: 0.14em;
+  }
+
+  .service-preview-content h3 {
+    margin: 0 0 12px;
+
+    max-width: 100%;
+
+    font-size: 23px;
+    font-weight: 600;
+
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+
+  .service-preview-content p {
+    margin: 0;
+
+    max-width: 100%;
+
+    font-size: 12px;
+    line-height: 1.4;
+
+    letter-spacing: -0.01em;
+  }
+
+  .service-preview-bottom {
+    margin-top: auto;
+
+    padding-top: 10px;
+
+    font-size: 8px;
+  }
+
+  .service-preview-bottom span:last-child {
+    font-size: 15px;
+  }
+}
+
+
+/* =========================================================
+   IPHONE SE 375PX
+========================================================= */
+
+@media (max-width: 390px) {
+
+  .service-preview-area {
+    min-height: 218px;
+  }
+
+  .service-preview-content {
+    min-height: 218px;
+
+    padding:
+      18px
+      16px
+      14px;
+  }
+
+  .service-preview-label {
+    margin-bottom: 8px;
+
+    font-size: 8px;
+  }
+
+  .service-preview-content h3 {
+    margin-bottom: 10px;
+
+    font-size: 22px;
+
+    line-height: 1;
+  }
+
+  .service-preview-content p {
+    font-size: 11.6px;
+
+    line-height: 1.38;
+  }
+
+  .service-preview-bottom {
+    padding-top: 8px;
+
+    font-size: 7.5px;
   }
 }
