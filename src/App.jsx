@@ -1,635 +1,701 @@
 import { useEffect, useRef, useState } from "react";
 import "./App.css";
 
-const videos = {
-  studio: "/background-studio.mp4",
-  proyectos: "/background-projects.mp4",
-  servicios: "/background-services.mp4",
-  contacto: "/background-contact.mp4",
-};
+/* =========================================================
+   NAVEGACIÓN
+========================================================= */
+
+const navigationItems = [
+  { id: "proyectos", label: "Proyectos" },
+  { id: "servicios", label: "Servicios" },
+  { id: "contacto", label: "Contacto" },
+];
+
+/* =========================================================
+   PROYECTOS
+========================================================= */
 
 const projects = [
   {
     id: "daovez-dev",
     title: "Daovez.dev",
-    meta: "Portafolio personal · 2026",
+    meta: "Portfolio · 2026",
     url: "https://daovez.dev",
-    previewUrl: "https://daovez.dev",
-    enabled: true,
   },
   {
-    id: "project-02",
+    id: "proyecto-02",
     title: "Proyecto 02",
-    meta: "Digital Experience",
+    meta: "Digital experience",
     url: "",
-    previewUrl: "",
-    enabled: false,
   },
   {
-    id: "project-03",
+    id: "proyecto-03",
     title: "Proyecto 03",
     meta: "Coming soon",
     url: "",
-    previewUrl: "",
-    enabled: false,
   },
   {
-    id: "project-04",
+    id: "proyecto-04",
     title: "Proyecto 04",
     meta: "Coming soon",
     url: "",
-    previewUrl: "",
-    enabled: false,
   },
 ];
+
+/* =========================================================
+   SERVICIOS
+========================================================= */
 
 const services = [
   {
-    id: "web-design",
-    title: "Diseño web y UI / UX",
+    id: "diseno",
+    title: "Diseño web & UI / UX",
+    meta: "Diseño digital",
     description:
-      "Diseñamos webs modernas, atractivas e intuitivas, adaptadas a cualquier dispositivo y cuidando cada detalle de la experiencia de usuario.",
+      "Diseñamos interfaces modernas, limpias e intuitivas, cuidando la identidad visual, la experiencia de usuario y cada detalle de interacción. Creamos sistemas visuales adaptados a escritorio, tablet y móvil.",
   },
   {
-    id: "development",
-    title: "Desarrollo web full-stack",
+    id: "desarrollo",
+    title: "Desarrollo web",
+    meta: "Frontend & Backend",
     description:
-      "Desarrollamos webs y aplicaciones completas, desde la interfaz hasta el servidor, incluyendo bases de datos, APIs e integraciones a medida.",
+      "Desarrollamos webs y aplicaciones digitales rápidas, escalables y modernas. Trabajamos desde la interfaz hasta la lógica del servidor, APIs, bases de datos e integraciones necesarias para cada proyecto.",
   },
   {
     id: "ecommerce",
-    title: "Tiendas online y eCommerce",
+    title: "eCommerce",
+    meta: "Tiendas online",
     description:
-      "Creamos tiendas online rápidas, seguras y fáciles de gestionar, pensadas para vender y ofrecer una experiencia de compra sencilla y agradable.",
+      "Creamos tiendas online rápidas, seguras y sencillas de utilizar. Diseñamos todo el proceso de compra para reducir fricción, mejorar la conversión y facilitar posteriormente la gestión del catálogo.",
   },
   {
     id: "seo",
-    title: "SEO y optimización web",
+    title: "SEO & optimización",
+    meta: "Performance",
     description:
-      "Mejoramos velocidad, rendimiento, estructura y SEO técnico para que tu web cargue mejor, sea más fácil de usar y gane visibilidad en buscadores.",
+      "Optimizamos rendimiento, velocidad, estructura, accesibilidad y SEO técnico. El objetivo es conseguir una web más rápida, mejor posicionada y preparada para ofrecer una experiencia excelente.",
   },
 ];
 
-const LENS_ZOOM = 1.16;
-
-function TypewriterText() {
-  const mainText = "Creamos\nexperiencias\ndigitales.";
-  const claimText = "Diseño.\nCódigo.\nIdentidad.";
-
-  const [mainVisible, setMainVisible] = useState("");
-  const [claimVisible, setClaimVisible] = useState("");
-  const [mainFinished, setMainFinished] = useState(false);
-  const [claimFinished, setClaimFinished] = useState(false);
-
-  useEffect(() => {
-    let index = 0;
-    let intervalId;
-
-    const startId = window.setTimeout(() => {
-      intervalId = window.setInterval(() => {
-        index += 1;
-        setMainVisible(mainText.slice(0, index));
-
-        if (index >= mainText.length) {
-          window.clearInterval(intervalId);
-          setMainFinished(true);
-        }
-      }, 55);
-    }, 300);
-
-    return () => {
-      window.clearTimeout(startId);
-      window.clearInterval(intervalId);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!mainFinished) return undefined;
-
-    let index = 0;
-    let intervalId;
-
-    const startId = window.setTimeout(() => {
-      intervalId = window.setInterval(() => {
-        index += 1;
-        setClaimVisible(claimText.slice(0, index));
-
-        if (index >= claimText.length) {
-          window.clearInterval(intervalId);
-          setClaimFinished(true);
-        }
-      }, 55);
-    }, 420);
-
-    return () => {
-      window.clearTimeout(startId);
-      window.clearInterval(intervalId);
-    };
-  }, [mainFinished]);
-
-  return (
-    <div className="typewriter-block">
-      <h3 className="typewriter-title">
-        {mainVisible}
-        {!mainFinished && <span className="typing-cursor">|</span>}
-      </h3>
-
-      <p className={`typewriter-claim ${mainFinished ? "claim-visible" : ""}`}>
-        {claimVisible}
-        {mainFinished && !claimFinished && (
-          <span className="claim-cursor">|</span>
-        )}
-      </p>
-    </div>
-  );
-}
+/* =========================================================
+   APP
+========================================================= */
 
 function App() {
-  const heroRef = useRef(null);
-  const mainVideoRef = useRef(null);
-  const lensContainerRef = useRef(null);
-  const lensCanvasRef = useRef(null);
-  const transitionTimerRef = useRef(null);
+  const pageRef = useRef(null);
   const openingTimerRef = useRef(null);
 
   const [open, setOpen] = useState(false);
   const [opening, setOpening] = useState(false);
-  const [section, setSection] = useState("studio");
-  const [currentVideo, setCurrentVideo] = useState(videos.studio);
-  const [previousVideo, setPreviousVideo] = useState(null);
+
+  const [section, setSection] = useState(null);
+
   const [previewProject, setPreviewProject] = useState(null);
+  const [previewService, setPreviewService] = useState(null);
+
+  /* =====================================================
+     MOVIMIENTO SUAVE DEL HERO
+  ===================================================== */
 
   useEffect(() => {
-    const hero = heroRef.current;
-    if (!hero) return undefined;
+    const page = pageRef.current;
+
+    if (!page) {
+      return undefined;
+    }
 
     let targetX = 0;
     let targetY = 0;
+
     let currentX = 0;
     let currentY = 0;
-    let frameId;
+
+    let animationId;
 
     const animate = () => {
-      currentX += (targetX - currentX) * 0.055;
-      currentY += (targetY - currentY) * 0.055;
+      currentX += (targetX - currentX) * 0.045;
+      currentY += (targetY - currentY) * 0.045;
 
-      hero.style.setProperty("--x", currentX);
-      hero.style.setProperty("--y", currentY);
+      page.style.setProperty("--x", currentX);
+      page.style.setProperty("--y", currentY);
 
-      frameId = window.requestAnimationFrame(animate);
+      animationId =
+        window.requestAnimationFrame(animate);
     };
 
     const handlePointerMove = (event) => {
-      targetX = (event.clientX / window.innerWidth - 0.5) * 2;
-      targetY = (event.clientY / window.innerHeight - 0.5) * 2;
+      targetX =
+        (event.clientX / window.innerWidth - 0.5) * 2;
+
+      targetY =
+        (event.clientY / window.innerHeight - 0.5) * 2;
     };
 
-    const resetPosition = () => {
+    const handlePointerLeave = () => {
       targetX = 0;
       targetY = 0;
     };
 
-    window.addEventListener("pointermove", handlePointerMove);
-    document.documentElement.addEventListener("mouseleave", resetPosition);
+    window.addEventListener(
+      "pointermove",
+      handlePointerMove
+    );
+
+    document.documentElement.addEventListener(
+      "mouseleave",
+      handlePointerLeave
+    );
+
     animate();
 
     return () => {
-      window.removeEventListener("pointermove", handlePointerMove);
-      document.documentElement.removeEventListener("mouseleave", resetPosition);
-      window.cancelAnimationFrame(frameId);
+      window.removeEventListener(
+        "pointermove",
+        handlePointerMove
+      );
+
+      document.documentElement.removeEventListener(
+        "mouseleave",
+        handlePointerLeave
+      );
+
+      window.cancelAnimationFrame(animationId);
     };
   }, []);
 
-  useEffect(() => {
-    if (!open) return undefined;
-
-    const canvas = lensCanvasRef.current;
-    const lens = lensContainerRef.current;
-    if (!canvas || !lens) return undefined;
-
-    const context = canvas.getContext("2d", { alpha: false });
-    if (!context) return undefined;
-
-    canvas.classList.remove("lens-ready");
-
-    let frameId;
-    let firstFrameDrawn = false;
-
-    const drawLens = () => {
-      const video = mainVideoRef.current;
-
-      if (
-        video &&
-        video.readyState >= 2 &&
-        video.videoWidth > 0 &&
-        video.videoHeight > 0
-      ) {
-        const videoRect = video.getBoundingClientRect();
-        const lensRect = lens.getBoundingClientRect();
-        const cssWidth = Math.max(1, lensRect.width);
-        const cssHeight = Math.max(1, lensRect.height);
-        const dpr = Math.min(window.devicePixelRatio || 1, 2);
-        const pixelWidth = Math.round(cssWidth * dpr);
-        const pixelHeight = Math.round(cssHeight * dpr);
-
-        if (canvas.width !== pixelWidth || canvas.height !== pixelHeight) {
-          canvas.width = pixelWidth;
-          canvas.height = pixelHeight;
-        }
-
-        context.setTransform(dpr, 0, 0, dpr, 0, 0);
-        context.clearRect(0, 0, cssWidth, cssHeight);
-
-        const coverScale = Math.max(
-          videoRect.width / video.videoWidth,
-          videoRect.height / video.videoHeight,
-        );
-
-        const visibleSourceWidth = videoRect.width / coverScale;
-        const visibleSourceHeight = videoRect.height / coverScale;
-        const sourceOffsetX = (video.videoWidth - visibleSourceWidth) / 2;
-        const sourceOffsetY = (video.videoHeight - visibleSourceHeight) / 2;
-        const lensCenterX = lensRect.left + lensRect.width / 2;
-        const lensCenterY = lensRect.top + lensRect.height / 2;
-        const relativeCenterX = lensCenterX - videoRect.left;
-        const relativeCenterY = lensCenterY - videoRect.top;
-        const sourceCenterX = sourceOffsetX + relativeCenterX / coverScale;
-        const sourceCenterY = sourceOffsetY + relativeCenterY / coverScale;
-
-        let sourceWidth = cssWidth / coverScale / LENS_ZOOM;
-        let sourceHeight = cssHeight / coverScale / LENS_ZOOM;
-
-        sourceWidth = Math.min(sourceWidth, video.videoWidth);
-        sourceHeight = Math.min(sourceHeight, video.videoHeight);
-
-        let sourceX = sourceCenterX - sourceWidth / 2;
-        let sourceY = sourceCenterY - sourceHeight / 2;
-
-        sourceX = Math.max(
-          0,
-          Math.min(sourceX, video.videoWidth - sourceWidth),
-        );
-        sourceY = Math.max(
-          0,
-          Math.min(sourceY, video.videoHeight - sourceHeight),
-        );
-
-        context.drawImage(
-          video,
-          sourceX,
-          sourceY,
-          sourceWidth,
-          sourceHeight,
-          0,
-          0,
-          cssWidth,
-          cssHeight,
-        );
-
-        if (!firstFrameDrawn) {
-          firstFrameDrawn = true;
-          window.requestAnimationFrame(() => canvas.classList.add("lens-ready"));
-        }
-      }
-
-      frameId = window.requestAnimationFrame(drawLens);
-    };
-
-    drawLens();
-
-    return () => window.cancelAnimationFrame(frameId);
-  }, [open, currentVideo]);
+  /* =====================================================
+     CLEANUP TIMER
+  ===================================================== */
 
   useEffect(() => {
     return () => {
-      window.clearTimeout(transitionTimerRef.current);
-      window.clearTimeout(openingTimerRef.current);
+      window.clearTimeout(
+        openingTimerRef.current
+      );
     };
   }, []);
 
+  /* =====================================================
+     RESET AL CAMBIAR SECCIÓN
+  ===================================================== */
+
+  useEffect(() => {
+    setPreviewProject(null);
+    setPreviewService(null);
+  }, [section]);
+
+  /* =====================================================
+     ABRIR STUDIO
+  ===================================================== */
+
   const openStudio = () => {
-    if (open || opening) return;
+    if (open || opening) {
+      return;
+    }
 
     setOpening(true);
-    window.clearTimeout(openingTimerRef.current);
 
-    openingTimerRef.current = window.setTimeout(() => {
-      setOpen(true);
+    window.clearTimeout(
+      openingTimerRef.current
+    );
 
-      openingTimerRef.current = window.setTimeout(() => {
-        setOpening(false);
-      }, 1000);
-    }, 145);
+    openingTimerRef.current =
+      window.setTimeout(() => {
+        setOpen(true);
+
+        openingTimerRef.current =
+          window.setTimeout(() => {
+            setOpening(false);
+          }, 850);
+      }, 120);
   };
 
-  const closeStudio = () => {
-    window.clearTimeout(openingTimerRef.current);
-    openingTimerRef.current = null;
+  /* =====================================================
+     HOME
+  ===================================================== */
 
-    setOpening(false);
+  const goHome = () => {
+    setSection(null);
+
     setPreviewProject(null);
-    setOpen(false);
+    setPreviewService(null);
   };
+
+  /* =====================================================
+     CAMBIAR SECCIÓN
+  ===================================================== */
 
   const changeSection = (nextSection) => {
-    if (nextSection === section) return;
+    setSection(nextSection);
 
     setPreviewProject(null);
-    window.clearTimeout(transitionTimerRef.current);
-
-    setPreviousVideo(currentVideo);
-    setSection(nextSection);
-    setCurrentVideo(videos[nextSection]);
-
-    transitionTimerRef.current = window.setTimeout(() => {
-      setPreviousVideo(null);
-    }, 1250);
+    setPreviewService(null);
   };
 
-  const ProjectPreview = ({ project }) => {
-    const visible = previewProject?.id === project.id;
+  /* =====================================================
+     CERRAR TARJETA
+  ===================================================== */
 
-    return (
-      <div
-        className={`project-preview ${visible ? "project-preview-visible" : ""}`}
-        aria-hidden="true"
-      >
-        {project.previewUrl ? (
-          <div className="project-preview-browser">
-            <iframe
-              src={project.previewUrl}
-              title={`Preview ${project.title}`}
-              loading="lazy"
-              tabIndex="-1"
-            />
-          </div>
-        ) : (
-          <div className="project-preview-empty">
-            <span>PRÓXIMAMENTE</span>
-            <strong>{project.title}</strong>
-            <small>Preview pendiente</small>
-          </div>
-        )}
-      </div>
-    );
+  const closeCard = (event) => {
+    event.stopPropagation();
+
+    setSection(null);
+
+    setPreviewProject(null);
+    setPreviewService(null);
   };
+
+  /* =====================================================
+     TOUCH
+  ===================================================== */
+
+  const isTouchDevice = () => {
+    return window.matchMedia(
+      "(hover: none)"
+    ).matches;
+  };
+
+  /* =====================================================
+     PROYECTOS
+  ===================================================== */
 
   const renderProjects = () => (
-    <div className="project-list">
-      {projects.map((project) => (
-        <div key={project.id} className="project-item">
-          <ProjectPreview project={project} />
+    <>
+      <header className="section-card-header">
+        <h2>Proyectos</h2>
+      </header>
 
-          {project.enabled && project.url ? (
-            <a
-              className="project-row"
-              href={project.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              onMouseEnter={() => setPreviewProject(project)}
-              onMouseLeave={() => setPreviewProject(null)}
-              onFocus={() => setPreviewProject(project)}
-              onBlur={() => setPreviewProject(null)}
-              onClick={(event) => event.stopPropagation()}
-            >
-              <span className="row-name">{project.title}</span>
-              <small className="row-meta">{project.meta}</small>
-            </a>
-          ) : (
-            <button
-              type="button"
-              className="project-row project-placeholder"
-              onMouseEnter={() => setPreviewProject(project)}
-              onMouseLeave={() => setPreviewProject(null)}
-              onFocus={() => setPreviewProject(project)}
-              onBlur={() => setPreviewProject(null)}
-            >
-              <span className="row-name">{project.title}</span>
-              <small className="row-meta">{project.meta}</small>
-            </button>
-          )}
+      <div className="projects-layout">
+
+        {/* LISTA */}
+
+        <div className="projects-list">
+          {projects.map((project) => {
+            const isActive =
+              previewProject?.id === project.id;
+
+            return (
+              <button
+                key={project.id}
+                type="button"
+                className={`project-row ${
+                  isActive
+                    ? "is-previewing"
+                    : ""
+                } ${
+                  !project.url
+                    ? "is-disabled"
+                    : ""
+                }`}
+                onMouseEnter={() => {
+                  if (project.url) {
+                    setPreviewProject(project);
+                  }
+                }}
+                onMouseLeave={() => {
+                  setPreviewProject(null);
+                }}
+                onFocus={() => {
+                  if (project.url) {
+                    setPreviewProject(project);
+                  }
+                }}
+                onBlur={() => {
+                  setPreviewProject(null);
+                }}
+                onClick={() => {
+                  if (
+                    isTouchDevice() &&
+                    project.url
+                  ) {
+                    setPreviewProject(
+                      isActive
+                        ? null
+                        : project
+                    );
+                  }
+                }}
+              >
+                <span className="row-title">
+                  {project.title}
+                </span>
+
+                <span className="row-meta">
+                  {project.meta}
+                </span>
+              </button>
+            );
+          })}
         </div>
-      ))}
-    </div>
+
+        {/* PREVIEW SOLO CON HOVER */}
+
+        {previewProject?.url && (
+          <div
+            key={previewProject.id}
+            className="hover-preview-area project-preview-area"
+          >
+            <div className="project-preview">
+
+              <div className="project-preview-toolbar">
+
+                <div className="preview-dots">
+                  <span />
+                  <span />
+                  <span />
+                </div>
+
+                <div className="preview-address">
+                  {previewProject.url
+                    .replace("https://", "")
+                    .replace("http://", "")}
+                </div>
+
+                <span className="preview-live">
+                  LIVE
+                </span>
+
+              </div>
+
+              <div className="project-preview-window">
+                <iframe
+                  src={previewProject.url}
+                  title={`Vista previa de ${previewProject.title}`}
+                  className="project-preview-frame"
+                  loading="lazy"
+                />
+              </div>
+
+            </div>
+          </div>
+        )}
+
+      </div>
+    </>
   );
+
+  /* =====================================================
+     SERVICIOS
+  ===================================================== */
 
   const renderServices = () => (
-    <div className="services-list">
-      {services.map((service) => (
-        <div key={service.id} className="service-item">
-          <button
-            type="button"
-            className="service-card"
-            aria-label={`${service.title}. ${service.description}`}
-          >
-            <span className="service-title">{service.title}</span>
-            <span className="service-description">{service.description}</span>
-          </button>
+    <>
+      <header className="section-card-header">
+        <h2>Servicios</h2>
+      </header>
+
+      <div className="services-layout">
+
+        {/* LISTA */}
+
+        <div className="services-list">
+          {services.map((service) => {
+            const isActive =
+              previewService?.id === service.id;
+
+            return (
+              <button
+                key={service.id}
+                type="button"
+                className={`service-row ${
+                  isActive
+                    ? "is-previewing"
+                    : ""
+                }`}
+                onMouseEnter={() => {
+                  setPreviewService(service);
+                }}
+                onMouseLeave={() => {
+                  setPreviewService(null);
+                }}
+                onFocus={() => {
+                  setPreviewService(service);
+                }}
+                onBlur={() => {
+                  setPreviewService(null);
+                }}
+                onClick={() => {
+                  if (isTouchDevice()) {
+                    setPreviewService(
+                      isActive
+                        ? null
+                        : service
+                    );
+                  }
+                }}
+              >
+                <span className="row-title">
+                  {service.title}
+                </span>
+
+                <span className="row-meta">
+                  {service.meta}
+                </span>
+              </button>
+            );
+          })}
         </div>
-      ))}
-    </div>
+
+        {/* DESCRIPCIÓN SOLO CON HOVER */}
+
+        {previewService && (
+          <div
+            key={previewService.id}
+            className="hover-preview-area service-preview-area"
+          >
+            <div className="service-preview-content">
+
+              <span className="service-preview-label">
+                SERVICIO
+              </span>
+
+              <h3>
+                {previewService.title}
+              </h3>
+
+              <p>
+                {previewService.description}
+              </p>
+
+              <div className="service-preview-bottom">
+                <span>
+                  {previewService.meta}
+                </span>
+
+                <span aria-hidden="true">
+                  ↗
+                </span>
+              </div>
+
+            </div>
+          </div>
+        )}
+
+      </div>
+    </>
   );
 
-  const content = {
-    studio: (
-      <>
-        <span className="section-number">01 / ESTUDIO</span>
-        <h2>
-          Estudio
-          <br />
-          digital.
-        </h2>
-        <p>
-          Creamos experiencias digitales donde diseño, desarrollo y tecnología
-          trabajan juntos para construir productos con identidad propia.
-        </p>
-      </>
-    ),
-    proyectos: (
-      <>
-        <span className="section-number">02 / PROYECTOS</span>
-        <h2>
-          Nuestros 
-          <br />
-          trabajos.
-        </h2>
-        {renderProjects()}
-      </>
-    ),
-    servicios: (
-      <>
-        <span className="section-number">03 / SERVICIOS</span>
-        <h2>
-          ¿Qué
-          <br />
-          hacemos?
-        </h2>
-        {renderServices()}
-      </>
-    ),
-    contacto: (
-      <>
-        <span className="section-number">04 / CONTACTO</span>
-        <h2>
-          Comienza tu
-          <br />
-          proyecto.
-        </h2>
+  /* =====================================================
+     CONTACTO
+  ===================================================== */
+
+  const renderContact = () => (
+    <>
+      <header className="section-card-header">
+        <h2>Contacto</h2>
+      </header>
+
+      <div className="section-card-content contact-content">
+
         <p>
           ¿Tienes una idea?
           <br />
-          Vamos a hacerla realidad. Escríbenos sin compromiso.
+          Hablemos.
         </p>
+
         <a
-          className="contact-link"
           href="mailto:yo@daovez.com"
-          onClick={(event) => event.stopPropagation()}
+          className="contact-email"
         >
-          <span>yo@daovez.com</span>
-          <span aria-hidden="true">↗</span>
+          yo@daovez.com
         </a>
-      </>
-    ),
+
+        <a
+          href="https://daovez.dev"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="portfolio-link"
+        >
+          daovez.dev
+        </a>
+
+      </div>
+    </>
+  );
+
+  /* =====================================================
+     RENDER SECCIÓN
+  ===================================================== */
+
+  const renderSectionCard = () => {
+    if (section === "proyectos") {
+      return renderProjects();
+    }
+
+    if (section === "servicios") {
+      return renderServices();
+    }
+
+    if (section === "contacto") {
+      return renderContact();
+    }
+
+    return null;
   };
+
+  /* =====================================================
+     JSX
+  ===================================================== */
 
   return (
     <main
-      ref={heroRef}
-      className={`hero ${open ? "hero-open" : ""}`}
+      ref={pageRef}
+      className="page"
     >
-      <div className="video-background" aria-hidden="true">
-        {previousVideo && (
-          <video
-            key={`previous-${previousVideo}`}
-            className="background-video video-out"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-          >
-            <source src={previousVideo} type="video/mp4" />
-          </video>
-        )}
-
-        <video
-          ref={mainVideoRef}
-          key={currentVideo}
-          className="background-video video-in"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-        >
-          <source src={currentVideo} type="video/mp4" />
-        </video>
-      </div>
-
       <article
-        className={`studio-card ${opening ? "opening" : ""} ${open ? "open" : ""}`}
-        role={open ? undefined : "button"}
-        tabIndex={open ? -1 : 0}
-        aria-label={open ? undefined : "Abrir Daovez Studio"}
+        className={`studio-shell ${
+          open ? "is-open" : ""
+        } ${
+          opening
+            ? "is-opening"
+            : ""
+        }`}
+        role={
+          open
+            ? undefined
+            : "button"
+        }
+        tabIndex={
+          open
+            ? -1
+            : 0
+        }
+        aria-label={
+          open
+            ? undefined
+            : "Abrir Art & Tech Studio"
+        }
         onClick={() => {
-          if (!open) openStudio();
+          if (!open) {
+            openStudio();
+          }
         }}
         onKeyDown={(event) => {
-          if (!open && (event.key === "Enter" || event.key === " ")) {
+          if (
+            !open &&
+            (
+              event.key === "Enter" ||
+              event.key === " "
+            )
+          ) {
             event.preventDefault();
+
             openStudio();
           }
         }}
       >
         {!open ? (
-          <div className="intro">
+          /* =================================================
+             ENTRADA
+          ================================================= */
+
+          <div className="studio-entry">
             <img
               src="/logo.png"
-              alt="Studio Web"
-              className="studio-logo intro-logo"
+              alt="DAO Studio"
+              className="studio-entry-logo"
             />
           </div>
         ) : (
-          <div className="interface">
-            <section className="interface-left">
+          /* =================================================
+             INTERFAZ
+          ================================================= */
+
+          <div className="studio-interface">
+
+            {/* =============================================
+                NAVBAR SIN VIDEOS
+            ============================================= */}
+
+            <header className="topbar">
+
               <button
                 type="button"
-                className="close"
-                aria-label="Cerrar"
-                onClick={(event) => {
-                  event.stopPropagation();
-                  closeStudio();
-                }}
+                className="topbar-brand"
+                onClick={goHome}
+                aria-label="Volver a portada"
               >
-                ×
+                <img
+                  src="/logo.png"
+                  alt="DAO Studio"
+                  className="topbar-logo"
+                />
               </button>
 
-              <a
-                className="portfolio-pill"
-                href="https://daovez.dev"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(event) => event.stopPropagation()}
+              <nav
+                className="topbar-nav"
+                aria-label="Navegación principal"
               >
-                daovez.dev
-              </a>
+                {navigationItems.map(
+                  (item) => (
+                    <button
+                      key={item.id}
+                      type="button"
+                      className={`topbar-link ${
+                        section === item.id
+                          ? "is-active"
+                          : ""
+                      }`}
+                      onClick={() =>
+                        changeSection(
+                          item.id
+                        )
+                      }
+                    >
+                      {item.label}
+                    </button>
+                  )
+                )}
+              </nav>
 
-              <img
-                src="/logo.png"
-                alt="Studio Web"
-                className="studio-logo expanded-logo"
-              />
+            </header>
 
-              <div className="left-bottom">
-                <TypewriterText />
-                <div className="location">
-                  <span>MÁLAGA</span>
-                  <span>SPAIN</span>
-                </div>
-              </div>
-            </section>
+            {/* =============================================
+                HERO
+            ============================================= */}
 
-            <section
-              ref={lensContainerRef}
-              className={`interface-content section-${section}`}
-            >
-              <canvas
-                ref={lensCanvasRef}
-                className="lens-canvas"
-                aria-hidden="true"
-              />
-              <div className="lens-glass" aria-hidden="true" />
+            <div className="hero-area">
 
-              <div
-                key={section}
-                className={`content-inner content-${section}`}
-              >
-                {content[section]}
-              </div>
-            </section>
+              <section className="hero-left">
 
-            <nav
-              className="navigation"
-              aria-label="Secciones"
-              onClick={(event) => event.stopPropagation()}
-            >
-              {[
-                ["estudio", "01", "Estudio"],
-                ["proyectos", "02", "Proyectos"],
-                ["servicios", "03", "Servicios"],
-                ["contacto", "04", "Contacto"],
-              ].map(([id, number, label]) => (
-                <button
-                  key={id}
-                  type="button"
-                  className={section === id ? "active" : ""}
-                  onClick={() => changeSection(id)}
-                >
-                  <small>{number}</small>
-                  <span>{label}</span>
-                </button>
-              ))}
-            </nav>
+                <h1 className="background-title">
+
+                  <span className="art-tech-title">
+                    Art & Tech
+                  </span>
+
+                  <span className="studio-title">
+                    Studio
+                  </span>
+
+                </h1>
+
+              </section>
+
+              <section className="hero-right">
+
+                {section && (
+                  <div
+                    key={section}
+                    className={`section-card section-card-${section}`}
+                  >
+                    <button
+                      type="button"
+                      className="section-card-close"
+                      aria-label="Cerrar tarjeta"
+                      onClick={closeCard}
+                    >
+                      ×
+                    </button>
+
+                    {renderSectionCard()}
+                  </div>
+                )}
+
+              </section>
+
+            </div>
+
           </div>
         )}
       </article>
