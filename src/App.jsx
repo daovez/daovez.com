@@ -94,7 +94,7 @@ function App() {
   const [previewService, setPreviewService] = useState(null);
 
   /* =====================================================
-     MOVIMIENTO SUAVE DEL HERO
+     MOVIMIENTO SUAVE HERO
   ===================================================== */
 
   useEffect(() => {
@@ -119,8 +119,7 @@ function App() {
       page.style.setProperty("--x", currentX);
       page.style.setProperty("--y", currentY);
 
-      animationId =
-        window.requestAnimationFrame(animate);
+      animationId = window.requestAnimationFrame(animate);
     };
 
     const handlePointerMove = (event) => {
@@ -164,7 +163,7 @@ function App() {
   }, []);
 
   /* =====================================================
-     CLEANUP TIMER
+     CLEANUP
   ===================================================== */
 
   useEffect(() => {
@@ -176,7 +175,7 @@ function App() {
   }, []);
 
   /* =====================================================
-     RESET AL CAMBIAR SECCIÓN
+     RESET PREVIEWS
   ===================================================== */
 
   useEffect(() => {
@@ -216,7 +215,6 @@ function App() {
 
   const goHome = () => {
     setSection(null);
-
     setPreviewProject(null);
     setPreviewService(null);
   };
@@ -240,7 +238,6 @@ function App() {
     event.stopPropagation();
 
     setSection(null);
-
     setPreviewProject(null);
     setPreviewService(null);
   };
@@ -266,9 +263,6 @@ function App() {
       </header>
 
       <div className="projects-layout">
-
-        {/* LISTA */}
-
         <div className="projects-list">
           {projects.map((project) => {
             const isActive =
@@ -328,8 +322,6 @@ function App() {
           })}
         </div>
 
-        {/* PREVIEW SOLO CON HOVER */}
-
         {previewProject?.url && (
           <div
             key={previewProject.id}
@@ -338,7 +330,6 @@ function App() {
             <div className="project-preview">
 
               <div className="project-preview-toolbar">
-
                 <div className="preview-dots">
                   <span />
                   <span />
@@ -354,7 +345,6 @@ function App() {
                 <span className="preview-live">
                   LIVE
                 </span>
-
               </div>
 
               <div className="project-preview-window">
@@ -369,7 +359,6 @@ function App() {
             </div>
           </div>
         )}
-
       </div>
     </>
   );
@@ -385,8 +374,6 @@ function App() {
       </header>
 
       <div className="services-layout">
-
-        {/* LISTA */}
 
         <div className="services-list">
           {services.map((service) => {
@@ -436,8 +423,6 @@ function App() {
           })}
         </div>
 
-        {/* DESCRIPCIÓN SOLO CON HOVER */}
-
         {previewService && (
           <div
             key={previewService.id}
@@ -458,6 +443,7 @@ function App() {
               </p>
 
               <div className="service-preview-bottom">
+
                 <span>
                   {previewService.meta}
                 </span>
@@ -465,12 +451,12 @@ function App() {
                 <span aria-hidden="true">
                   ↗
                 </span>
+
               </div>
 
             </div>
           </div>
         )}
-
       </div>
     </>
   );
@@ -480,22 +466,56 @@ function App() {
   ===================================================== */
 
   const renderContact = () => (
-    <>
-      <header className="section-card-header">
-        <h2>Contacto</h2>
-      </header>
+    <div className="contact-circle-content">
 
-      <div className="section-card-content contact-content">
+      {/* ===============================================
+          VIDEO
+          SIN LOOP:
+          se reproduce una vez y queda en último frame
+      =============================================== */}
+
+      <div className="contact-circle-video-wrap">
+
+        <video
+          className="contact-circle-video"
+          autoPlay
+          muted
+          playsInline
+          preload="auto"
+        >
+          <source
+            src="/contact-card.mp4"
+            type="video/mp4"
+          />
+        </video>
+
+        <div className="contact-circle-video-overlay" />
+
+      </div>
+
+      {/* ===============================================
+          CONTENIDO
+      =============================================== */}
+
+      <div className="contact-circle-inner">
+
+        <span className="contact-circle-label">
+          CONTACTO
+        </span>
+
+        <h2>
+          Hablemos
+        </h2>
 
         <p>
           ¿Tienes una idea?
           <br />
-          Hablemos.
+          Vamos a crear algo especial.
         </p>
 
         <a
           href="mailto:yo@daovez.com"
-          className="contact-email"
+          className="contact-circle-email"
         >
           yo@daovez.com
         </a>
@@ -504,13 +524,14 @@ function App() {
           href="https://daovez.dev"
           target="_blank"
           rel="noopener noreferrer"
-          className="portfolio-link"
+          className="contact-circle-link"
         >
-          daovez.dev
+          daovez.dev ↗
         </a>
 
       </div>
-    </>
+
+    </div>
   );
 
   /* =====================================================
@@ -546,19 +567,13 @@ function App() {
         className={`studio-shell ${
           open ? "is-open" : ""
         } ${
-          opening
-            ? "is-opening"
-            : ""
+          opening ? "is-opening" : ""
         }`}
         role={
-          open
-            ? undefined
-            : "button"
+          open ? undefined : "button"
         }
         tabIndex={
-          open
-            ? -1
-            : 0
+          open ? -1 : 0
         }
         aria-label={
           open
@@ -579,15 +594,11 @@ function App() {
             )
           ) {
             event.preventDefault();
-
             openStudio();
           }
         }}
       >
         {!open ? (
-          /* =================================================
-             ENTRADA
-          ================================================= */
 
           <div className="studio-entry">
             <img
@@ -596,16 +607,14 @@ function App() {
               className="studio-entry-logo"
             />
           </div>
+
         ) : (
-          /* =================================================
-             INTERFAZ
-          ================================================= */
 
           <div className="studio-interface">
 
-            {/* =============================================
-                NAVBAR SIN VIDEOS
-            ============================================= */}
+            {/* ===========================================
+                NAVBAR
+            =========================================== */}
 
             <header className="topbar">
 
@@ -650,9 +659,9 @@ function App() {
 
             </header>
 
-            {/* =============================================
+            {/* ===========================================
                 HERO
-            ============================================= */}
+            =========================================== */}
 
             <div className="hero-area">
 

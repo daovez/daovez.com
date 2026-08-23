@@ -62,7 +62,8 @@ button {
   cursor: pointer;
 }
 
-img {
+img,
+video {
   display: block;
 }
 
@@ -225,7 +226,6 @@ img {
 
 /* =========================================================
    NAVBAR
-   SIN VIDEO
 ========================================================= */
 
 .topbar {
@@ -300,7 +300,7 @@ img {
 }
 
 /* =========================================================
-   LOGO NAVBAR
+   LOGO
 ========================================================= */
 
 .topbar-brand {
@@ -494,7 +494,7 @@ img {
 }
 
 /* =========================================================
-   TITULO PRINCIPAL
+   TITULO
 ========================================================= */
 
 .background-title {
@@ -579,7 +579,7 @@ img {
 }
 
 /* =========================================================
-   CAPA TARJETAS
+   CAPA DE TARJETAS
 ========================================================= */
 
 .hero-right {
@@ -734,7 +734,7 @@ img {
 }
 
 /* =========================================================
-   PROYECTOS Y SERVICIOS
+   PROYECTOS + SERVICIOS
 ========================================================= */
 
 .section-card-proyectos,
@@ -745,6 +745,37 @@ img {
       1320px
     );
 }
+
+/* =========================================================
+   CONTACTO CIRCULAR GRANDE
+========================================================= */
+.section-card-contacto {
+  width: min(68vh, 720px);
+  height: min(68vh, 720px);
+
+  min-width: 560px;
+  min-height: 560px;
+
+  padding: 0;
+
+  aspect-ratio: 1 / 1;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.18);
+
+  border: 1px solid rgba(255, 255, 255, 0.45);
+
+  backdrop-filter: blur(20px) saturate(120%);
+  -webkit-backdrop-filter: blur(20px) saturate(120%);
+
+  box-shadow:
+    0 32px 80px rgba(35, 40, 70, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+/* =========================================================
+   ANIMACIÓN
+========================================================= */
 
 @keyframes cardIn {
   from {
@@ -826,7 +857,25 @@ img {
 }
 
 /* =========================================================
-   TITULO TARJETA
+   X CONTACTO
+========================================================= */
+
+.section-card-contacto
+.section-card-close {
+  top: 68px;
+  right: 82px;
+
+  color:
+    rgba(
+      5,
+      5,
+      5,
+      0.50
+    );
+}
+
+/* =========================================================
+   HEADER TARJETAS
 ========================================================= */
 
 .section-card-header {
@@ -868,7 +917,7 @@ img {
 }
 
 /* =========================================================
-   PROYECTOS + SERVICIOS
+   PROYECTOS + SERVICIOS LAYOUT
 ========================================================= */
 
 .projects-layout,
@@ -1178,8 +1227,7 @@ img {
 
   gap: 12px;
 
-  background:
-    #f4f4f6;
+  background: #f4f4f6;
 
   border-bottom:
     1px
@@ -1280,7 +1328,7 @@ img {
 }
 
 /* =========================================================
-   PREVIEW SERVICIOS
+   SERVICIOS PREVIEW
 ========================================================= */
 
 .service-preview-area {
@@ -1468,7 +1516,8 @@ img {
   font-size: 11px;
 }
 
-.service-preview-bottom span:last-child {
+.service-preview-bottom
+span:last-child {
   color: #050505;
 
   font-size: 20px;
@@ -1478,75 +1527,261 @@ img {
    CONTACTO
 ========================================================= */
 
-.contact-content {
+.contact-circle-content {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  border-radius: 50%;
+}
+
+/* =========================================================
+   VIDEO CONTACTO
+========================================================= */
+
+.contact-circle-video-wrap {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 1;
+
+  overflow: hidden;
+
+  border-radius: 50%;
+}
+
+.contact-circle-video {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  object-position: center;
+
+  opacity: 0.78;
+
+  transform:
+    scale(1.03);
+}
+
+/* =========================================================
+   CAPA GLASS SOBRE VIDEO
+========================================================= */
+
+.contact-circle-video-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(
+        255,
+        255,
+        255,
+        0.48
+      )
+      0%,
+      rgba(
+        255,
+        255,
+        255,
+        0.18
+      )
+      40%,
+      rgba(
+        255,
+        255,
+        255,
+        0.34
+      )
+      100%
+    );
+
+  backdrop-filter:
+    blur(11px)
+    saturate(115%);
+
+  -webkit-backdrop-filter:
+    blur(11px)
+    saturate(115%);
+}
+
+/* =========================================================
+   CONTENIDO CONTACTO
+========================================================= */
+
+.contact-circle-inner {
+  position: relative;
+
+  z-index: 5;
+
+  width: 100%;
+  height: 100%;
+
+  padding:
+    110px
+    100px
+    95px;
+
   display: flex;
 
   flex-direction: column;
 
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
 }
 
-.contact-content p {
-  margin:
-    0
-    0
-    36px;
+/* =========================================================
+   LABEL
+========================================================= */
 
-  font-size:
-    clamp(
-      38px,
-      3.5vw,
-      64px
-    );
-
-  font-weight: 500;
-
-  line-height: 0.95;
-
-  letter-spacing:
-    -0.06em;
-}
-
-.contact-email {
-  padding:
-    12px
-    0;
-
-  color: #050505;
-
-  font-size:
-    clamp(
-      18px,
-      1.4vw,
-      26px
-    );
-
-  font-weight: 500;
-
-  text-decoration: none;
-}
-
-.contact-email:hover {
-  opacity: 0.5;
-}
-
-.portfolio-link {
-  margin-top: 14px;
+.contact-circle-label {
+  margin-bottom: 22px;
 
   color:
     rgba(
       5,
       5,
       5,
-      0.42
+      0.45
+    );
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  letter-spacing:
+    0.18em;
+}
+
+/* =========================================================
+   TITULO CONTACTO
+========================================================= */
+
+.contact-circle-inner h2 {
+  margin:
+    0
+    0
+    25px;
+
+  color: #050505;
+
+  font-size:
+    clamp(
+      58px,
+      5.3vw,
+      96px
+    );
+
+  font-weight: 700;
+
+  line-height: 0.88;
+
+  letter-spacing:
+    -0.075em;
+}
+
+/* =========================================================
+   TEXTO CONTACTO
+========================================================= */
+
+.contact-circle-inner p {
+  margin:
+    0
+    0
+    34px;
+
+  max-width: 430px;
+
+  color:
+    rgba(
+      5,
+      5,
+      5,
+      0.68
+    );
+
+  font-size:
+    clamp(
+      17px,
+      1.3vw,
+      23px
+    );
+
+  line-height: 1.45;
+
+  letter-spacing:
+    -0.025em;
+}
+
+/* =========================================================
+   EMAIL
+========================================================= */
+
+.contact-circle-email {
+  margin-bottom: 16px;
+
+  color: #050505;
+
+  font-size:
+    clamp(
+      23px,
+      1.7vw,
+      31px
+    );
+
+  font-weight: 600;
+
+  letter-spacing:
+    -0.035em;
+
+  text-decoration: none;
+
+  transition:
+    opacity 200ms ease,
+    transform 250ms ease;
+}
+
+.contact-circle-email:hover {
+  opacity: 0.55;
+
+  transform:
+    translateY(-2px);
+}
+
+/* =========================================================
+   LINK
+========================================================= */
+
+.contact-circle-link {
+  color:
+    rgba(
+      5,
+      5,
+      5,
+      0.50
     );
 
   font-size: 14px;
 
+  font-weight: 500;
+
   text-decoration: none;
+
+  transition:
+    color 200ms ease,
+    opacity 200ms ease;
 }
 
-.portfolio-link:hover {
+.contact-circle-link:hover {
   color: #050505;
 }
 
@@ -1557,8 +1792,11 @@ img {
 @media (max-width: 1100px) {
 
   :root {
-    --navbar-height: 100px;
-    --page-x: 38px;
+    --navbar-height:
+      100px;
+
+    --page-x:
+      38px;
   }
 
   .topbar-logo {
@@ -1626,6 +1864,42 @@ img {
 
     gap: 28px;
   }
+
+  /* CONTACTO */
+
+  .section-card-contacto {
+    width:
+      min(
+        80vw,
+        760px
+      );
+
+    height:
+      min(
+        80vw,
+        760px
+      );
+
+    min-width: 560px;
+    min-height: 560px;
+
+    padding: 0;
+
+    border-radius: 50%;
+  }
+
+  .contact-circle-inner {
+    padding:
+      90px
+      72px
+      72px;
+  }
+
+  .section-card-contacto
+  .section-card-close {
+    top: 50px;
+    right: 58px;
+  }
 }
 
 /* =========================================================
@@ -1635,8 +1909,11 @@ img {
 @media (max-width: 768px) {
 
   :root {
-    --navbar-height: 82px;
-    --page-x: 20px;
+    --navbar-height:
+      82px;
+
+    --page-x:
+      20px;
   }
 
   .studio-shell.is-open {
@@ -1795,6 +2072,69 @@ img {
   .service-preview-content p {
     font-size: 15px;
   }
+
+  /* CONTACTO */
+
+  .section-card-contacto {
+    width:
+      min(
+        calc(
+          100vw -
+          20px
+        ),
+        620px
+      );
+
+    height:
+      min(
+        calc(
+          100vw -
+          20px
+        ),
+        620px
+      );
+
+    min-width: 0;
+    min-height: 0;
+
+    padding: 0;
+
+    aspect-ratio: 1 / 1;
+
+    border-radius: 50%;
+  }
+
+  .contact-circle-inner {
+    padding:
+      78px
+      45px
+      48px;
+  }
+
+  .contact-circle-inner h2 {
+    font-size:
+      clamp(
+        45px,
+        10vw,
+        70px
+      );
+  }
+
+  .contact-circle-inner p {
+    font-size: 15px;
+
+    margin-bottom: 24px;
+  }
+
+  .contact-circle-email {
+    font-size: 19px;
+  }
+
+  .section-card-contacto
+  .section-card-close {
+    top: 28px;
+    right: 32px;
+  }
 }
 
 /* =========================================================
@@ -1804,8 +2144,11 @@ img {
 @media (max-width: 520px) {
 
   :root {
-    --navbar-height: 74px;
-    --page-x: 14px;
+    --navbar-height:
+      74px;
+
+    --page-x:
+      14px;
   }
 
   .topbar-logo {
@@ -1869,6 +2212,78 @@ img {
       28px
       24px;
   }
+
+  /* CONTACTO */
+
+  .section-card-contacto {
+    width:
+      min(
+        calc(
+          100vw -
+          12px
+        ),
+        500px
+      );
+
+    height:
+      min(
+        calc(
+          100vw -
+          12px
+        ),
+        500px
+      );
+
+    padding: 0;
+
+    border-radius: 50%;
+  }
+
+  .contact-circle-inner {
+    padding:
+      64px
+      28px
+      32px;
+  }
+
+  .contact-circle-label {
+    margin-bottom: 12px;
+
+    font-size: 9px;
+  }
+
+  .contact-circle-inner h2 {
+    margin-bottom: 16px;
+
+    font-size:
+      clamp(
+        40px,
+        12vw,
+        58px
+      );
+  }
+
+  .contact-circle-inner p {
+    margin-bottom: 18px;
+
+    font-size: 14px;
+  }
+
+  .contact-circle-email {
+    margin-bottom: 10px;
+
+    font-size: 17px;
+  }
+
+  .contact-circle-link {
+    font-size: 12px;
+  }
+
+  .section-card-contacto
+  .section-card-close {
+    top: 19px;
+    right: 22px;
+  }
 }
 
 /* =========================================================
@@ -1910,13 +2325,69 @@ img {
   .service-preview-content p {
     font-size: 14px;
   }
+
+  /* CONTACTO */
+
+  .section-card-contacto {
+    width:
+      min(
+        calc(
+          100vw -
+          8px
+        ),
+        382px
+      );
+
+    height:
+      min(
+        calc(
+          100vw -
+          8px
+        ),
+        382px
+      );
+
+    padding: 0;
+
+    border-radius: 50%;
+  }
+
+  .contact-circle-inner {
+    padding:
+      52px
+      22px
+      24px;
+  }
+
+  .contact-circle-inner h2 {
+    font-size: 38px;
+  }
+
+  .contact-circle-inner p {
+    font-size: 13px;
+  }
+
+  .contact-circle-email {
+    font-size: 16px;
+  }
+
+  .section-card-contacto
+  .section-card-close {
+    top: 14px;
+    right: 16px;
+
+    font-size: 27px;
+  }
 }
 
 /* =========================================================
    REDUCIR MOVIMIENTO
 ========================================================= */
 
-@media (prefers-reduced-motion: reduce) {
+@media (
+  prefers-reduced-motion:
+  reduce
+) {
 
   *,
   *::before,
