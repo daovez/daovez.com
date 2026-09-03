@@ -1084,23 +1084,18 @@ video {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  opacity: 0.78;
-  transform: scale(1.03);
 }
 
 .contact-circle-video-overlay {
   position: absolute;
   inset: 0;
 
-  background: linear-gradient(
-    145deg,
-    rgba(7, 9, 13, 0.78) 0%,
-    rgba(11, 16, 23, 0.58) 40%,
-    rgba(10, 46, 92, 0.42) 100%
+  background: radial-gradient(
+    circle at 50% 48%,
+    rgba(7, 9, 13, 0.22) 0%,
+    rgba(7, 9, 13, 0.38) 72%,
+    rgba(7, 9, 13, 0.5) 100%
   );
-
-  backdrop-filter: blur(11px) saturate(115%);
-  -webkit-backdrop-filter: blur(11px) saturate(115%);
 }
 
 .contact-circle-inner {

@@ -435,6 +435,7 @@ function App() {
           className="contact-circle-video"
           autoPlay
           muted
+          loop
           playsInline
           preload="auto"
         >
