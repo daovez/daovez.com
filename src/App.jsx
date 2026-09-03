@@ -148,11 +148,6 @@ function App() {
     };
   }, []);
 
-  useEffect(() => {
-    setPreviewProject(null);
-    setPreviewService(null);
-  }, [section]);
-
   const openStudio = () => {
     if (open || opening) return;
 
@@ -464,9 +459,7 @@ function App() {
         </h2>
 
         <p>
-          ¿Tienes una idea?
-          <br />
-          Vamos a crear algo especial.
+          ¿Tienes una idea? Hablemos.
         </p>
 
         <a
@@ -575,6 +568,21 @@ function App() {
 
             <header className="topbar">
 
+              <video
+                className="topbar-video"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                aria-hidden="true"
+              >
+                <source
+                  src="/navbar-bg.mp4"
+                  type="video/mp4"
+                />
+              </video>
+
               <button
                 type="button"
                 className="topbar-brand"
@@ -616,6 +624,15 @@ function App() {
                   )
                 )}
 
+                <a
+                  href="https://daovez.dev"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="topbar-link"
+                >
+                  Portfolio
+                </a>
+
               </nav>
 
             </header>
@@ -637,6 +654,29 @@ function App() {
                 </h1>
 
               </section>
+
+              {!section && (
+                <aside className="hero-intro-card">
+                  <div
+                    className="hero-intro-glow"
+                    aria-hidden="true"
+                  />
+
+                  <span className="hero-intro-kicker">
+                    Art & Tech Studio
+                  </span>
+
+                  <h2>
+                    Diseño y desarrollo con intención.
+                  </h2>
+
+                  <p>
+                    Creamos experiencias digitales limpias,
+                    rápidas y con carácter. Identidad, producto
+                    y código en un mismo lugar.
+                  </p>
+                </aside>
+              )}
 
               <section className="hero-right">
 
