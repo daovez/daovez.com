@@ -69,7 +69,7 @@ function App() {
   const pageRef = useRef(null);
   const openingTimerRef = useRef(null);
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const [opening, setOpening] = useState(false);
 
   const [section, setSection] = useState(null);
