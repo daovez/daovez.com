@@ -427,31 +427,11 @@ function App() {
   ===================================================== */
 
   const renderContact = () => (
-    <div className="contact-circle-content">
+    <div className="contact-card-content">
 
-      <div className="contact-circle-video-wrap">
+      <div className="contact-card-inner">
 
-        <video
-          className="contact-circle-video"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-        >
-          <source
-            src="/contact-card.mp4"
-            type="video/mp4"
-          />
-        </video>
-
-        <div className="contact-circle-video-overlay" />
-
-      </div>
-
-      <div className="contact-circle-inner">
-
-        <span className="contact-circle-label">
+        <span className="contact-card-label">
           CONTACTO
         </span>
 
@@ -465,7 +445,7 @@ function App() {
 
         <a
           href="mailto:yo@daovez.com"
-          className="contact-circle-email"
+          className="contact-card-email"
         >
           yo@daovez.com
         </a>
@@ -474,7 +454,7 @@ function App() {
           href="https://daovez.dev"
           target="_blank"
           rel="noopener noreferrer"
-          className="contact-circle-link"
+          className="contact-card-link"
         >
           daovez.dev ↗
         </a>

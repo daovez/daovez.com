@@ -556,7 +556,8 @@ video {
 }
 
 .section-card-proyectos,
-.section-card-servicios {
+.section-card-servicios,
+.section-card-contacto {
   width: min(76vw, 1320px);
   isolation: isolate;
 
@@ -588,8 +589,16 @@ video {
   border-bottom-color: #1c1603;
 }
 
+.section-card-contacto {
+  background: #6f8f08;
+  border: 1.5px solid #526900;
+  border-top-color: #c6f52a;
+  border-bottom-color: #405400;
+}
+
 .section-card-proyectos:hover,
-.section-card-servicios:hover {
+.section-card-servicios:hover,
+.section-card-contacto:hover {
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 0.06),
     0 12px 22px rgba(0, 0, 0, 0.3),
@@ -600,7 +609,8 @@ video {
 }
 
 .section-card-proyectos::before,
-.section-card-servicios::before {
+.section-card-servicios::before,
+.section-card-contacto::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -626,8 +636,18 @@ video {
   );
 }
 
+.section-card-contacto::before {
+  background: linear-gradient(
+    180deg,
+    #8eaf12 0%,
+    #6f8f08 58%,
+    #506706 100%
+  );
+}
+
 .section-card-proyectos::after,
-.section-card-servicios::after {
+.section-card-servicios::after,
+.section-card-contacto::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -661,58 +681,8 @@ video {
 }
 
 /* =========================================================
-   CONTACTO CIRCULO
+  CONTACTO
 ========================================================= */
-
-.section-card-contacto {
-  position: absolute;
-  top: 36px;
-  right: var(--page-x);
-  bottom: 36px;
-  left: auto;
-
-  width: min(48vw, 720px);
-  height: min(48vw, 720px);
-  max-height: calc(100% - 72px);
-  min-width: 0;
-  min-height: 0;
-
-  margin-top: auto;
-  margin-bottom: auto;
-
-  padding: 0;
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
-
-  background: var(--card);
-  border: 1.5px solid var(--border);
-
-  backdrop-filter: blur(20px) saturate(120%);
-  -webkit-backdrop-filter: blur(20px) saturate(120%);
-
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.05),
-    0 10px 18px rgba(0, 0, 0, 0.28),
-    0 28px 48px rgba(0, 0, 0, 0.36),
-    0 52px 80px rgba(0, 0, 0, 0.28),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    inset 0 -24px 32px rgba(0, 0, 0, 0.18);
-
-  transition:
-    border-color 300ms ease,
-    box-shadow 300ms ease;
-}
-
-.section-card-contacto:hover {
-  border-color: rgba(22, 119, 255, 0.45);
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.06),
-    0 12px 22px rgba(0, 0, 0, 0.3),
-    0 32px 54px rgba(0, 0, 0, 0.38),
-    0 56px 84px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.07),
-    inset 0 -24px 32px rgba(0, 0, 0, 0.18);
-}
 
 @keyframes cardIn {
   from {
@@ -758,11 +728,6 @@ video {
 .section-card-close:hover {
   color: var(--blue-bright);
   transform: rotate(90deg);
-}
-
-.section-card-contacto .section-card-close {
-  top: 52px;
-  right: 64px;
 }
 
 /* =========================================================
@@ -1084,48 +1049,20 @@ video {
    CONTACTO
 ========================================================= */
 
-.contact-circle-content {
+.contact-card-content {
   position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
-  border-radius: 50%;
 }
 
-.contact-circle-video-wrap {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  overflow: hidden;
-  border-radius: 50%;
-}
-
-.contact-circle-video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-
-.contact-circle-video-overlay {
-  position: absolute;
-  inset: 0;
-
-  background: radial-gradient(
-    circle at 50% 48%,
-    rgba(7, 9, 13, 0.22) 0%,
-    rgba(7, 9, 13, 0.38) 72%,
-    rgba(7, 9, 13, 0.5) 100%
-  );
-}
-
-.contact-circle-inner {
+.contact-card-inner {
   position: relative;
   z-index: 5;
 
   width: 100%;
   height: 100%;
-  padding: 90px 82px 76px;
+  padding: 0;
 
   display: flex;
   flex-direction: column;
@@ -1135,7 +1072,7 @@ video {
   text-align: center;
 }
 
-.contact-circle-label {
+.contact-card-label {
   margin-bottom: 18px;
   color: var(--text-muted);
   font-size: 11px;
@@ -1143,7 +1080,7 @@ video {
   letter-spacing: 0.18em;
 }
 
-.contact-circle-inner h2 {
+.contact-card-inner h2 {
   margin: 0 0 22px;
   color: var(--text);
   font-size: clamp(53px, 4.7vw, 83px);
@@ -1152,7 +1089,7 @@ video {
   letter-spacing: -0.075em;
 }
 
-.contact-circle-inner p {
+.contact-card-inner p {
   margin: 0 0 28px;
   max-width: 390px;
   color: var(--text-muted);
@@ -1161,7 +1098,7 @@ video {
   letter-spacing: -0.025em;
 }
 
-.contact-circle-email {
+.contact-card-email {
   margin-bottom: 14px;
   color: var(--blue);
   font-size: clamp(22px, 1.5vw, 28px);
@@ -1174,12 +1111,12 @@ video {
     text-shadow var(--ease);
 }
 
-.contact-circle-email:hover {
+.contact-card-email:hover {
   color: var(--blue-bright);
   text-shadow: 0 0 16px rgba(22, 119, 255, 0.35);
 }
 
-.contact-circle-link {
+.contact-card-link {
   color: var(--text-muted);
   font-size: 14px;
   font-weight: 700;
@@ -1187,7 +1124,7 @@ video {
   transition: color var(--ease);
 }
 
-.contact-circle-link:hover {
+.contact-card-link:hover {
   color: var(--blue-bright);
 }
 
@@ -1244,7 +1181,8 @@ video {
   }
 
   .section-card-proyectos,
-  .section-card-servicios {
+  .section-card-servicios,
+  .section-card-contacto {
     width: 88vw;
   }
 
@@ -1254,27 +1192,6 @@ video {
     gap: 28px;
   }
 
-  .section-card-contacto {
-    top: 28px;
-    bottom: 28px;
-    right: var(--page-x);
-    width: min(50vw, 520px);
-    height: min(50vw, 520px);
-    max-height: calc(100% - 56px);
-    min-width: 0;
-    min-height: 0;
-    padding: 0;
-    border-radius: 50%;
-  }
-
-  .contact-circle-inner {
-    padding: 78px 60px 62px;
-  }
-
-  .section-card-contacto .section-card-close {
-    top: 42px;
-    right: 50px;
-  }
 }
 
 /* =========================================================
@@ -1352,7 +1269,8 @@ video {
 
   .section-card,
   .section-card-proyectos,
-  .section-card-servicios {
+  .section-card-servicios,
+  .section-card-contacto {
     width: calc(100% - 30px);
     height: calc(100% - 42px);
     min-height: 0;
@@ -1430,44 +1348,6 @@ video {
     font-size: 9px;
   }
 
-  .section-card-contacto {
-    top: auto;
-    left: var(--page-x);
-    right: var(--page-x);
-    bottom: 18px;
-    width: min(46%, calc(100% - 40px));
-    height: min(46%, calc(100% - 40px));
-    max-height: 46%;
-    min-width: 0;
-    min-height: 0;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0;
-    aspect-ratio: 1 / 1;
-    border-radius: 50%;
-  }
-
-  .contact-circle-inner {
-    padding: 70px 38px 40px;
-  }
-
-  .contact-circle-inner h2 {
-    font-size: clamp(43px, 10vw, 65px);
-  }
-
-  .contact-circle-inner p {
-    font-size: 16px;
-    margin-bottom: 22px;
-  }
-
-  .contact-circle-email {
-    font-size: 19px;
-  }
-
-  .section-card-contacto .section-card-close {
-    top: 25px;
-    right: 30px;
-  }
 }
 
 /* =========================================================
@@ -1524,7 +1404,8 @@ video {
 
   .section-card,
   .section-card-proyectos,
-  .section-card-servicios {
+  .section-card-servicios,
+  .section-card-contacto {
     width: calc(100% - 20px);
     height: calc(100% - 24px);
     padding: 24px 18px;
@@ -1591,45 +1472,6 @@ video {
     font-size: 15px;
   }
 
-  .section-card-contacto {
-    width: min(calc(100vw - 28px), 500px);
-    height: min(calc(100vw - 28px), 500px);
-    padding: 0;
-    border-radius: 50%;
-  }
-
-  .contact-circle-inner {
-    padding: 64px 28px 32px;
-  }
-
-  .contact-circle-label {
-    margin-bottom: 12px;
-    font-size: 10px;
-  }
-
-  .contact-circle-inner h2 {
-    margin-bottom: 16px;
-    font-size: clamp(41px, 12vw, 59px);
-  }
-
-  .contact-circle-inner p {
-    margin-bottom: 18px;
-    font-size: 15px;
-  }
-
-  .contact-circle-email {
-    margin-bottom: 10px;
-    font-size: 18px;
-  }
-
-  .contact-circle-link {
-    font-size: 13px;
-  }
-
-  .section-card-contacto .section-card-close {
-    top: 19px;
-    right: 22px;
-  }
 }
 
 /* =========================================================
@@ -1651,7 +1493,8 @@ video {
 
   .section-card,
   .section-card-proyectos,
-  .section-card-servicios {
+  .section-card-servicios,
+  .section-card-contacto {
     padding: 22px 16px;
     border-radius: 21px;
   }
@@ -1705,34 +1548,6 @@ video {
     padding-top: 8px;
   }
 
-  .section-card-contacto {
-    width: min(calc(100vw - 28px), 382px);
-    height: min(calc(100vw - 28px), 382px);
-    padding: 0;
-    border-radius: 50%;
-  }
-
-  .contact-circle-inner {
-    padding: 52px 22px 24px;
-  }
-
-  .contact-circle-inner h2 {
-    font-size: 39px;
-  }
-
-  .contact-circle-inner p {
-    font-size: 14px;
-  }
-
-  .contact-circle-email {
-    font-size: 17px;
-  }
-
-  .section-card-contacto .section-card-close {
-    top: 14px;
-    right: 16px;
-    font-size: 28px;
-  }
 }
 
 /* =========================================================
